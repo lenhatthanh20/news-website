@@ -1,0 +1,13 @@
+services:
+  command-side-postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: blog
+      POSTGRES_USER: lenhatthanh
+      POSTGRES_PASSWORD: lenhatthanh
+    ports:
+      - "5555:5432"
+    volumes:
+      - command-side-postgres:/var/lib/postgresql/data
+volumes:
+  command-side-postgres:
