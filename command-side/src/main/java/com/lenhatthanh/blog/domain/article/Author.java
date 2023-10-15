@@ -34,4 +34,13 @@ public class Author extends Entity<String> {
 
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id='" + this.getId() + '\'' +
+                ", name='" + this.name + '\'' +
+                ", email='" + this.email + '\'' +
+                '}';
+    }
 }
