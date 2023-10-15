@@ -21,7 +21,7 @@ public class Author extends Entity<String> {
 
     public void setName(String name) {
         if (name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
-            throw new InvalidAuthorNameException("Name length must be between 3 and 50 characters");
+            throw new InvalidAuthorNameException("DOMAIN-ERROR-0003");
         }
 
         this.name = name;
@@ -29,7 +29,7 @@ public class Author extends Entity<String> {
 
     public void setEmail(String email) {
         if (email == null || email.isEmpty()) {
-            throw new NotFoundEmailException("Email cannot be empty");
+            throw new NotFoundEmailException("DOMAIN-ERROR-0004");
         }
 
         this.email = email;

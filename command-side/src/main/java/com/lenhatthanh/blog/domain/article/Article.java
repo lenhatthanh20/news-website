@@ -3,7 +3,6 @@ package com.lenhatthanh.blog.domain.article;
 import com.lenhatthanh.blog.domain.Entity;
 import com.lenhatthanh.blog.domain.exception.InvalidArticleContentException;
 import com.lenhatthanh.blog.domain.exception.InvalidArticleTitleException;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
@@ -24,7 +23,7 @@ public class Article extends Entity<String> {
 
     public void setTitle(String title) {
         if (title.length() > MAX_TITLE_LENGTH) {
-            throw new InvalidArticleTitleException("Title length must be less than or equal 255  characters");
+            throw new InvalidArticleTitleException("DOMAIN-ERROR-0001");
         }
 
         this.title = title;
@@ -32,7 +31,7 @@ public class Article extends Entity<String> {
 
     public void setContent(String content) {
         if (content.length() > MAX_CONTENT_LENGTH) {
-            throw new InvalidArticleContentException("Content length must be less than or equal 20000  characters");
+            throw new InvalidArticleContentException("DOMAIN-ERROR-0002");
         }
 
         this.content = content;

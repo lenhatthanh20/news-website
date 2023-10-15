@@ -6,6 +6,7 @@ import com.lenhatthanh.blog.domain.article.Author;
 import com.lenhatthanh.blog.domain.repository.ArticleRepositoryInterface;
 import com.lenhatthanh.blog.domain.repository.AuthorRepositoryInterface;
 import com.lenhatthanh.blog.infrastructure.restapi.requestmodel.CreateArticleRequest;
+import com.lenhatthanh.blog.shared.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.Optional;
@@ -20,7 +21,7 @@ public class CreateArticle {
     public void execute(CreateArticleRequest articleRequest) {
         Optional<Author> author = authorRepository.findById(articleRequest.getAuthorId());
         if (author.isEmpty()) {
-            throw new AuthorNotFoundException("The author is not found");
+            throw new AuthorNotFoundException("APPLICATION-ERROR-0001");
         }
 
         Article article = new Article(
