@@ -1,13 +1,13 @@
-package com.lenhatthanh.blog.queryside;
+package com.lenhatthanh.blog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class QuerySideApplication {
+public class CommandSideApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(QuerySideApplication.class, args);
+		SpringApplication.run(CommandSideApplication.class, args);
 	}
 
 }

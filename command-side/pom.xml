@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lenhatthanh</groupId>
-	<artifactId>blog</artifactId>
+	<artifactId>command-side</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>blog</name>
-	<description>Blog project for Spring Boot</description>
+	<name>command-side</name>
+	<description>Command side of blog project with Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
