@@ -1,4 +1,8 @@
 services:
+  query-side-redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
   command-side-postgres:
     image: postgres
     environment:
