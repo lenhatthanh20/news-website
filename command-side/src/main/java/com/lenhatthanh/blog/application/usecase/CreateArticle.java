@@ -16,12 +16,8 @@ import java.util.UUID;
 @Component
 @AllArgsConstructor
 public class CreateArticle {
-    public final String TOPIC = "articles";
-    public final String EVENT = "created";
-
     private ArticleRepositoryInterface articleRepository;
     private AuthorRepositoryInterface authorRepository;
-    private final KafkaTemplate<String, String> kafkaTemplate;
 
     public void execute(CreateArticleRequest articleRequest) {
         Optional<Author> author = authorRepository.findById(articleRequest.getAuthorId());
@@ -37,11 +33,5 @@ public class CreateArticle {
         );
 
         articleRepository.save(article);
-        this.syncToQuerySide(article);
-    }
-
-    private void syncToQuerySide(Article article) {
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(this.TOPIC, this.EVENT, article.toString());
-        kafkaTemplate.send(producerRecord);
     }
 }

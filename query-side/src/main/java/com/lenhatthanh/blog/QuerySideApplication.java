@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@EnableRedisEnhancedRepositories(basePackages = "com.redis.om.hashes.*")
+@EnableRedisEnhancedRepositories(basePackages = "com.lenhatthanh.blog.*")
 public class QuerySideApplication {
 
 	public static void main(String[] args) {

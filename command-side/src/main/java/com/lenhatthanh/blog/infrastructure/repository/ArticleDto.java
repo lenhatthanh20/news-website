@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthorDto {
+public class ArticleDto {
     private String id;
-    private String name;
-    private String email;
+    private String title;
+    private String content;
+    private AuthorDto author;
 }

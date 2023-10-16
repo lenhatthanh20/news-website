@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.infrastructure.repository;
 
-public enum AuthorCommand {
+public enum Command {
     CREATED,
     UPDATED,
     DELETED

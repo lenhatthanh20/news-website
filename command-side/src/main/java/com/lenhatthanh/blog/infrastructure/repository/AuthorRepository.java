@@ -25,7 +25,7 @@ public class AuthorRepository implements AuthorRepositoryInterface {
                 .build();
 
         this.authorJpaRepository.save(authorEntity);
-        this.syncToQuerySide(new AuthorDto(author.getId(), author.getName(), author.getEmail(), AuthorCommand.CREATED));
+        this.syncToQuerySide(new AuthorDto(author.getId(), author.getName(), author.getEmail()));
     }
 
     private void syncToQuerySide(AuthorDto author) {

@@ -16,6 +16,10 @@ public class Author {
 
     @Indexed
     @NonNull
+    private String authorId;
+
+    @Indexed
+    @NonNull
     private String name;
 
     @NonNull
