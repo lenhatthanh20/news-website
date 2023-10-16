@@ -3,6 +3,7 @@ package com.lenhatthanh.blog.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lenhatthanh.blog.model.Author;
 import com.lenhatthanh.blog.repository.AuthorRepositoryInterface;
+import com.lenhatthanh.blog.shared.ObjectConverter;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,12 +17,16 @@ import java.io.IOException;
 public class KafkaConsumerService {
     RedisTemplate<String, String> redisTemplate;
     AuthorRepositoryInterface authorRepository;
+    ObjectConverter objectConverter;
 
     @KafkaListener(topics = "authors")
     public void listen(ConsumerRecord<String, byte[]> record) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        AuthorDto authordto = objectMapper.reader().readValue(record.value(), AuthorDto.class);
+        AuthorDto authorDto = objectConverter.convertArrayByteToObject(record.value(), AuthorDto.class);
+        String command = record.key();
 
-        authorRepository.save(Author.of(authordto.getId(), authordto.getName(), authordto.getEmail()));
+        switch (command) {
+            case Command.CREATED, Command.UPDATED -> authorRepository.save(Author.of(authorDto.getId(), authorDto.getName(), authorDto.getEmail()));
+            case Command.DELETED -> authorRepository.deleteById(authorDto.getId());
+        }
     }
 }
