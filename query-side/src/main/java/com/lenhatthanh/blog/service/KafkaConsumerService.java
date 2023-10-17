@@ -1,8 +1,7 @@
 package com.lenhatthanh.blog.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lenhatthanh.blog.model.Author;
-import com.lenhatthanh.blog.repository.AuthorRepositoryInterface;
+import com.lenhatthanh.blog.repository.AuthorRepository;
 import com.lenhatthanh.blog.shared.ObjectConverter;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -16,7 +15,7 @@ import java.io.IOException;
 @AllArgsConstructor
 public class KafkaConsumerService {
     RedisTemplate<String, String> redisTemplate;
-    AuthorRepositoryInterface authorRepository;
+    AuthorRepository authorRepository;
     ObjectConverter objectConverter;
 
     @KafkaListener(topics = "authors")

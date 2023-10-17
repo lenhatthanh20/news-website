@@ -1,21 +1,22 @@
 package com.lenhatthanh.blog.model;
 
+import com.redis.om.spring.annotations.Document;
+import com.redis.om.spring.annotations.Indexed;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
-import org.springframework.data.redis.core.index.Indexed;
 
 @Data
 @RequiredArgsConstructor(staticName = "of")
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @NoArgsConstructor
-@RedisHash
+@Document
 public class Author {
+    @Indexed
     @Id
     private String id;
 
-    @Indexed
     @NonNull
+    @Indexed
     private String authorId;
 
     @Indexed
@@ -24,5 +25,5 @@ public class Author {
 
     @NonNull
     @Indexed
-    String email;
+    private String email;
 }

@@ -1,6 +1,6 @@
 services:
   query-side-redis:
-    image: "redis/redis-stack:latest"
+    image: "redis/redis-stack:edge"
     ports:
       - "6379:6379"
     environment:
