@@ -7,8 +7,6 @@ import com.lenhatthanh.blog.domain.repository.ArticleRepositoryInterface;
 import com.lenhatthanh.blog.domain.repository.AuthorRepositoryInterface;
 import com.lenhatthanh.blog.infrastructure.restapi.requestmodel.CreateArticleRequest;
 import lombok.AllArgsConstructor;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import java.util.Optional;
 import java.util.UUID;
