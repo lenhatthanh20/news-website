@@ -39,14 +39,4 @@ public class Article extends Entity<String> {
     public void setAuthor(Author author) {
         this.author = author;
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-                "id='" + this.getId() + '\'' +
-                ", title='" + this.title + '\'' +
-                ", content='" + this.content + '\'' +
-                ", author='" + this.author.toString() + '\'' +
-                '}';
-    }
 }
