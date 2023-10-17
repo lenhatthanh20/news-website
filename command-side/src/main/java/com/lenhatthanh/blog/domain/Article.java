@@ -1,6 +1,5 @@
-package com.lenhatthanh.blog.domain.article;
+package com.lenhatthanh.blog.domain;
 
-import com.lenhatthanh.blog.domain.Entity;
 import com.lenhatthanh.blog.domain.exception.InvalidArticleContentException;
 import com.lenhatthanh.blog.domain.exception.InvalidArticleTitleException;
 import lombok.Getter;

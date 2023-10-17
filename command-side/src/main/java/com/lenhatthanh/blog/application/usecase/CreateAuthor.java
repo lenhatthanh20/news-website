@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.application.usecase;
 
-import com.lenhatthanh.blog.domain.article.Author;
+import com.lenhatthanh.blog.domain.Author;
 import com.lenhatthanh.blog.domain.repository.AuthorRepositoryInterface;
 import com.lenhatthanh.blog.infrastructure.restapi.requestmodel.CreateAuthorRequest;
 import lombok.AllArgsConstructor;

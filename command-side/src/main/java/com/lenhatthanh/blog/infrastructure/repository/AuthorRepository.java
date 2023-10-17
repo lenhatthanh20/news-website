@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.infrastructure.repository;
 
-import com.lenhatthanh.blog.domain.article.Author;
+import com.lenhatthanh.blog.domain.Author;
 import com.lenhatthanh.blog.domain.repository.AuthorRepositoryInterface;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;

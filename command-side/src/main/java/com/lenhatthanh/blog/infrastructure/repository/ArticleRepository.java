@@ -1,12 +1,10 @@
 package com.lenhatthanh.blog.infrastructure.repository;
 
-import com.lenhatthanh.blog.domain.article.Article;
+import com.lenhatthanh.blog.domain.Article;
 import com.lenhatthanh.blog.domain.repository.ArticleRepositoryInterface;
 import lombok.AllArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 @AllArgsConstructor

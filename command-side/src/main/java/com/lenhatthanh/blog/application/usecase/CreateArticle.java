@@ -1,8 +1,8 @@
 package com.lenhatthanh.blog.application.usecase;
 
 import com.lenhatthanh.blog.application.exception.AuthorNotFoundException;
-import com.lenhatthanh.blog.domain.article.Article;
-import com.lenhatthanh.blog.domain.article.Author;
+import com.lenhatthanh.blog.domain.Article;
+import com.lenhatthanh.blog.domain.Author;
 import com.lenhatthanh.blog.domain.repository.ArticleRepositoryInterface;
 import com.lenhatthanh.blog.domain.repository.AuthorRepositoryInterface;
 import com.lenhatthanh.blog.infrastructure.restapi.requestmodel.CreateArticleRequest;
