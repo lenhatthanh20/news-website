@@ -1,7 +1,10 @@
 package com.lenhatthanh.blog.infrastructure.repository;
 
 import com.lenhatthanh.blog.domain.Article;
+import com.lenhatthanh.blog.domain.Command;
 import com.lenhatthanh.blog.domain.repository.ArticleRepositoryInterface;
+import com.lenhatthanh.blog.infrastructure.repository.entity.ArticleEntity;
+import com.lenhatthanh.blog.infrastructure.repository.entity.AuthorEntity;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;

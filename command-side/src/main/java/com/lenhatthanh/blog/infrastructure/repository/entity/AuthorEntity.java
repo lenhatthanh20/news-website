@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.infrastructure.repository;
+package com.lenhatthanh.blog.infrastructure.repository.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

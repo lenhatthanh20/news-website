@@ -1,7 +1,9 @@
 package com.lenhatthanh.blog.infrastructure.repository;
 
 import com.lenhatthanh.blog.domain.Author;
+import com.lenhatthanh.blog.domain.Command;
 import com.lenhatthanh.blog.domain.repository.AuthorRepositoryInterface;
+import com.lenhatthanh.blog.infrastructure.repository.entity.AuthorEntity;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -15,7 +17,7 @@ public class AuthorRepository implements AuthorRepositoryInterface {
     public static final String MESSAGE_QUEUE_TOPIC = "authors";
 
     private AuthorJpaRepository authorJpaRepository;
-    private KafkaTemplate<String, AuthorDto> kafkaTemplate;
+    private KafkaTemplate<String, AuthorEntity> kafkaTemplate;
 
     @Override
     public void save(Author author) {
@@ -26,11 +28,11 @@ public class AuthorRepository implements AuthorRepositoryInterface {
                 .build();
 
         this.authorJpaRepository.save(authorEntity);
-        this.syncToQuerySide(new AuthorDto(author.getId(), author.getName(), author.getEmail()));
+        this.syncToQuerySide(authorEntity);
     }
 
-    private void syncToQuerySide(AuthorDto author) {
-        ProducerRecord<String, AuthorDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, Command.CREATED, author);
+    private void syncToQuerySide(AuthorEntity author) {
+        ProducerRecord<String, AuthorEntity> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, Command.CREATED, author);
         this.kafkaTemplate.send(record);
     }
 
