@@ -8,6 +8,7 @@ import com.lenhatthanh.blog.domain.repository.AuthorRepositoryInterface;
 import com.lenhatthanh.blog.infrastructure.restapi.requestmodel.CreateArticleRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,7 +28,10 @@ public class CreateArticle {
                 UUID.randomUUID().toString(),
                 articleRequest.getTitle(),
                 articleRequest.getContent(),
-                author.get()
+                author.get().getId(),
+                articleRequest.getSummary(),
+                articleRequest.getThumbnail(),
+                articleRequest.getSlug()
         );
 
         articleRepository.save(article);

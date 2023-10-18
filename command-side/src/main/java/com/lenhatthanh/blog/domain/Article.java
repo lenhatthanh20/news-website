@@ -13,19 +13,19 @@ public class Article extends Entity<String> {
 
     private String title;
     private String content;
-    private Author author;
+    private String authorId;
     private String summary;
     private String thumbnail;
     private Slug slug;
-    private String createdAt;
-    private String publishedAt;
-    private String updatedAt;
 
-    public Article(String id, String title, String content, Author author, String summary, String thumbnail, String slug, String createdAt, String publishedAt, String updatedAt) {
+    public Article(String id, String title, String content, String authorId, String summary, String thumbnail, String slug) {
         super(id);
         this.setTitle(title);
         this.setContent(content);
-        this.author = author;
+        this.setSlug(slug, title);
+        this.authorId = authorId;
+        this.summary = summary;
+        this.thumbnail = thumbnail;
     }
 
     public void setTitle(String title) {
@@ -46,13 +46,5 @@ public class Article extends Entity<String> {
 
     public void setSlug(String slug, String title) {
         this.slug = new Slug(slug, title);
-    }
-
-    private String generateSlug(String title) {
-        return title.toLowerCase().replaceAll("[^a-z0-9\\s]", "").replaceAll("\\s+", "-");
-    }
-
-    private boolean isSlugValid(String slug) {
-        return slug.matches("^[a-z0-9-]+$");
     }
 }

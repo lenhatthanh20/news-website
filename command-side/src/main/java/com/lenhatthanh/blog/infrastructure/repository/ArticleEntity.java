@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,4 +26,16 @@ public class ArticleEntity implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private AuthorEntity author;
+
+    private String summary;
+
+    @Column(nullable = false)
+    private String thumbnail;
+
+    @Column(nullable = false, unique = true)
+    private String slug;
+
+    private LocalDateTime publishedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
