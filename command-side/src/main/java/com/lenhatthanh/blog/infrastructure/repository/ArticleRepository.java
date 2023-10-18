@@ -3,6 +3,7 @@ package com.lenhatthanh.blog.infrastructure.repository;
 import com.lenhatthanh.blog.domain.Article;
 import com.lenhatthanh.blog.domain.repository.ArticleRepositoryInterface;
 import lombok.AllArgsConstructor;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +40,7 @@ public class ArticleRepository implements ArticleRepositoryInterface {
     }
 
     private void syncToQuerySide(ArticleEntity article) {
-        this.kafkaTemplate.send(MESSAGE_QUEUE_TOPIC, article);
+        ProducerRecord<String, ArticleEntity> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, Command.CREATED, article);
+        this.kafkaTemplate.send(record);
     }
 }

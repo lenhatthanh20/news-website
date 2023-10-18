@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.domain;
 
-import lombok.AllArgsConstructor;
+import com.lenhatthanh.blog.domain.exception.InvalidSlugException;
 import lombok.Getter;
 
 @Getter
@@ -15,7 +15,7 @@ public class Slug {
 
     private static final String SLUG_VALIDATION_REGEX = "^[a-z0-9-]+$";
 
-    private final String slug;
+    private final String value;
 
     public Slug(String slug, String title) {
         if (slug == null || slug.isEmpty()) {
@@ -27,10 +27,10 @@ public class Slug {
         }
 
         if (!this.isSlugValid(slug)) {
-            throw new InvalidSlugException("DOMAIN-ERROR-0006");
+            throw new InvalidSlugException("DOMAIN-ERROR-0005");
         }
 
-        this.slug = slug;
+        this.value = slug;
     }
 
     private String generateSlug(String title) {

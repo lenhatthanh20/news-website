@@ -1,6 +1,8 @@
 package com.lenhatthanh.blog.service;
 
+import com.lenhatthanh.blog.model.Article;
 import com.lenhatthanh.blog.model.Author;
+import com.lenhatthanh.blog.repository.ArticleRepository;
 import com.lenhatthanh.blog.repository.AuthorRepository;
 import com.lenhatthanh.blog.shared.ObjectConverter;
 import lombok.AllArgsConstructor;
@@ -16,16 +18,39 @@ import java.io.IOException;
 public class KafkaConsumerService {
     RedisTemplate<String, String> redisTemplate;
     AuthorRepository authorRepository;
+    ArticleRepository articleRepository;
     ObjectConverter objectConverter;
 
     @KafkaListener(topics = "authors")
-    public void listen(ConsumerRecord<String, byte[]> record) throws IOException {
+    public void listenEventFromAuthorsTopic(ConsumerRecord<String, byte[]> record) throws IOException {
         AuthorDto authorDto = objectConverter.convertArrayByteToObject(record.value(), AuthorDto.class);
         String command = record.key();
 
         switch (command) {
             case Command.CREATED, Command.UPDATED -> authorRepository.save(Author.of(authorDto.getId(), authorDto.getName(), authorDto.getEmail()));
             case Command.DELETED -> authorRepository.deleteById(authorDto.getId());
+        }
+    }
+
+    @KafkaListener(topics = "articles")
+    public void listenEventFromArticlesTopic(ConsumerRecord<String, byte[]> record) throws IOException {
+        ArticleDto articleDto = objectConverter.convertArrayByteToObject(record.value(), ArticleDto.class);
+        String command = record.key();
+
+        switch (command) {
+            case Command.CREATED, Command.UPDATED -> articleRepository.save(Article.of(
+                    articleDto.getId(),
+                    articleDto.getTitle(),
+                    articleDto.getContent(),
+                    articleDto.getAuthor(),
+                    articleDto.getSummary(),
+                    articleDto.getThumbnail(),
+                    articleDto.getSlug(),
+                    articleDto.getPublishedAt(),
+                    articleDto.getCreatedAt(),
+                    articleDto.getUpdatedAt()
+            ));
+            case Command.DELETED -> authorRepository.deleteById(articleDto.getId());
         }
     }
 }
