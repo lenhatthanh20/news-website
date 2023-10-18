@@ -3,8 +3,10 @@ package com.lenhatthanh.blog.domain;
 import com.lenhatthanh.blog.domain.exception.InvalidArticleContentException;
 import com.lenhatthanh.blog.domain.exception.InvalidArticleTitleException;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Article extends Entity<String> {
     public int MAX_TITLE_LENGTH = 255;
     public int MAX_CONTENT_LENGTH = 20000;
@@ -12,8 +14,14 @@ public class Article extends Entity<String> {
     private String title;
     private String content;
     private Author author;
+    private String summary;
+    private String thumbnail;
+    private Slug slug;
+    private String createdAt;
+    private String publishedAt;
+    private String updatedAt;
 
-    public Article(String id, String title, String content, Author author) {
+    public Article(String id, String title, String content, Author author, String summary, String thumbnail, String slug, String createdAt, String publishedAt, String updatedAt) {
         super(id);
         this.setTitle(title);
         this.setContent(content);
@@ -36,7 +44,15 @@ public class Article extends Entity<String> {
         this.content = content;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setSlug(String slug, String title) {
+        this.slug = new Slug(slug, title);
+    }
+
+    private String generateSlug(String title) {
+        return title.toLowerCase().replaceAll("[^a-z0-9\\s]", "").replaceAll("\\s+", "-");
+    }
+
+    private boolean isSlugValid(String slug) {
+        return slug.matches("^[a-z0-9-]+$");
     }
 }
