@@ -1,5 +1,6 @@
 package com.lenhatthanh.blog.service;
 
+import com.lenhatthanh.blog.dto.AuthorDto;
 import com.lenhatthanh.blog.exception.AuthorNotFoundException;
 import com.lenhatthanh.blog.model.Author;
 import com.lenhatthanh.blog.repository.AuthorRepository;

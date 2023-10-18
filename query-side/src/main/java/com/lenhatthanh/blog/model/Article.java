@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.model;
 
-import com.lenhatthanh.blog.service.AuthorDto;
-import com.lenhatthanh.blog.service.SlugDto;
+import com.lenhatthanh.blog.dto.AuthorDto;
+import com.lenhatthanh.blog.dto.SlugDto;
 import com.redis.om.spring.annotations.Document;
 import com.redis.om.spring.annotations.Indexed;
 import com.redis.om.spring.annotations.Searchable;

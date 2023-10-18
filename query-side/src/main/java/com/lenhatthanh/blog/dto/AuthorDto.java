@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.service;
+package com.lenhatthanh.blog.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

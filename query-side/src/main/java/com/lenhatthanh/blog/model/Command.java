@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.service;
+package com.lenhatthanh.blog.model;
 
 public class Command {
     public static final String CREATED = "CREATED";

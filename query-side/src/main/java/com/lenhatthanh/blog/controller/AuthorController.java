@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.controller;
 
-import com.lenhatthanh.blog.service.AuthorDto;
+import com.lenhatthanh.blog.dto.AuthorDto;
 import com.lenhatthanh.blog.service.AuthorService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
