@@ -13,21 +13,18 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name="author")
-public class AuthorEntity implements Serializable {
+@Table(name="role")
+public class RoleEntity implements Serializable {
     @Serial
-    private static final long serialVersionUID = 6009937215357249662L;
+    private static final long serialVersionUID = 6009937215357249663L;
 
     @Id
     @Column(nullable = false, unique = true)
     private String id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ArticleEntity> articles = new ArrayList<>();
+    @Column(nullable = false)
+    private String description;
 }

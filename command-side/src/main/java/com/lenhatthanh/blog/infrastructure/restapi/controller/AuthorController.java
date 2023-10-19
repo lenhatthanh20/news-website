@@ -14,7 +14,7 @@ public class AuthorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createAuthor(@RequestBody AuthorDto authorRequest) {
-        createAuthorUseCase.execute(authorRequest);
+    public void createAuthor(@RequestBody AuthorDto author) {
+        createAuthorUseCase.execute(author);
     }
 }
