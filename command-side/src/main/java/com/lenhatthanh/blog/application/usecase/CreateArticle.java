@@ -5,7 +5,7 @@ import com.lenhatthanh.blog.domain.Article;
 import com.lenhatthanh.blog.domain.Author;
 import com.lenhatthanh.blog.domain.repository.ArticleRepositoryInterface;
 import com.lenhatthanh.blog.domain.repository.AuthorRepositoryInterface;
-import com.lenhatthanh.blog.infrastructure.restapi.requestmodel.CreateArticleRequest;
+import com.lenhatthanh.blog.dto.ArticleDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ public class CreateArticle {
     private ArticleRepositoryInterface articleRepository;
     private AuthorRepositoryInterface authorRepository;
 
-    public void execute(CreateArticleRequest articleRequest) {
+    public void execute(ArticleDto articleRequest) {
         Optional<Author> author = authorRepository.findById(articleRequest.getAuthorId());
         if (author.isEmpty()) {
             throw new AuthorNotFoundException("APPLICATION-ERROR-0001");

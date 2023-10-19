@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.infrastructure.restapi.requestmodel;
+package com.lenhatthanh.blog.dto;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class CreateAuthorRequest {
+public class AuthorDto {
     private String name;
     private String email;
 }

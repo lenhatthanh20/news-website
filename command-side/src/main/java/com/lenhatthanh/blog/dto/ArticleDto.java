@@ -1,15 +1,13 @@
-package com.lenhatthanh.blog.infrastructure.restapi.requestmodel;
+package com.lenhatthanh.blog.dto;
 
 import lombok.*;
-
-import java.util.Optional;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
-public class CreateArticleRequest {
+public class ArticleDto {
     private String title;
     private String content;
     private String authorId;

@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.infrastructure.restapi.controller;
 
 import com.lenhatthanh.blog.application.usecase.CreateArticle;
-import com.lenhatthanh.blog.infrastructure.restapi.requestmodel.CreateArticleRequest;
+import com.lenhatthanh.blog.dto.ArticleDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class ArticleController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createArticle(@RequestBody CreateArticleRequest article) {
+    public void createArticle(@RequestBody ArticleDto article) {
         createArticleUseCase.execute(article);
     }
 }
