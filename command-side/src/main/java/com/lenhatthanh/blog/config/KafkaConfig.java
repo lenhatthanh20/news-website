@@ -9,11 +9,11 @@ import org.springframework.kafka.config.TopicBuilder;
 class KafkaConfig {
     @Bean
     public NewTopic topic1() {
-        return TopicBuilder.name("users").build();
+        return TopicBuilder.name("user").build();
     }
 
     @Bean
     public NewTopic topic2() {
-        return TopicBuilder.name("articles").build();
+        return TopicBuilder.name("article").build();
     }
 }

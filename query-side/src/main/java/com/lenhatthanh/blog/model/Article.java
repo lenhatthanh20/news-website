@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.model;
 
-import com.lenhatthanh.blog.dto.AuthorDto;
+import com.lenhatthanh.blog.dto.UserDto;
 import com.lenhatthanh.blog.dto.SlugDto;
 import com.redis.om.spring.annotations.Document;
 import com.redis.om.spring.annotations.Indexed;
@@ -34,7 +34,7 @@ public class Article {
 
     @NonNull
     @Indexed
-    private AuthorDto author;
+    private UserDto user;
 
     @NonNull
     @Searchable

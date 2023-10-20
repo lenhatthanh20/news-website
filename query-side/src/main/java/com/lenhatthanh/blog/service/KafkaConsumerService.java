@@ -1,12 +1,12 @@
 package com.lenhatthanh.blog.service;
 
 import com.lenhatthanh.blog.dto.ArticleDto;
-import com.lenhatthanh.blog.dto.AuthorDto;
+import com.lenhatthanh.blog.dto.UserDto;
 import com.lenhatthanh.blog.model.Article;
-import com.lenhatthanh.blog.model.Author;
+import com.lenhatthanh.blog.model.User;
 import com.lenhatthanh.blog.model.Command;
 import com.lenhatthanh.blog.repository.ArticleRepository;
-import com.lenhatthanh.blog.repository.AuthorRepository;
+import com.lenhatthanh.blog.repository.UserRepository;
 import com.lenhatthanh.blog.shared.ObjectConverter;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -20,23 +20,23 @@ import java.io.IOException;
 @AllArgsConstructor
 public class KafkaConsumerService {
     RedisTemplate<String, String> redisTemplate;
-    AuthorRepository authorRepository;
+    UserRepository userRepository;
     ArticleRepository articleRepository;
     ObjectConverter objectConverter;
 
-    @KafkaListener(topics = "authors")
-    public void listenEventFromAuthorsTopic(ConsumerRecord<String, byte[]> record) throws IOException {
-        AuthorDto authorDto = objectConverter.convertArrayByteToObject(record.value(), AuthorDto.class);
+    @KafkaListener(topics = "user")
+    public void listenEventFromUserTopic(ConsumerRecord<String, byte[]> record) throws IOException {
+        UserDto userDto = objectConverter.convertArrayByteToObject(record.value(), UserDto.class);
         String command = record.key();
 
         switch (command) {
-            case Command.CREATED, Command.UPDATED -> authorRepository.save(Author.of(authorDto.getId(), authorDto.getName(), authorDto.getEmail()));
-            case Command.DELETED -> authorRepository.deleteById(authorDto.getId());
+            case Command.CREATED, Command.UPDATED -> userRepository.save(User.of(userDto.getId(), userDto.getName(), userDto.getEmail()));
+            case Command.DELETED -> userRepository.deleteById(userDto.getId());
         }
     }
 
-    @KafkaListener(topics = "articles")
-    public void listenEventFromArticlesTopic(ConsumerRecord<String, byte[]> record) throws IOException {
+    @KafkaListener(topics = "article")
+    public void listenEventFromArticleTopic(ConsumerRecord<String, byte[]> record) throws IOException {
         ArticleDto articleDto = objectConverter.convertArrayByteToObject(record.value(), ArticleDto.class);
         String command = record.key();
 
@@ -45,7 +45,7 @@ public class KafkaConsumerService {
                     articleDto.getId(),
                     articleDto.getTitle(),
                     articleDto.getContent(),
-                    articleDto.getAuthor(),
+                    articleDto.getUser(),
                     articleDto.getSummary(),
                     articleDto.getThumbnail(),
                     articleDto.getSlug(),
@@ -53,7 +53,7 @@ public class KafkaConsumerService {
                     articleDto.getCreatedAt(),
                     articleDto.getUpdatedAt()
             ));
-            case Command.DELETED -> authorRepository.deleteById(articleDto.getId());
+            case Command.DELETED -> userRepository.deleteById(articleDto.getId());
         }
     }
 }

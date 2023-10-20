@@ -10,14 +10,14 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
-public class Author {
+public class User {
     @Indexed
     @Id
     private String id;
 
     @NonNull
     @Indexed
-    private String authorId;
+    private String userId;
 
     @Indexed
     @NonNull

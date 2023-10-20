@@ -11,7 +11,7 @@ public class ArticleDto {
     private String id;
     private String title;
     private String content;
-    private AuthorDto author;
+    private UserDto user;
     private String summary;
     private String thumbnail;
     private SlugDto slug;
