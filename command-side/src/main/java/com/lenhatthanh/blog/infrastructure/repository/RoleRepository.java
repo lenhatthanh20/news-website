@@ -12,11 +12,11 @@ public class RoleRepository implements RoleRepositoryInterface {
     private RoleJpaRepository roleJpaRepository;
 
     @Override
-    public void save(Role author) {
+    public void save(Role user) {
         RoleEntity roleEntity = new RoleEntity(
-                author.getId(),
-                author.getName(),
-                author.getDescription()
+                user.getId(),
+                user.getName(),
+                user.getDescription()
         );
 
         roleJpaRepository.save(roleEntity);

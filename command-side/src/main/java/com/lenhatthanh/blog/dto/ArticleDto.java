@@ -10,7 +10,7 @@ import lombok.*;
 public class ArticleDto {
     private String title;
     private String content;
-    private String authorId;
+    private String userId;
     private String slug;
     private String summary;
     private String thumbnail;

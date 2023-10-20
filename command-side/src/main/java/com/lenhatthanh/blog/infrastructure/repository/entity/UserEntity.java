@@ -13,8 +13,8 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name="author")
-public class AuthorEntity implements Serializable {
+@Table(name="user")
+public class UserEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6009937215357249662L;
 
@@ -28,6 +28,6 @@ public class AuthorEntity implements Serializable {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ArticleEntity> articles = new ArrayList<>();
 }

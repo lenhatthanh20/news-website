@@ -13,17 +13,17 @@ public class Article extends Entity<String> {
 
     private String title;
     private String content;
-    private String authorId;
+    private String userId;
     private String summary;
     private String thumbnail;
     private Slug slug;
 
-    public Article(String id, String title, String content, String authorId, String summary, String thumbnail, String slug) {
+    public Article(String id, String title, String content, String userId, String summary, String thumbnail, String slug) {
         super(id);
         this.setTitle(title);
         this.setContent(content);
         this.setSlug(slug, title);
-        this.authorId = authorId;
+        this.userId = userId;
         this.summary = summary;
         this.thumbnail = thumbnail;
     }

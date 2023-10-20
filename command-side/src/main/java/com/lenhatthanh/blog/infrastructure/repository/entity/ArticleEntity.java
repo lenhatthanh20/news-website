@@ -25,7 +25,7 @@ public class ArticleEntity implements Serializable {
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private AuthorEntity author;
+    private UserEntity user;
 
     private String summary;
 

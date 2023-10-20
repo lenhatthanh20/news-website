@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.infrastructure.restapi.controller;
 
 import com.lenhatthanh.blog.application.exception.ApplicationException;
-import com.lenhatthanh.blog.application.exception.AuthorNotFoundException;
+import com.lenhatthanh.blog.application.exception.UserNotFoundException;
 import com.lenhatthanh.blog.domain.exception.*;
 import com.lenhatthanh.blog.shared.Messages;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({
             InvalidArticleTitleException.class,
             InvalidArticleContentException.class,
-            InvalidAuthorNameException.class,
+            InvalidUserNameException.class,
             NotFoundEmailException.class
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
         return createExceptionResponse(exception.getCode(), messages.getMessage(exception.getCode()), request.getRequestURI(), new Date());
     }
 
-    @ExceptionHandler({AuthorNotFoundException.class})
+    @ExceptionHandler({UserNotFoundException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse handleApplicationException(ApplicationException exception, final HttpServletRequest request) {
         return createExceptionResponse(exception.getCode(), messages.getMessage(exception.getCode()), request.getRequestURI(), new Date());
