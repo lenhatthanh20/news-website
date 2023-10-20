@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @Builder
 @Entity
-@Table(name="role")
+@Table(name="roles")
 public class RoleEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6009937215357249663L;

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @Entity
-@Table(name="article")
+@Table(name="articles")
 public class ArticleEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6009937215357249661L;
