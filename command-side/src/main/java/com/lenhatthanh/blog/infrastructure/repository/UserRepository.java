@@ -1,14 +1,17 @@
 package com.lenhatthanh.blog.infrastructure.repository;
 
+import com.lenhatthanh.blog.domain.Role;
 import com.lenhatthanh.blog.domain.User;
 import com.lenhatthanh.blog.domain.Command;
 import com.lenhatthanh.blog.domain.repository.UserRepositoryInterface;
+import com.lenhatthanh.blog.infrastructure.repository.entity.RoleEntity;
 import com.lenhatthanh.blog.infrastructure.repository.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -25,7 +28,14 @@ public class UserRepository implements UserRepositoryInterface {
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
+                .password(user.getPassword())
                 .build();
+
+        List<Role> roles = user.getRoles();
+        for (Role role : roles) {
+            RoleEntity roleEntity = new RoleEntity(role.getId(), role.getName(), role.getDescription());
+            userEntity.addRole(roleEntity);
+        }
 
         this.userJpaRepository.save(userEntity);
         this.syncToQuerySide(userEntity);
@@ -43,7 +53,7 @@ public class UserRepository implements UserRepositoryInterface {
             return Optional.empty();
         }
 
-        User user = new User(userEntity.get().getId(), userEntity.get().getName(), userEntity.get().getEmail());
+        User user = new User(userEntity.get().getId(), userEntity.get().getName(), userEntity.get().getEmail(), userEntity.get().getPassword());
 
         return Optional.of(user);
     }

@@ -4,6 +4,8 @@ import com.lenhatthanh.blog.domain.exception.InvalidUserNameException;
 import com.lenhatthanh.blog.domain.exception.NotFoundEmailException;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 public class User extends Entity<String> {
     public int MAX_NAME_LENGTH = 50;
@@ -12,6 +14,7 @@ public class User extends Entity<String> {
     private String name;
     private String email;
     private String password;
+    private List<Role> roles;
 
     public User(String id, String name, String email, String password) {
         super(id);
@@ -34,5 +37,9 @@ public class User extends Entity<String> {
         }
 
         this.email = email;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 }
