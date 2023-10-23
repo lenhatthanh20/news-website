@@ -19,14 +19,17 @@ public class UserEntity implements Serializable {
     private static final long serialVersionUID = 6009937215357249662L;
 
     @Id
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, length = 255, unique = true)
     private String id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, length = 120, unique = true)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ArticleEntity> articles = new ArrayList<>();

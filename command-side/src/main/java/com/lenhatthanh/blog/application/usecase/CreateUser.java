@@ -16,7 +16,8 @@ public class CreateUser {
         User user = new User(
                 UUID.randomUUID().toString(),
                 userDto.getName(),
-                userDto.getEmail()
+                userDto.getEmail(),
+                userDto.getPassword()
         );
 
         userRepository.save(user);
