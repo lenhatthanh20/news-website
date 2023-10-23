@@ -11,6 +11,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,7 @@ public class UserRepository implements UserRepositoryInterface {
                 .name(user.getName())
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .roles(new ArrayList<>())
                 .build();
 
         List<Role> roles = user.getRoles();

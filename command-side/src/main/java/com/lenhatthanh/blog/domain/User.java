@@ -4,6 +4,7 @@ import com.lenhatthanh.blog.domain.exception.InvalidUserNameException;
 import com.lenhatthanh.blog.domain.exception.NotFoundEmailException;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -13,8 +14,8 @@ public class User extends Entity<String> {
 
     private String name;
     private String email;
-    private String password;
-    private List<Role> roles;
+    private final String password;
+    private final List<Role> roles = new ArrayList<>();
 
     public User(String id, String name, String email, String password) {
         super(id);
