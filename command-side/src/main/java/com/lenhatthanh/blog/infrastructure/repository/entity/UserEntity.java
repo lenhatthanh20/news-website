@@ -19,7 +19,7 @@ public class UserEntity implements Serializable {
     private static final long serialVersionUID = 6009937215357249662L;
 
     @Id
-    @Column(nullable = false, length = 255, unique = true)
+    @Column(nullable = false, length = 50, unique = true)
     private String id;
 
     @Column(nullable = false, length = 50)

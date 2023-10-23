@@ -56,4 +56,3 @@ public class SpringSecurity {
         return config.getAuthenticationManager();
     }
 }
-
