@@ -32,9 +32,11 @@ public class UserRepository implements UserRepositoryInterface {
                 .build();
 
         List<Role> roles = user.getRoles();
-        for (Role role : roles) {
-            RoleEntity roleEntity = new RoleEntity(role.getId(), role.getName(), role.getDescription());
-            userEntity.addRole(roleEntity);
+        if (roles != null) {
+            for (Role role : roles) {
+                RoleEntity roleEntity = new RoleEntity(role.getId(), role.getName(), role.getDescription());
+                userEntity.addRole(roleEntity);
+            }
         }
 
         this.userJpaRepository.save(userEntity);
@@ -49,6 +51,18 @@ public class UserRepository implements UserRepositoryInterface {
     @Override
     public Optional<User> findById(String id) {
         Optional<UserEntity> userEntity = this.userJpaRepository.findById(id);
+        if (userEntity.isEmpty()) {
+            return Optional.empty();
+        }
+
+        User user = new User(userEntity.get().getId(), userEntity.get().getName(), userEntity.get().getEmail(), userEntity.get().getPassword());
+
+        return Optional.of(user);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        Optional<UserEntity> userEntity = this.userJpaRepository.findByEmail(email);
         if (userEntity.isEmpty()) {
             return Optional.empty();
         }

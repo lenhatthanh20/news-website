@@ -7,6 +7,7 @@ import com.lenhatthanh.blog.domain.repository.RoleRepositoryInterface;
 import com.lenhatthanh.blog.domain.repository.UserRepositoryInterface;
 import com.lenhatthanh.blog.dto.UserDto;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -17,13 +18,14 @@ import java.util.UUID;
 public class CreateUser {
     private UserRepositoryInterface userRepository;
     private RoleRepositoryInterface roleRepository;
+    PasswordEncoder passwordEncoder;
 
     public void execute(UserDto userDto) {
         User user = new User(
                 UUID.randomUUID().toString(),
                 userDto.getName(),
                 userDto.getEmail(),
-                userDto.getPassword()
+                passwordEncoder.encode(userDto.getPassword())
         );
 
         Optional<Role> roleUser = roleRepository.findByName(SystemRole.SUBSCRIBER);
