@@ -6,7 +6,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 
 @Data
-@RequiredArgsConstructor(staticName = "of")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
@@ -26,4 +26,10 @@ public class Role {
     @NonNull
     @Indexed
     private String description;
+
+    public Role(@NonNull String id, @NonNull String name, @NonNull String description) {
+        this.roleId = id;
+        this.name = name;
+        this.description = description;
+    }
 }

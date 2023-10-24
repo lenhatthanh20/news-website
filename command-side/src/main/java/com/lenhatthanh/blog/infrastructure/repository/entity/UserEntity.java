@@ -42,6 +42,14 @@ public class UserEntity implements Serializable {
     )
     private List<RoleEntity> roles = new ArrayList<>();
 
+    public UserEntity(String id, String name, String email, String password) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.roles = new ArrayList<>();
+    }
+
     public void addRole(RoleEntity role) {
         this.roles.add(role);
     }

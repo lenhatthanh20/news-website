@@ -18,6 +18,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Service
 @AllArgsConstructor
@@ -32,11 +33,16 @@ public class KafkaConsumerService {
     public void listenEventFromUserTopic(ConsumerRecord<String, byte[]> record) throws IOException {
         UserDto userDto = objectConverter.convertArrayByteToObject(record.value(), UserDto.class);
         String command = record.key();
-
         switch (command) {
-            case Command.CREATED, Command.UPDATED -> userRepository.save(User.of(userDto.getId(), userDto.getName(), userDto.getEmail()));
+            case Command.CREATED, Command.UPDATED -> this.handleWriteUserEvent(userDto);
             case Command.DELETED -> userRepository.deleteById(userDto.getId());
         }
+    }
+
+    private void handleWriteUserEvent(UserDto userDto) {
+        User user = new User(userDto.getId(), userDto.getName(), userDto.getEmail(), userDto.getPassword());
+        userDto.getRoles().stream().map(roleDto -> new Role(roleDto.getId(), roleDto.getName(), roleDto.getDescription())).forEach(user::addRole);
+        userRepository.save(user);
     }
 
     @KafkaListener(topics = "article")
@@ -45,7 +51,7 @@ public class KafkaConsumerService {
         String command = record.key();
 
         switch (command) {
-            case Command.CREATED, Command.UPDATED -> articleRepository.save(Article.of(
+            case Command.CREATED, Command.UPDATED -> articleRepository.save(new Article(
                     articleDto.getId(),
                     articleDto.getTitle(),
                     articleDto.getContent(),
@@ -67,7 +73,7 @@ public class KafkaConsumerService {
         String command = record.key();
 
         switch (command) {
-            case Command.CREATED, Command.UPDATED -> roleRepository.save(Role.of(roleDto.getId(), roleDto.getName(), roleDto.getDescription()));
+            case Command.CREATED, Command.UPDATED -> roleRepository.save(new Role(roleDto.getId(), roleDto.getName(), roleDto.getDescription()));
             case Command.DELETED -> roleRepository.deleteById(roleDto.getId());
         }
     }
