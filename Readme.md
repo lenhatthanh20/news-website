@@ -14,10 +14,6 @@
 
 This is the <abbr title="Can handle miliion of requests and users">large-scale</abbr> design of a News website. This is a real world project is design with Spring Boot (version 3) framework, Domain Driven Design, Clean Architechture, CQRS pattern, Kafka, PostgreSQL, Redis, .... This is also a microservices project using Spring Cloud Microservices.
 
-**Table of Contents**
-
-[TOC]
-
 # The flow
 I will update the flow later
 
