@@ -19,12 +19,12 @@ public class RoleEntity implements Serializable {
     private static final long serialVersionUID = 6009937215357249663L;
 
     @Id
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT", length = 1000)
     private String description;
 }
