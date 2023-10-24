@@ -10,6 +10,9 @@
             alt="coverage"></a>
 </p>
 
+![example main parameter]
+(https://github.com/lenhatthanh20/news-website/actions/workflows/unit-test.yaml/badge.svg?branch=main)
+
 # Introduction
 
 This is the <abbr title="Can handle miliion of requests and users">large-scale</abbr> design of a News website. This is a real world project is design with Spring Boot (version 3) framework, Domain Driven Design, Clean Architechture, CQRS pattern, Kafka, PostgreSQL, Redis, .... This is also a microservices project using Spring Cloud Microservices.
