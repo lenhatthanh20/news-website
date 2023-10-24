@@ -1,4 +1,6 @@
 <p align="center">
+    <a href="https://github.com/lenhatthanh20/news-website/actions/workflows/unit-test.yaml" alt="Contributors">
+        <img src="https://github.com/lenhatthanh20/news-website/actions/workflows/unit-test.yaml/badge.svg?branch=main" /></a>
     <a href="https://github.com/lenhatthanh20/news-website/graphs/contributors" alt="Contributors">
         <img src="https://img.shields.io/github/contributors/lenhatthanh20/news-website" /></a>
     <a href="https://github.com/lenhatthanh20/news-website/pulse" alt="Activity">
@@ -9,9 +11,6 @@
         <img src="https://img.shields.io/coveralls/github/lenhatthanh20/news-website"
             alt="coverage"></a>
 </p>
-
-![example main parameter]
-(https://github.com/lenhatthanh20/news-website/actions/workflows/unit-test.yaml/badge.svg?branch=main)
 
 # Introduction
 
