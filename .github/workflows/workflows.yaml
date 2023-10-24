@@ -18,7 +18,7 @@ jobs:
           java-version: '17'
 
       - name: Command side test
-        run: ./command-side/mvnw clean test
+        run: sudo ./command-side/mvnw clean test
 
       - name: Query side test
-        run: ./query-side/mvnw clean test
+        run: sudo ./query-side/mvnw clean test
