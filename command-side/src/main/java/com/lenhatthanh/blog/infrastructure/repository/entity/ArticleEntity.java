@@ -18,21 +18,25 @@ public class ArticleEntity implements Serializable {
     private static final long serialVersionUID = 6009937215357249661L;
 
     @Id
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String id;
 
+    @Column(nullable = false)
     private String title;
+
+    @Column(columnDefinition = "TEXT", length = 20000)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
 
+    @Column(columnDefinition = "TEXT", length = 1000)
     private String summary;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String thumbnail;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 100)
     private String slug;
 
     private LocalDateTime publishedAt;
