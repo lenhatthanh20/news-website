@@ -18,7 +18,11 @@ jobs:
           java-version: '17'
 
       - name: Command side test
-        run: sudo ./command-side/mvnw clean test
+        run: |
+          cd command-side
+          mvn test
 
       - name: Query side test
-        run: sudo ./query-side/mvnw clean test
+        run: |
+          cd ../query-side
+          mvn test
