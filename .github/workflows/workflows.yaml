@@ -9,7 +9,10 @@ on:
 jobs:
   unit-test:
     runs-on: ubuntu-latest
-
+    env:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/blog
+      SPRING_DATASOURCE_USERNAME: lenhatthanh
+      SPRING_DATASOURCE_PASSWORD: lenhatthanh
     steps:
       - name: Setup PostgreSQL
         uses: harmon758/postgresql-action@v1
