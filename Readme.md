@@ -11,6 +11,7 @@ I will update the flow later
 
 # Local Development
 Please following these step for local development:
+
 **Step 0**: Clone the project
 `$ git clone https://github.com/lenhatthanh20/news-website.git`
 
@@ -25,6 +26,9 @@ Please following these step for local development:
 You can contact me via:
 
 `<My blog>` ：<https://lenhatthanh.com>
+
 `<Facebook>` ：<https://facebook.com/coderdocs>
+
 `<Github>` ：<https://github.com/lenhatthanh20>
-`<Gmail>` ：<lenhatthanh20@gmail.com>
+
+`<Gmail>` ：lenhatthanh20@gmail.com
