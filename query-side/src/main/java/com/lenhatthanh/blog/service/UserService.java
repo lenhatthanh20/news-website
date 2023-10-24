@@ -3,13 +3,11 @@ package com.lenhatthanh.blog.service;
 import com.lenhatthanh.blog.dto.RoleDto;
 import com.lenhatthanh.blog.dto.UserForViewDto;
 import com.lenhatthanh.blog.exception.UserNotFoundException;
-import com.lenhatthanh.blog.model.Role;
 import com.lenhatthanh.blog.model.User;
 import com.lenhatthanh.blog.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +22,7 @@ public class UserService {
         return users.stream()
                 .map(user -> {
                     UserForViewDto userDto = new UserForViewDto(user.getUserId(), user.getName(), user.getEmail());
-                    user.getRoles().stream().map(role -> new RoleDto(role.getId(), role.getName(), role.getDescription())).forEach(userDto::addRole);
+                    user.getRoles().stream().map(role -> new RoleDto(role.getRoleId(), role.getName(), role.getDescription())).forEach(userDto::addRole);
 
                     return userDto;
                 })
@@ -38,7 +36,7 @@ public class UserService {
         }
 
         UserForViewDto userDto = new UserForViewDto(user.get().getUserId(), user.get().getName(), user.get().getEmail());
-        user.get().getRoles().forEach(role -> userDto.addRole(new RoleDto(role.getId(), role.getName(), role.getDescription())));
+        user.get().getRoles().forEach(role -> userDto.addRole(new RoleDto(role.getRoleId(), role.getName(), role.getDescription())));
 
         return userDto;
     }
