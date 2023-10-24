@@ -35,5 +35,5 @@ jobs:
 
       - name: Query side test
         run: |
-          cd ../query-side
+          cd query-side
           mvn test
