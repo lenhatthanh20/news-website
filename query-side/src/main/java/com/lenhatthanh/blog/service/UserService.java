@@ -23,11 +23,8 @@ public class UserService {
 
         return users.stream()
                 .map(user -> {
-                    UserForViewDto userDto = new UserForViewDto(user.getUserId(), user.getName(), user.getEmail(), new ArrayList<>());
-                    List<Role> roles = user.getRoles() == null ? new ArrayList<>() : user.getRoles();
-                    for (Role role : roles) {
-                        userDto.addRole(new RoleDto(role.getRoleId(), role.getName(), role.getDescription()));
-                    }
+                    UserForViewDto userDto = new UserForViewDto(user.getUserId(), user.getName(), user.getEmail());
+                    user.getRoles().stream().map(role -> new RoleDto(role.getId(), role.getName(), role.getDescription())).forEach(userDto::addRole);
 
                     return userDto;
                 })
