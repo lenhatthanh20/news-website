@@ -12,6 +12,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -24,18 +25,9 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public void save(User user) {
-        UserEntity userEntity = UserEntity.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .roles(new ArrayList<>())
-                .build();
-
-        for (Role role : user.getRoles()) {
-            RoleEntity roleEntity = new RoleEntity(role.getId(), role.getName(), role.getDescription());
-            userEntity.addRole(roleEntity);
-        }
+        UserEntity userEntity = new UserEntity(user.getId(), user.getName(), user.getEmail(), user.getPassword());
+        List<RoleEntity> roleEntity =  user.getRoles().stream().map(role -> new RoleEntity(role.getId(), role.getName(), role.getDescription())).toList();
+        roleEntity.forEach(userEntity::addRole);
 
         this.userJpaRepository.save(userEntity);
         this.syncToQuerySide(userEntity);
