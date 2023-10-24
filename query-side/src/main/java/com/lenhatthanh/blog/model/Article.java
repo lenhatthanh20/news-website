@@ -11,7 +11,7 @@ import org.springframework.data.annotation.Id;
 import java.time.LocalDateTime;
 
 @Data
-@RequiredArgsConstructor(staticName = "of")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Document
@@ -55,4 +55,28 @@ public class Article {
 
     @NonNull
     private LocalDateTime updatedAt;
+
+    public Article(
+            @NonNull String id,
+            @NonNull String title,
+            @NonNull String content,
+            @NonNull UserDto user,
+            @NonNull String summary,
+            @NonNull String thumbnail,
+            @NonNull SlugDto slug,
+            @NonNull LocalDateTime publishedAt,
+            @NonNull LocalDateTime createdAt,
+            @NonNull LocalDateTime updatedAt
+    ) {
+        this.articleId = id;
+        this.title = title;
+        this.content = content;
+        this.user = user;
+        this.summary = summary;
+        this.thumbnail = thumbnail;
+        this.slug = slug;
+        this.publishedAt = publishedAt;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }

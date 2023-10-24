@@ -40,11 +40,8 @@ public class KafkaConsumerService {
     }
 
     private void handleWriteUserEvent(UserDto userDto) {
-        User user = User.of(userDto.getId(), userDto.getName(), userDto.getEmail(), userDto.getPassword(), new ArrayList<>());
-        for (RoleDto roleDto : userDto.getRoles()) {
-            user.addRole(Role.of(roleDto.getId(), roleDto.getName(), roleDto.getDescription()));
-        }
-
+        User user = new User(userDto.getId(), userDto.getName(), userDto.getEmail(), userDto.getPassword());
+        userDto.getRoles().stream().map(roleDto -> new Role(roleDto.getId(), roleDto.getName(), roleDto.getDescription())).forEach(user::addRole);
         userRepository.save(user);
     }
 
@@ -54,7 +51,7 @@ public class KafkaConsumerService {
         String command = record.key();
 
         switch (command) {
-            case Command.CREATED, Command.UPDATED -> articleRepository.save(Article.of(
+            case Command.CREATED, Command.UPDATED -> articleRepository.save(new Article(
                     articleDto.getId(),
                     articleDto.getTitle(),
                     articleDto.getContent(),
@@ -76,7 +73,7 @@ public class KafkaConsumerService {
         String command = record.key();
 
         switch (command) {
-            case Command.CREATED, Command.UPDATED -> roleRepository.save(Role.of(roleDto.getId(), roleDto.getName(), roleDto.getDescription()));
+            case Command.CREATED, Command.UPDATED -> roleRepository.save(new Role(roleDto.getId(), roleDto.getName(), roleDto.getDescription()));
             case Command.DELETED -> roleRepository.deleteById(roleDto.getId());
         }
     }
