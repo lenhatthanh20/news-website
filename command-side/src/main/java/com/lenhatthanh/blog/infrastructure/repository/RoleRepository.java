@@ -1,9 +1,12 @@
 package com.lenhatthanh.blog.infrastructure.repository;
 
+import com.lenhatthanh.blog.domain.Command;
 import com.lenhatthanh.blog.domain.Role;
 import com.lenhatthanh.blog.domain.repository.RoleRepositoryInterface;
 import com.lenhatthanh.blog.infrastructure.repository.entity.RoleEntity;
 import lombok.AllArgsConstructor;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -11,7 +14,10 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 public class RoleRepository implements RoleRepositoryInterface {
+    public static final String MESSAGE_QUEUE_TOPIC = "role";
+
     private RoleJpaRepository roleJpaRepository;
+    private KafkaTemplate<String, RoleEntity> kafkaTemplate;
 
     @Override
     public void save(Role user) {
@@ -22,6 +28,12 @@ public class RoleRepository implements RoleRepositoryInterface {
         );
 
         roleJpaRepository.save(roleEntity);
+        this.syncToQuerySide(roleEntity);
+    }
+
+    private void syncToQuerySide(RoleEntity role) {
+        ProducerRecord<String, RoleEntity> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, Command.CREATED, role);
+        this.kafkaTemplate.send(record);
     }
 
     @Override
