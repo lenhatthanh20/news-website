@@ -8,12 +8,17 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 class KafkaConfig {
     @Bean
-    public NewTopic topic1() {
+    public NewTopic topicUser() {
         return TopicBuilder.name("user").build();
     }
 
     @Bean
-    public NewTopic topic2() {
+    public NewTopic topicArticle() {
         return TopicBuilder.name("article").build();
+    }
+
+    @Bean
+    public NewTopic topicRole() {
+        return TopicBuilder.name("role").build();
     }
 }
