@@ -18,6 +18,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Service
 @AllArgsConstructor
@@ -32,11 +33,19 @@ public class KafkaConsumerService {
     public void listenEventFromUserTopic(ConsumerRecord<String, byte[]> record) throws IOException {
         UserDto userDto = objectConverter.convertArrayByteToObject(record.value(), UserDto.class);
         String command = record.key();
-
         switch (command) {
-            case Command.CREATED, Command.UPDATED -> userRepository.save(User.of(userDto.getId(), userDto.getName(), userDto.getEmail()));
+            case Command.CREATED, Command.UPDATED -> this.handleWriteUserEvent(userDto);
             case Command.DELETED -> userRepository.deleteById(userDto.getId());
         }
+    }
+
+    private void handleWriteUserEvent(UserDto userDto) {
+        User user = User.of(userDto.getId(), userDto.getName(), userDto.getEmail(), userDto.getPassword(), new ArrayList<>());
+        for (RoleDto roleDto : userDto.getRoles()) {
+            user.addRole(Role.of(roleDto.getId(), roleDto.getName(), roleDto.getDescription()));
+        }
+
+        userRepository.save(user);
     }
 
     @KafkaListener(topics = "article")

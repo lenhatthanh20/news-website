@@ -12,7 +12,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -33,12 +32,9 @@ public class UserRepository implements UserRepositoryInterface {
                 .roles(new ArrayList<>())
                 .build();
 
-        List<Role> roles = user.getRoles();
-        if (roles != null) {
-            for (Role role : roles) {
-                RoleEntity roleEntity = new RoleEntity(role.getId(), role.getName(), role.getDescription());
-                userEntity.addRole(roleEntity);
-            }
+        for (Role role : user.getRoles()) {
+            RoleEntity roleEntity = new RoleEntity(role.getId(), role.getName(), role.getDescription());
+            userEntity.addRole(roleEntity);
         }
 
         this.userJpaRepository.save(userEntity);

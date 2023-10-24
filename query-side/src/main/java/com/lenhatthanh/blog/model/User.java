@@ -5,6 +5,8 @@ import com.redis.om.spring.annotations.Indexed;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 @Data
 @RequiredArgsConstructor(staticName = "of")
 @AllArgsConstructor
@@ -26,4 +28,15 @@ public class User {
     @NonNull
     @Indexed
     private String email;
+
+    @NonNull
+    private String password;
+
+    @NonNull
+    @Indexed
+    private List<Role> roles;
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 }
