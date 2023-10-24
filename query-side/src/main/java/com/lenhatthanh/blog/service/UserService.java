@@ -37,10 +37,8 @@ public class UserService {
             throw new UserNotFoundException("The user is not found");
         }
 
-        UserForViewDto userDto = new UserForViewDto(user.get().getUserId(), user.get().getName(), user.get().getEmail(), new ArrayList<>());
-        for (Role role : user.get().getRoles()) {
-            userDto.addRole(new RoleDto(role.getRoleId(), role.getName(), role.getDescription()));
-        }
+        UserForViewDto userDto = new UserForViewDto(user.get().getUserId(), user.get().getName(), user.get().getEmail());
+        user.get().getRoles().forEach(role -> userDto.addRole(new RoleDto(role.getId(), role.getName(), role.getDescription())));
 
         return userDto;
     }
