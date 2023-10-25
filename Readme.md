@@ -17,8 +17,19 @@
 This is a News website **real world large-scale** project which implemented using Spring Boot (version 3) framework, Domain Driven Design, Clean Architechture, CQRS pattern, Kafka, PostgreSQL, Redis, .... 
 In the future, it will become a microservices project using Spring Cloud Microservices.
 
-# 🧠 The flow
-I will update the flow later
+# 🧠 Appllication Design
+The below image describe for the design of this application.
+
+![The design](https://lenhatthanh.com/wp-content/uploads/2023/10/cqrs-ddd-clean-architecture.png)
+
+## CQRS
+Because this is a News website, so the `read requests` (`GET` method) ammount has majority compared to `write requests` (`POST`, `PUT`, `DELETE`, ...). 
+So we need to apply the CQRS pattern to seperate the Write side (Command side) and Read side (Query side) for scaling in both codebase and server.
+I will write a article to dive deep into CQRS later (Vietnamese in https://lenhatthanh.com)
+
+## DDD and Clean Architecture in Write Side
+In the Write side, we apply DDD to isolate the business logics (in `domain` layer), and apply some useful concepts of DDD to handle business logics.
+Also, we apply the Clean architecture for easily to mantain and scale the codebase.
 
 # 🚀 Local Development
 Please following these step for local development:
