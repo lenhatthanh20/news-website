@@ -11,7 +11,7 @@ jobs:
     env:
       SPRING_DATASOURCE_URL: jdbc:h2:mem:blog
       SPRING_DATASOURCE_USERNAME: sa
-      SPRING_DATASOURCE_PASSWORD: ''
+      SPRING_DATASOURCE_PASSWORD: secret
     steps:
       - uses: actions/checkout@v3
       - name: Setup H2 database
