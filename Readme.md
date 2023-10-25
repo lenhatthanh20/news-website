@@ -14,8 +14,7 @@
 
 # 👩‍💻 Introduction
 
-This is a News website **real world large-scale** project which implemented using Spring Boot (version 3) framework, Domain Driven Design, Clean Architechture, CQRS pattern, Kafka, PostgreSQL, Redis, .... 
-In the future, it will become a microservices project using Spring Cloud Microservices.
+This is a **large-scale, real-world** project for a news website that was developed with the help of the Spring Boot (version 3) framework, Domain Driven Design, Clean Architecture, CQRS pattern, Kafka, PostgreSQL, Redis, and other technologies. It will eventually be transformed into a microservices project with Spring Cloud Microservices.
 
 # 🧠 Appllication Design
 The below image describe for the design of this application.
