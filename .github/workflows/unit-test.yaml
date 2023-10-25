@@ -18,9 +18,8 @@ jobs:
       - name: Command side test
         working-directory: command-side
         run: |
-          cd command-side
           mvn clean package
-          java -jar -Dspring.profiles.active=production target/command-side-0.0.1-SNAPSHOT.jar
+          java -jar -Dspring.profiles.active=test target/command-side-0.0.1-SNAPSHOT.jar
   query-side-unit-test:
     runs-on: ubuntu-latest
     steps:
