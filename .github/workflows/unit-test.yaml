@@ -17,12 +17,6 @@ jobs:
         run: |
           cd command-side
           mvn h2:create
-        uses: harmon758/postgresql-action@v1
-        with:
-          postgresql version: '16'
-          postgresql db: blog
-          postgresql user: lenhatthanh
-          postgresql password: lenhatthanh
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
