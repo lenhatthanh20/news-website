@@ -8,16 +8,8 @@ on:
 jobs:
   command-side-unit-test:
     runs-on: ubuntu-latest
-    env:
-      SPRING_DATASOURCE_URL: jdbc:h2:mem:blog
-      SPRING_DATASOURCE_USERNAME: sa
-      SPRING_DATASOURCE_PASSWORD: secret
     steps:
       - uses: actions/checkout@v3
-      - name: Setup H2 database
-        run: |
-          cd command-side
-          mvn h2:create
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -25,7 +17,10 @@ jobs:
           java-version: '17'
       - name: Command side test
         working-directory: command-side
-        run: mvn -Dspring.profiles.active=test test
+        run: |
+          cd command-side
+          mvn clean package
+          java -jar -Dspring.profiles.active=production target/command-side-0.0.1-SNAPSHOT.jar
   query-side-unit-test:
     runs-on: ubuntu-latest
     steps:
