@@ -12,32 +12,41 @@
             alt="coverage"></a>
 </p>
 
-# Introduction
+# 👩‍💻 Introduction
 
 This is a News website **real world large-scale** project which implemented using Spring Boot (version 3) framework, Domain Driven Design, Clean Architechture, CQRS pattern, Kafka, PostgreSQL, Redis, .... 
 In the future, it will become a microservices project using Spring Cloud Microservices.
 
-# The flow
+# 🧠 The flow
 I will update the flow later
 
-# Local Development
+# 🚀 Local Development
 Please following these step for local development:
 
-**Step 0**: Clone the project
+## **Step 1**: Clone the project
 ```bash
 $ git clone https://github.com/lenhatthanh20/news-website.git
 ```
 
-**Step 1**: Run all docker containers
+## **Step 2**: Run all docker containers
 ```bash
 $ docker compose up
 ```
 
-**Step 2**: Start the command side and query side services
+After docker compose up
+- Can access the Kafka UI via: `http://localhost:8085`
+- The PosgreSQL database will started at the port number `5555`
+- The Redis database will started at the port number `6379`
 
-**Step 3**: Enjoy your coding
+More detail please view in `docker-compose.yaml` file
 
-# Contact
+## **Step 3**: Run the command side and query side services (Spring Boot application)
+> [!IMPORTANT]\
+> Please use the Java SDK version `<= 17` (recommend version `17`) because some of dependencies don't work with higher Java SDK.
+
+## **Step 4**: Enjoy your coding
+
+# 💬 Contact
 You can contact me via:
 
 `<My blog>` ：<https://lenhatthanh.com>
@@ -48,5 +57,5 @@ You can contact me via:
 
 `<Gmail>` ：lenhatthanh20@gmail.com
 
-# License
+# ⚡️ License
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/lenhatthanh20/news-website/blob/43cee8e88d4ab45948016725360c00666d428303/LICENSE)
