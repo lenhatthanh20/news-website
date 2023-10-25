@@ -9,11 +9,14 @@ jobs:
   command-side-unit-test:
     runs-on: ubuntu-latest
     env:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/blog
-      SPRING_DATASOURCE_USERNAME: lenhatthanh
-      SPRING_DATASOURCE_PASSWORD: lenhatthanh
+      SPRING_DATASOURCE_URL: jdbc:h2:mem:blog
+      SPRING_DATASOURCE_USERNAME: sa
+      SPRING_DATASOURCE_PASSWORD: ''
     steps:
-      - name: Setup PostgreSQL
+      - name: Setup H2 database
+        run: |
+          cd command-side
+          mvn h2:create
         uses: harmon758/postgresql-action@v1
         with:
           postgresql version: '16'
@@ -27,9 +30,8 @@ jobs:
           distribution: 'oracle'
           java-version: '17'
       - name: Command side test
-        run: |
-          cd command-side
-          mvn test
+        working-directory: command-side
+        run: mvn -Dspring.profiles.active=test test
   query-side-unit-test:
     runs-on: ubuntu-latest
     steps:
