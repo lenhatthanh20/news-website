@@ -17,6 +17,9 @@ class CommandSideApplicationTests {
 	@Autowired
 	private UserController controller;
 
+	/**
+	 * Don't need to run this bean when startup application in test environment
+	 */
 	@MockBean
 	ApplicationStartupRunner applicationStartupRunner;
 
