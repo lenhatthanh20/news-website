@@ -17,9 +17,7 @@ jobs:
           java-version: '17'
       - name: Command side test
         working-directory: command-side
-        run: |
-          mvn clean package
-          java -jar -Dspring.profiles.active=test target/command-side-0.0.1-SNAPSHOT.jar
+        run: mvn test -Dspring.profiles.active=test
   query-side-unit-test:
     runs-on: ubuntu-latest
     steps:
