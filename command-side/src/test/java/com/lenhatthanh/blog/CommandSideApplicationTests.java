@@ -16,6 +16,9 @@ class CommandSideApplicationTests {
 	@Autowired
 	private UserController controller;
 
+	@Autowired
+	ApplicationStartupRunner applicationStartupRunner;
+
 	@Test
 	void contextLoads() {
 		assertThat(controller).isNotNull();
