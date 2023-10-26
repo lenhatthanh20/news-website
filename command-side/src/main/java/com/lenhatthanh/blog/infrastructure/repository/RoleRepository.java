@@ -9,6 +9,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -34,6 +35,18 @@ public class RoleRepository implements RoleRepositoryInterface {
     private void syncToQuerySide(RoleEntity role) {
         ProducerRecord<String, RoleEntity> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, Command.CREATED, role);
         this.kafkaTemplate.send(record);
+    }
+
+    @Override
+    public void saveAll(List<Role> roles) {
+        Iterable<RoleEntity> roleEntities = roles.stream().map(role -> new RoleEntity(
+                role.getId(),
+                role.getName(),
+                role.getDescription()
+        )).toList();
+
+        roleJpaRepository.saveAll(roleEntities);
+        roleEntities.forEach(this::syncToQuerySide);
     }
 
     @Override

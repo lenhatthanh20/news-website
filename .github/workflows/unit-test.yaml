@@ -8,18 +8,7 @@ on:
 jobs:
   command-side-unit-test:
     runs-on: ubuntu-latest
-    env:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/blog
-      SPRING_DATASOURCE_USERNAME: lenhatthanh
-      SPRING_DATASOURCE_PASSWORD: lenhatthanh
     steps:
-      - name: Setup PostgreSQL
-        uses: harmon758/postgresql-action@v1
-        with:
-          postgresql version: '16'
-          postgresql db: blog
-          postgresql user: lenhatthanh
-          postgresql password: lenhatthanh
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -27,9 +16,8 @@ jobs:
           distribution: 'oracle'
           java-version: '17'
       - name: Command side test
-        run: |
-          cd command-side
-          mvn test
+        working-directory: command-side
+        run: mvn test
   query-side-unit-test:
     runs-on: ubuntu-latest
     steps:
