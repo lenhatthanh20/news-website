@@ -1,6 +1,7 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.repository;
 
 import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.DomainEventsPublisher;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepositoryInterface;
 import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEntity;
@@ -17,6 +18,8 @@ public class UserRepository implements UserRepositoryInterface {
     private UserJpaRepository userJpaRepository;
 //    private KafkaTemplate<String, UserEntity> kafkaTemplate;
 
+    DomainEventsPublisher domainEventsPublisher;
+
     @Override
     public void save(User user) {
         UserEntity userEntity = new UserEntity(
@@ -29,6 +32,9 @@ public class UserRepository implements UserRepositoryInterface {
         user.getRoleIds().forEach(roleId -> {
             userEntity.addRole(roleId.toString());
         });
+
+        // Publish domain events
+        user.publishEvents(domainEventsPublisher);
 
         this.userJpaRepository.save(userEntity);
     }

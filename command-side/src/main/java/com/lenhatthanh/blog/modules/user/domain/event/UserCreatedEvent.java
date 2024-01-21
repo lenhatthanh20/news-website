@@ -3,14 +3,24 @@ package com.lenhatthanh.blog.modules.user.domain.event;
 import com.lenhatthanh.blog.core.domain.AggregateId;
 import com.lenhatthanh.blog.core.domain.DomainEventInterface;
 import com.lenhatthanh.blog.modules.user.domain.User;
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.context.ApplicationEvent;
 
-@AllArgsConstructor
-public class UserCreatedEvent implements DomainEventInterface<AggregateId> {
-    private User user;
+import java.time.Clock;
+
+@Getter
+public class UserCreatedEvent extends ApplicationEvent implements DomainEventInterface<AggregateId> {
+    public UserCreatedEvent(Object source) {
+        super(source);
+    }
+
+    public UserCreatedEvent(Object source, Clock clock) {
+        super(source, clock);
+    }
 
     @Override
     public AggregateId getAggregateId() {
-        return this.user.getId();
+        User source = (User) this.getSource();
+        return source.getId();
     }
 }
