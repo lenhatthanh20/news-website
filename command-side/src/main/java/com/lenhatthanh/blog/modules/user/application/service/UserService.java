@@ -4,10 +4,8 @@ import com.lenhatthanh.blog.modules.user.application.exception.UserNotFoundExcep
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepositoryInterface;
 import lombok.AllArgsConstructor;
-;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -23,6 +24,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
     protected final Log logger = LogFactory.getLog(getClass());
     RoleRepositoryInterface roleRepository;
     UserRepositoryInterface userRepository;
+    PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -62,7 +64,7 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 new AggregateId(UniqueIdGenerator.create()),
                 "Administrator",
                 "lenhatthanh20@gmail.com",
-                "lenhatthanh20"
+                passwordEncoder.encode("lenhatthanh20")
         );
 
         Optional<Role> roleUser = roleRepository.findByName(SystemRole.ADMIN);
