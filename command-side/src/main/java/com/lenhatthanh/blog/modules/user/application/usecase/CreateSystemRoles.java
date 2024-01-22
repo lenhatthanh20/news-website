@@ -5,12 +5,14 @@ import com.lenhatthanh.blog.modules.user.dto.RoleDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @AllArgsConstructor
-public class CreateRole {
+public class CreateSystemRoles {
     CreateRoleServiceInterface createRoleService;
 
-    public void execute(RoleDto roleDto) {
-        createRoleService.create(roleDto);
+    public void execute(List<RoleDto> roleDtoList) {
+        createRoleService.createList(roleDtoList);
     }
 }

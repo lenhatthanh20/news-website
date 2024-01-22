@@ -2,6 +2,9 @@ package com.lenhatthanh.blog.modules.user.domain.service;
 
 import com.lenhatthanh.blog.modules.user.dto.RoleDto;
 
+import java.util.List;
+
 public interface CreateRoleServiceInterface {
-    public void execute(RoleDto roleDto);
+    void create(RoleDto roleDto);
+    void createList(List<RoleDto> roleDtoList);
 }

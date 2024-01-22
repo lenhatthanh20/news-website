@@ -9,6 +9,7 @@ import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,7 +17,7 @@ import java.util.Optional;
 public class CreateRoleService implements CreateRoleServiceInterface{
     RoleRepositoryInterface roleRepository;
 
-    public void execute(RoleDto roleDto) {
+    public void create(RoleDto roleDto) {
         this.roleDoesNotExistOrError(roleDto.getName());
         Role role = Role.create(
                 new AggregateId(UniqueIdGenerator.create()),
@@ -25,6 +26,19 @@ public class CreateRoleService implements CreateRoleServiceInterface{
         );
 
         roleRepository.save(role);
+    }
+
+    public void createList(List<RoleDto> roleDtoList) {
+        List<Role> roles = roleDtoList.stream().map(roleDto -> {
+            this.roleDoesNotExistOrError(roleDto.getName());
+            return Role.create(
+                    new AggregateId(UniqueIdGenerator.create()),
+                    roleDto.getName(),
+                    roleDto.getDescription()
+            );
+        }).toList();
+
+        roleRepository.saveAll(roles);
     }
 
     private void roleDoesNotExistOrError(String name) {
