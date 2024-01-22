@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.config;
 
-import com.lenhatthanh.blog.application.service.JwtService;
-import com.lenhatthanh.blog.application.service.UserService;
+import com.lenhatthanh.blog.modules.user.application.service.JwtService;
+import com.lenhatthanh.blog.modules.user.application.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
