@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.rest_api;
 
-import com.lenhatthanh.blog.modules.user.application.usecase.CreateUser;
+import com.lenhatthanh.blog.modules.user.application.usecase.CreateSubscriberUser;
 import com.lenhatthanh.blog.modules.user.application.usecase.UserLogin;
 import com.lenhatthanh.blog.modules.user.dto.LoginDto;
 import com.lenhatthanh.blog.modules.user.dto.LoginResponseDto;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-    private CreateUser createUserUseCase;
+    private CreateSubscriberUser createSubscriberUserUseCase;
     private UserLogin userLoginUseCase;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody UserDto user) {
-        createUserUseCase.execute(user);
+        createSubscriberUserUseCase.execute(user);
     }
 
     @PostMapping("/auth/login")

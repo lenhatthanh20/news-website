@@ -58,4 +58,20 @@ public class RoleRepository implements RoleRepositoryInterface {
 
         return Optional.of(role);
     }
+
+    @Override
+    public Optional<Role> findById(String id) {
+        Optional<RoleEntity> roleEntity = this.roleJpaRepository.findById(id);
+        if (roleEntity.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Role role = Role.create(
+                new AggregateId(roleEntity.get().getId()),
+                roleEntity.get().getName(),
+                roleEntity.get().getDescription()
+        );
+
+        return Optional.of(role);
+    }
 }
