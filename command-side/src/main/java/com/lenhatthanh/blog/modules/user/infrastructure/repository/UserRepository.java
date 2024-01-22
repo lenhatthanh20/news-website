@@ -13,12 +13,8 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 public class UserRepository implements UserRepositoryInterface {
-//    public static final String MESSAGE_QUEUE_TOPIC = "user";
-
     private UserJpaRepository userJpaRepository;
-//    private KafkaTemplate<String, UserEntity> kafkaTemplate;
-
-    DomainEventsPublisher domainEventsPublisher;
+    private DomainEventsPublisher domainEventsPublisher;
 
     @Override
     public void save(User user) {
@@ -38,11 +34,6 @@ public class UserRepository implements UserRepositoryInterface {
 
         this.userJpaRepository.save(userEntity);
     }
-
-//    private void syncToQuerySide(UserEntity user) {
-//        ProducerRecord<String, UserEntity> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, Command.CREATED, user);
-//        this.kafkaTemplate.send(record);
-//    }
 
     @Override
     public Optional<User> findById(String id) {
