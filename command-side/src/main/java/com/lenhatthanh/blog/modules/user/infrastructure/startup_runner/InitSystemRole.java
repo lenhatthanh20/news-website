@@ -1,9 +1,7 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.startup_runner;
 
-import com.lenhatthanh.blog.modules.user.application.usecase.CreateAdminUser;
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateSystemRoles;
 import com.lenhatthanh.blog.modules.user.dto.RoleDto;
-import com.lenhatthanh.blog.modules.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
