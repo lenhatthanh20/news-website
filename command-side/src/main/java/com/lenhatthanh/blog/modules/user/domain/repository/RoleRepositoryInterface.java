@@ -11,4 +11,6 @@ public interface RoleRepositoryInterface {
     void saveAll(List<Role> roles);
 
     Optional<Role> findByName(String name);
+
+    Optional<Role> findById(String id);
 }
