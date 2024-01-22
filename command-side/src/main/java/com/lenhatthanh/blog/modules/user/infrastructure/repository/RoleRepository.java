@@ -38,6 +38,8 @@ public class RoleRepository implements RoleRepositoryInterface {
                 role.getDescription()
         )).toList();
 
+        roles.forEach(role -> role.publishEvents(domainEventsPublisher));
+
         roleJpaRepository.saveAll(roleEntities);
     }
 
