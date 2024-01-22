@@ -2,6 +2,7 @@ package com.lenhatthanh.blog.modules.user.domain;
 
 import com.lenhatthanh.blog.core.domain.AggregateId;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
+import com.lenhatthanh.blog.modules.user.domain.event.RoleCreatedEvent;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,9 @@ public class Role extends AggregateRoot<AggregateId> {
     }
 
     public static Role create(AggregateId id, String name, String description) {
-        return new Role(id, name, description);
+        Role role = new Role(id, name, description);
+        role.registerEvent(new RoleCreatedEvent(role));
+
+        return role;
     }
 }
