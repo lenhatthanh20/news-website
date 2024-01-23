@@ -38,7 +38,7 @@ public class UserEntity implements Serializable {
     private List<ArticleEntity> articles = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_id")
     private Set<String> roleIds = new HashSet<>();
 
