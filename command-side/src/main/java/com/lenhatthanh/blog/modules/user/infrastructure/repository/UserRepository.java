@@ -10,6 +10,7 @@ import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEn
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
@@ -20,11 +21,14 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public void save(User user) {
+        LocalDateTime currentTime = LocalDateTime.now();
         UserEntity userEntity = new UserEntity(
                 user.getId().toString(),
                 user.getName().getValue(),
                 user.getEmail().getValue(),
-                user.getPassword()
+                user.getPassword(),
+                currentTime,
+                currentTime
         );
 
         user.getRoleIds().forEach(roleId -> {

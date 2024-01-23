@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.Set;
 @Data
 @Builder
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class UserEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6009937215357249662L;
@@ -42,11 +43,19 @@ public class UserEntity implements Serializable {
     @Column(name = "role_id")
     private Set<String> roleIds = new HashSet<>();
 
-    public UserEntity(String id, String name, String email, String password) {
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
+
+    public UserEntity(String id, String name, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public void addRole(String roleId) {

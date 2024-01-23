@@ -6,9 +6,9 @@ VALUES
   ( 'acd20a3f-1e07-44ff-bb5e-14d04a9d7416', 'Administrator', 'Somebody who has access to all the administration features within a single site', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP );
 
 INSERT INTO public.users
-  ( id, name, email, password )
+  ( id, name, email, password, created_at, updated_at )
 VALUES
-  ( '6a03d0d9-1687-45aa-8a05-1c4ccb7cef9a', 'lenhatthanh', 'admin@lenhatthanh.com', '$2a$10$D0SGK.aIzuxd/rAwcq/0n.gaYTjsN/ZYfwnAy1C4mYGjrwsTsjx4K' );
+  ( '6a03d0d9-1687-45aa-8a05-1c4ccb7cef9a', 'lenhatthanh', 'admin@lenhatthanh.com', '$2a$10$D0SGK.aIzuxd/rAwcq/0n.gaYTjsN/ZYfwnAy1C4mYGjrwsTsjx4K', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP );
 
 INSERT INTO public.users_roles
   ( user_id, role_id )
