@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class CreateRole {
+public class CreateRoleUseCase {
     CreateRoleServiceInterface createRoleService;
 
     public void execute(RoleDto roleDto) {

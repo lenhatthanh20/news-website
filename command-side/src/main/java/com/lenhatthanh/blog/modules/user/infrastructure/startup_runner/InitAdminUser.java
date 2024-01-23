@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.startup_runner;
 
-import com.lenhatthanh.blog.modules.user.application.usecase.CreateAdminUser;
+import com.lenhatthanh.blog.modules.user.application.usecase.CreateAdminUserUseCase;
 import com.lenhatthanh.blog.modules.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.apache.commons.logging.Log;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class InitAdminUser implements CommandLineRunner {
     protected final Log logger = LogFactory.getLog(getClass());
-    private CreateAdminUser createAdminUserUseCase;
+    private CreateAdminUserUseCase createAdminUserUseCase;
     private Environment env;
 
     @Override

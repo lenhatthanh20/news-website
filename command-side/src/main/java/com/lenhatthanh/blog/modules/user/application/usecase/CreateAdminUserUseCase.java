@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class CreateAdminUser {
+public class CreateAdminUserUseCase {
     PasswordEncoder passwordEncoder;
     CreateUserServiceInterface createUserService;
 

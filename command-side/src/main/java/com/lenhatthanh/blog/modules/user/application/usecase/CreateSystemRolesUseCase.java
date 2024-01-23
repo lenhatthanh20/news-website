@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class CreateSystemRoles {
+public class CreateSystemRolesUseCase {
     CreateRoleServiceInterface createRoleService;
 
     public void execute(List<RoleDto> roleDtoList) {

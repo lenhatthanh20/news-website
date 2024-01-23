@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class CreateSubscriberUser {
+public class CreateSubscriberUserUseCase {
     PasswordEncoder passwordEncoder;
     CreateUserServiceInterface createUserService;
 

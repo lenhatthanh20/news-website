@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.article.infrastructure.rest_api;
 
-import com.lenhatthanh.blog.modules.article.application.usecase.CreateArticle;
+import com.lenhatthanh.blog.modules.article.application.usecase.CreateArticleUseCase;
 import com.lenhatthanh.blog.modules.article.dto.ArticleDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/articles")
 @AllArgsConstructor
 public class ArticleController {
-    private CreateArticle createArticleUseCase;
+    private CreateArticleUseCase createArticleUseCase;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

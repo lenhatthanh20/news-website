@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.startup_runner;
 
-import com.lenhatthanh.blog.modules.user.application.usecase.CreateSystemRoles;
+import com.lenhatthanh.blog.modules.user.application.usecase.CreateSystemRolesUseCase;
 import com.lenhatthanh.blog.modules.user.dto.RoleDto;
 import lombok.AllArgsConstructor;
 import org.apache.commons.logging.Log;
@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class InitSystemRole implements CommandLineRunner {
     protected final Log logger = LogFactory.getLog(getClass());
-    private CreateSystemRoles createSystemRolesUseCase;
+    private CreateSystemRolesUseCase createSystemRolesUseCase;
     private Environment env;
 
     @Override
