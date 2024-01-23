@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationEvent;
 import java.time.Clock;
 
 @Getter
-public class RoleCreatedEvent extends ApplicationEvent implements DomainEventInterface<AggregateId> {
+public class RoleCreatedEvent extends ApplicationEvent implements DomainEventInterface {
     public RoleCreatedEvent(Object source) {
         super(source);
     }
@@ -22,5 +22,15 @@ public class RoleCreatedEvent extends ApplicationEvent implements DomainEventInt
     public AggregateId getAggregateId() {
         Role source = (Role) this.getSource();
         return source.getId();
+    }
+
+    @Override
+    public Long getOccurredOn() {
+        return this.getTimestamp();
+    }
+
+    @Override
+    public Role getEventData() {
+        return (Role) this.getSource();
     }
 }

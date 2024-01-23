@@ -25,7 +25,7 @@ public class UserCreatedEventHandler {
     @EventListener
     public void handleUserCreatedEvent(UserCreatedEvent event) {
         System.out.println("UserCreatedEvent: " + event.getAggregateId());
-        sendMessageToKafkaBroker((User) event.getSource());
+        sendMessageToKafkaBroker(event.getEventData());
     }
 
     private void sendMessageToKafkaBroker(User user) {
