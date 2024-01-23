@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DomainEventsPublisher implements DomainEventsPublisherInterface{
+public class DomainEventPublisher implements DomainEventPublisherInterface {
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
 

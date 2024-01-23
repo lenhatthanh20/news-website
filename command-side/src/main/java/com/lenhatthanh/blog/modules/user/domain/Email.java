@@ -26,8 +26,4 @@ public class Email {
 
         this.value = value;
     }
-
-    public static Email create(String value) {
-        return new Email(value);
-    }
 }

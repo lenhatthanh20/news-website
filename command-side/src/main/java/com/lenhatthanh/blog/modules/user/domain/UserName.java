@@ -7,7 +7,7 @@ import lombok.Getter;
 public class UserName {
     private String value;
 
-    private UserName(String value) {
+    public UserName(String value) {
         setValue(value);
     }
 
@@ -17,9 +17,5 @@ public class UserName {
         }
 
         this.value = value;
-    }
-
-    public static UserName create(String value) {
-        return new UserName(value);
     }
 }

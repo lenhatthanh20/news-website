@@ -1,10 +1,8 @@
 package com.lenhatthanh.blog.modules.user.domain.service;
 
 import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.modules.user.domain.*;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
-import com.lenhatthanh.blog.modules.user.domain.Role;
-import com.lenhatthanh.blog.modules.user.domain.SystemRole;
-import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepositoryInterface;
 import com.lenhatthanh.blog.modules.user.dto.UserDto;
@@ -26,8 +24,8 @@ public class CreateUserService implements CreateUserServiceInterface {
         Role role = this.getRoleByNameOrError(SystemRole.SUBSCRIBER);
         User user = User.create(
                 new AggregateId(UniqueIdGenerator.create()),
-                userDto.getName(),
-                userDto.getEmail(),
+                new UserName(userDto.getName()),
+                new Email(userDto.getEmail()),
                 passwordEncoder.encode(userDto.getPassword())
         );
 
@@ -39,8 +37,8 @@ public class CreateUserService implements CreateUserServiceInterface {
         Role role = this.getRoleByNameOrError(SystemRole.AUTHOR);
         User user = User.create(
                 new AggregateId(UniqueIdGenerator.create()),
-                userDto.getName(),
-                userDto.getEmail(),
+                new UserName(userDto.getName()),
+                new Email(userDto.getEmail()),
                 passwordEncoder.encode(userDto.getPassword())
         );
 
@@ -52,8 +50,8 @@ public class CreateUserService implements CreateUserServiceInterface {
         Role role = this.getRoleByNameOrError(SystemRole.ADMIN);
         User user = User.create(
                 new AggregateId(UniqueIdGenerator.create()),
-                userDto.getName(),
-                userDto.getEmail(),
+                new UserName(userDto.getName()),
+                new Email(userDto.getEmail()),
                 passwordEncoder.encode(userDto.getPassword())
         );
 

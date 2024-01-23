@@ -17,7 +17,7 @@ public class AggregateRoot<Type> extends Entity<Type> {
         domainEvents.add(event);
     }
 
-    public void publishEvents(DomainEventsPublisherInterface publisher) {
+    public void publishEvents(DomainEventPublisherInterface publisher) {
         domainEvents.forEach(publisher::publishEvent);
 
         // After publish events, we need to clear them

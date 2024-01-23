@@ -1,5 +1,5 @@
 package com.lenhatthanh.blog.core.domain;
 
-public interface DomainEventsPublisherInterface {
+public interface DomainEventPublisherInterface {
     void publishEvent(DomainEventInterface event);
 }

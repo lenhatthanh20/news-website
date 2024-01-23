@@ -1,8 +1,10 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.repository;
 
 import com.lenhatthanh.blog.core.domain.AggregateId;
-import com.lenhatthanh.blog.core.domain.DomainEventsPublisher;
+import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.Role;
+import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
+import com.lenhatthanh.blog.modules.user.domain.RoleName;
 import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
 import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.RoleEntity;
 import lombok.AllArgsConstructor;
@@ -16,36 +18,36 @@ import java.util.Optional;
 @AllArgsConstructor
 public class RoleRepository implements RoleRepositoryInterface {
     private RoleJpaRepository roleJpaRepository;
-    private DomainEventsPublisher domainEventsPublisher;
+    private DomainEventPublisher domainEventPublisher;
 
     @Override
     public void save(Role role) {
-        LocalDateTime createAt = LocalDateTime.now();
+        LocalDateTime currentTime = LocalDateTime.now();
         RoleEntity roleEntity = new RoleEntity(
                 role.getId().toString(),
-                role.getName(),
-                role.getDescription(),
-                createAt,
-                createAt
+                role.getName().getValue(),
+                role.getDescription().getValue(),
+                currentTime,
+                currentTime
         );
 
-        role.publishEvents(domainEventsPublisher);
+        role.publishEvents(domainEventPublisher);
 
         roleJpaRepository.save(roleEntity);
     }
 
     @Override
     public void saveAll(List<Role> roles) {
-        LocalDateTime createAt = LocalDateTime.now();
+        LocalDateTime currentTime = LocalDateTime.now();
         Iterable<RoleEntity> roleEntities = roles.stream().map(role -> new RoleEntity(
                 role.getId().toString(),
-                role.getName(),
-                role.getDescription(),
-                createAt,
-                createAt
+                role.getName().getValue(),
+                role.getDescription().getValue(),
+                currentTime,
+                currentTime
         )).toList();
 
-        roles.forEach(role -> role.publishEvents(domainEventsPublisher));
+        roles.forEach(role -> role.publishEvents(domainEventPublisher));
 
         roleJpaRepository.saveAll(roleEntities);
     }
@@ -57,10 +59,10 @@ public class RoleRepository implements RoleRepositoryInterface {
             return Optional.empty();
         }
 
-        Role role = Role.create(
+        Role role = new Role(
                 new AggregateId(roleEntity.get().getId()),
-                roleEntity.get().getName(),
-                roleEntity.get().getDescription()
+                new RoleName(roleEntity.get().getName()),
+                new RoleDescription(roleEntity.get().getDescription())
         );
 
         return Optional.of(role);
@@ -73,10 +75,10 @@ public class RoleRepository implements RoleRepositoryInterface {
             return Optional.empty();
         }
 
-        Role role = Role.create(
+        Role role = new Role(
                 new AggregateId(roleEntity.get().getId()),
-                roleEntity.get().getName(),
-                roleEntity.get().getDescription()
+                new RoleName(roleEntity.get().getName()),
+                new RoleDescription(roleEntity.get().getDescription())
         );
 
         return Optional.of(role);
