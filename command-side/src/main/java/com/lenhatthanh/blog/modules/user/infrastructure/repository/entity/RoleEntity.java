@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,4 +26,7 @@ public class RoleEntity implements Serializable {
 
     @Column(nullable = false, columnDefinition = "TEXT", length = 1000)
     private String description;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
