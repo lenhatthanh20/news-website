@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.repository;
 
 import com.lenhatthanh.blog.core.domain.AggregateId;
-import com.lenhatthanh.blog.core.domain.DomainEventsPublisher;
+import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
 import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.RoleEntity;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class RoleRepository implements RoleRepositoryInterface {
     private RoleJpaRepository roleJpaRepository;
-    private DomainEventsPublisher domainEventsPublisher;
+    private DomainEventPublisher domainEventPublisher;
 
     @Override
     public void save(Role role) {
@@ -29,7 +29,7 @@ public class RoleRepository implements RoleRepositoryInterface {
                 createAt
         );
 
-        role.publishEvents(domainEventsPublisher);
+        role.publishEvents(domainEventPublisher);
 
         roleJpaRepository.save(roleEntity);
     }
@@ -45,7 +45,7 @@ public class RoleRepository implements RoleRepositoryInterface {
                 createAt
         )).toList();
 
-        roles.forEach(role -> role.publishEvents(domainEventsPublisher));
+        roles.forEach(role -> role.publishEvents(domainEventPublisher));
 
         roleJpaRepository.saveAll(roleEntities);
     }
