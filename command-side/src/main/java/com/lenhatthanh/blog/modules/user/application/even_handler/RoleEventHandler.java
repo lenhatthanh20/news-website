@@ -42,10 +42,10 @@ public class RoleEventHandler {
                 role.getDescription().getValue()
         );
 
-        String eventKey = event.getClass().getSimpleName();
-        ProducerRecord<String, RoleEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, eventKey, roleEventDto);
+        String messageKey = event.getClass().getSimpleName();
+        ProducerRecord<String, RoleEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, messageKey, roleEventDto);
         this.kafkaTemplate.send(record);
 
-        logger.info("Event sent to kafka broker - " + eventKey + " with aggregate ID:" + event.getAggregateId() + " !!");
+        logger.info("Event sent to kafka broker - " + messageKey + " with aggregate ID:" + event.getAggregateId() + " !!");
     }
 }

@@ -18,15 +18,14 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class UserCreatedEventHandler {
+public class UserEventHandler {
     public static final String MESSAGE_QUEUE_TOPIC = "user";
-    public static final String MESSAGE_KEY = "UserCreatedEvent";
 
     private KafkaTemplate<String, UserEventDto> kafkaTemplate;
     private final Log logger = LogFactory.getLog(getClass());
 
     @Async
-    @EventListener
+    @EventListener(UserCreatedEvent.class)
     public void handleUserCreatedEvent(UserCreatedEvent event) {
         sendMessageToKafkaBroker(event);
     }
@@ -40,9 +39,10 @@ public class UserCreatedEventHandler {
                 user.getRoleIds().stream().map(AggregateId::toString).collect(Collectors.toSet())
         );
 
-        ProducerRecord<String, UserEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, MESSAGE_KEY, userEventDto);
+        String messageKey = event.getClass().getSimpleName();
+        ProducerRecord<String, UserEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, messageKey, userEventDto);
         this.kafkaTemplate.send(record);
 
-        logger.info("Event sent to kafka broker - UserCreatedEvent with aggregate ID:" + event.getAggregateId() + " !!");
+        logger.info("Event sent to kafka broker - " + messageKey + " with aggregate ID:" + event.getAggregateId() + " !!");
     }
 }
