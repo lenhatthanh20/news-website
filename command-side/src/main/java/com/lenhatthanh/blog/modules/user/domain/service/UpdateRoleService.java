@@ -1,6 +1,7 @@
 package com.lenhatthanh.blog.modules.user.domain.service;
 
 import com.lenhatthanh.blog.modules.user.domain.Role;
+import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyExistException;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
 import com.lenhatthanh.blog.modules.user.dto.RoleDto;
@@ -14,18 +15,29 @@ import java.util.Optional;
 public class UpdateRoleService implements UpdateRoleServiceInterface {
     RoleRepositoryInterface roleRepository;
 
-    public void update(RoleDto roleDto) {
-        Role role = this.roleMustExistOrError(roleDto.getId());
+    public void update(RoleDto newRoleDto) {
+        Role currentRole = this.roleMustExistByIdOrError(newRoleDto.getId());
+        if (!currentRole.getName().equals(newRoleDto.getName())) {
+            this.newRoleNameDoesNotExistOrError(newRoleDto.getName());
+        }
 
-        roleRepository.save(role);
+        currentRole.update(newRoleDto.getName(), newRoleDto.getDescription());
+        roleRepository.save(currentRole);
     }
 
-    private Role roleMustExistOrError(String id) {
+    private Role roleMustExistByIdOrError(String id) {
         Optional<Role> role = roleRepository.findById(id);
         if (role.isEmpty()) {
             throw new RoleNotFoundException();
         }
 
         return role.get();
+    }
+
+    private void newRoleNameDoesNotExistOrError(String name) {
+        Optional<Role> role = roleRepository.findByName(name);
+        if (role.isPresent()) {
+            throw new RoleAlreadyExistException();
+        }
     }
 }

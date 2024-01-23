@@ -7,13 +7,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class Role extends AggregateRoot<AggregateId> {
     private String name;
     private String description;
 
     private Role(AggregateId id, String name, String description) {
         super(id);
+        this.name = name;
+        this.description = description;
+    }
+
+    public void update(String name, String description) {
         this.name = name;
         this.description = description;
     }
