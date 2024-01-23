@@ -3,9 +3,7 @@ package com.lenhatthanh.blog.core.infrastructure.rest_api;
 import com.lenhatthanh.blog.core.application.ApplicationException;
 import com.lenhatthanh.blog.core.domain.DomainException;
 import com.lenhatthanh.blog.modules.article.application.exception.UserNotFoundException;
-import com.lenhatthanh.blog.modules.article.domain.exception.InvalidArticleContentException;
-import com.lenhatthanh.blog.modules.article.domain.exception.InvalidArticleTitleException;
-import com.lenhatthanh.blog.modules.article.domain.exception.InvalidSlugException;
+import com.lenhatthanh.blog.modules.article.domain.exception.*;
 import com.lenhatthanh.blog.modules.user.domain.exception.*;
 import com.lenhatthanh.blog.shared.Messages;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,6 +31,8 @@ public class GlobalExceptionHandler {
             RoleNotFoundException.class,
             InvalidRoleNameException.class,
             InvalidRoleDescriptionException.class,
+            UserAlreadyExistsException.class,
+            SystemRoleViolationException.class,
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse handleDomainException(DomainException exception, final HttpServletRequest request) {
