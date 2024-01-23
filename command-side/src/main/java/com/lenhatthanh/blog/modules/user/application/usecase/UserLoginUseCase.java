@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class UserLogin {
+public class UserLoginUseCase {
     private AuthService authService;
 
     public LoginResponseDto execute(LoginDto loginDto) {

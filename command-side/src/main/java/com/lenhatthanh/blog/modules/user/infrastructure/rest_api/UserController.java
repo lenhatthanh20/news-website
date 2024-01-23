@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.rest_api;
 
-import com.lenhatthanh.blog.modules.user.application.usecase.CreateSubscriberUser;
-import com.lenhatthanh.blog.modules.user.application.usecase.UserLogin;
+import com.lenhatthanh.blog.modules.user.application.usecase.CreateSubscriberUserUseCase;
+import com.lenhatthanh.blog.modules.user.application.usecase.UserLoginUseCase;
 import com.lenhatthanh.blog.modules.user.dto.LoginDto;
 import com.lenhatthanh.blog.modules.user.dto.LoginResponseDto;
 import com.lenhatthanh.blog.modules.user.dto.UserDto;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-    private CreateSubscriberUser createSubscriberUserUseCase;
-    private UserLogin userLoginUseCase;
+    private CreateSubscriberUserUseCase createSubscriberUserUseCase;
+    private UserLoginUseCase userLoginUseCase;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

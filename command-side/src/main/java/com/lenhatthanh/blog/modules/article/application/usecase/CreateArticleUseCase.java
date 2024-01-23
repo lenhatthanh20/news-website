@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Component
 @AllArgsConstructor
-public class CreateArticle {
+public class CreateArticleUseCase {
     private ArticleRepositoryInterface articleRepository;
     private UserRepositoryInterface userRepository;
 
