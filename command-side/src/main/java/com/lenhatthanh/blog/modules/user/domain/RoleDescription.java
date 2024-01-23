@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 public class RoleDescription {
     private static final int MAX_LENGTH = 255;
+    private static final int MIN_LENGTH = 3;
 
     private String value;
 
@@ -14,7 +15,7 @@ public class RoleDescription {
     }
 
     private void setValue(String value) {
-        if (value.length() > MAX_LENGTH) {
+        if (value.length() < MIN_LENGTH || value.length() > MAX_LENGTH) {
             throw new InvalidRoleDescriptionException();
         }
 
