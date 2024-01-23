@@ -7,6 +7,7 @@ import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
 import java.time.Clock;
+import java.time.LocalDateTime;
 
 @Getter
 public class RoleCreatedEvent extends ApplicationEvent implements DomainEventInterface {
@@ -25,8 +26,8 @@ public class RoleCreatedEvent extends ApplicationEvent implements DomainEventInt
     }
 
     @Override
-    public Long getOccurredOn() {
-        return this.getTimestamp();
+    public LocalDateTime getOccurredOn() {
+        return LocalDateTime.now();
     }
 
     @Override

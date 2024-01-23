@@ -1,9 +1,11 @@
 package com.lenhatthanh.blog.core.domain;
 
+import java.time.LocalDateTime;
+
 public interface DomainEventInterface {
     public Object getAggregateId();
 
-    public Long getOccurredOn();
+    public LocalDateTime getOccurredOn();
 
     public Object getEventData();
 }
