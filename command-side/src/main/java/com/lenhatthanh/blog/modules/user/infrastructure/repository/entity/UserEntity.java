@@ -3,9 +3,12 @@ package com.lenhatthanh.blog.modules.user.infrastructure.repository.entity;
 import com.lenhatthanh.blog.modules.article.infrastructure.repository.entity.ArticleEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.Set;
 @Data
 @Builder
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class UserEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6009937215357249662L;
@@ -41,6 +44,13 @@ public class UserEntity implements Serializable {
     @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_id")
     private Set<String> roleIds = new HashSet<>();
+
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     public UserEntity(String id, String name, String email, String password) {
         this.id = id;
