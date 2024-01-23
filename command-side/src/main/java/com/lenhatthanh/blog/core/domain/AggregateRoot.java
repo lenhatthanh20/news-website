@@ -7,13 +7,13 @@ import java.util.List;
 
 @Getter
 public class AggregateRoot<Type> extends Entity<Type> {
-    private final List<DomainEventInterface<Type>> domainEvents = new ArrayList<>();
+    private final List<DomainEventInterface> domainEvents = new ArrayList<>();
 
     public AggregateRoot(Type id) {
         super(id);
     }
 
-    protected void registerEvent(DomainEventInterface<Type> event) {
+    protected void registerEvent(DomainEventInterface event) {
         domainEvents.add(event);
     }
 

@@ -22,7 +22,7 @@ public class RoleCreatedEventHandler {
     @EventListener
     public void handleRoleCreatedEvent(RoleCreatedEvent event) {
         System.out.println("RoleCreatedEvent: " + event.getAggregateId());
-        sendMessageToKafkaBroker((Role) event.getSource());
+        sendMessageToKafkaBroker(event.getEventData());
     }
 
     private void sendMessageToKafkaBroker(Role role) {
