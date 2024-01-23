@@ -6,9 +6,7 @@ import com.lenhatthanh.blog.modules.article.application.exception.UserNotFoundEx
 import com.lenhatthanh.blog.modules.article.domain.exception.InvalidArticleContentException;
 import com.lenhatthanh.blog.modules.article.domain.exception.InvalidArticleTitleException;
 import com.lenhatthanh.blog.modules.article.domain.exception.InvalidSlugException;
-import com.lenhatthanh.blog.modules.user.domain.exception.InvalidUserNameException;
-import com.lenhatthanh.blog.modules.user.domain.exception.EmailNotEmptyException;
-import com.lenhatthanh.blog.modules.user.domain.exception.InvalidEmailException;
+import com.lenhatthanh.blog.modules.user.domain.exception.*;
 import com.lenhatthanh.blog.shared.Messages;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
@@ -30,7 +28,9 @@ public class GlobalExceptionHandler {
             InvalidSlugException.class,
             InvalidUserNameException.class,
             EmailNotEmptyException.class,
-            InvalidEmailException.class
+            InvalidEmailException.class,
+            RoleAlreadyExistException.class,
+            RoleNotFoundException.class,
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse handleDomainException(DomainException exception, final HttpServletRequest request) {

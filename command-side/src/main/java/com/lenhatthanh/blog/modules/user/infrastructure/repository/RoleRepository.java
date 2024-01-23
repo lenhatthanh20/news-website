@@ -20,13 +20,13 @@ public class RoleRepository implements RoleRepositoryInterface {
 
     @Override
     public void save(Role role) {
-        LocalDateTime createAt = LocalDateTime.now();
+        LocalDateTime currentTime = LocalDateTime.now();
         RoleEntity roleEntity = new RoleEntity(
                 role.getId().toString(),
                 role.getName(),
                 role.getDescription(),
-                createAt,
-                createAt
+                currentTime,
+                currentTime
         );
 
         role.publishEvents(domainEventPublisher);
@@ -36,13 +36,13 @@ public class RoleRepository implements RoleRepositoryInterface {
 
     @Override
     public void saveAll(List<Role> roles) {
-        LocalDateTime createAt = LocalDateTime.now();
+        LocalDateTime currentTime = LocalDateTime.now();
         Iterable<RoleEntity> roleEntities = roles.stream().map(role -> new RoleEntity(
                 role.getId().toString(),
                 role.getName(),
                 role.getDescription(),
-                createAt,
-                createAt
+                currentTime,
+                currentTime
         )).toList();
 
         roles.forEach(role -> role.publishEvents(domainEventPublisher));
