@@ -59,7 +59,7 @@ public class RoleRepository implements RoleRepositoryInterface {
             return Optional.empty();
         }
 
-        Role role = Role.create(
+        Role role = new Role(
                 new AggregateId(roleEntity.get().getId()),
                 new RoleName(roleEntity.get().getName()),
                 new RoleDescription(roleEntity.get().getDescription())
@@ -75,7 +75,7 @@ public class RoleRepository implements RoleRepositoryInterface {
             return Optional.empty();
         }
 
-        Role role = Role.create(
+        Role role = new Role(
                 new AggregateId(roleEntity.get().getId()),
                 new RoleName(roleEntity.get().getName()),
                 new RoleDescription(roleEntity.get().getDescription())

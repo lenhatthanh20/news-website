@@ -2,7 +2,9 @@ package com.lenhatthanh.blog.modules.user.infrastructure.repository;
 
 import com.lenhatthanh.blog.core.domain.AggregateId;
 import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
+import com.lenhatthanh.blog.modules.user.domain.Email;
 import com.lenhatthanh.blog.modules.user.domain.User;
+import com.lenhatthanh.blog.modules.user.domain.UserName;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepositoryInterface;
 import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEntity;
 import lombok.AllArgsConstructor;
@@ -42,10 +44,10 @@ public class UserRepository implements UserRepositoryInterface {
             return Optional.empty();
         }
 
-        User user = User.create(
+        User user = new User(
                 new AggregateId(userEntity.get().getId()),
-                userEntity.get().getName(),
-                userEntity.get().getEmail(),
+                new UserName(userEntity.get().getName()),
+                new Email(userEntity.get().getEmail()),
                 userEntity.get().getPassword()
         );
 
@@ -59,10 +61,10 @@ public class UserRepository implements UserRepositoryInterface {
             return Optional.empty();
         }
 
-        User user = User.create(
+        User user = new User(
                 new AggregateId(userEntity.get().getId()),
-                userEntity.get().getName(),
-                userEntity.get().getEmail(),
+                new UserName(userEntity.get().getName()),
+                new Email(userEntity.get().getEmail()),
                 userEntity.get().getPassword()
         );
 

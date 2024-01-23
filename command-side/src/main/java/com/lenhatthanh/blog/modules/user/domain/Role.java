@@ -11,7 +11,7 @@ public class Role extends AggregateRoot<AggregateId> {
     private RoleName name;
     private RoleDescription description;
 
-    private Role(AggregateId id, RoleName name, RoleDescription description) {
+    public Role(AggregateId id, RoleName name, RoleDescription description) {
         super(id);
         this.name = name;
         this.description = description;
