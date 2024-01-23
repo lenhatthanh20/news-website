@@ -31,6 +31,8 @@ public class GlobalExceptionHandler {
             InvalidEmailException.class,
             RoleAlreadyExistException.class,
             RoleNotFoundException.class,
+            InvalidRoleNameException.class,
+            InvalidRoleDescriptionException.class,
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse handleDomainException(DomainException exception, final HttpServletRequest request) {

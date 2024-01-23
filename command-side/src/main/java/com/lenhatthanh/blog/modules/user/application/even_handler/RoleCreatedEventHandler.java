@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.modules.user.application.even_handler;
 
+import com.lenhatthanh.blog.core.domain.DomainEventInterface;
 import com.lenhatthanh.blog.modules.user.domain.Role;
-import com.lenhatthanh.blog.modules.user.domain.event.RoleCreatedEvent;
 import com.lenhatthanh.blog.modules.user.dto.RoleEventDto;
 import lombok.AllArgsConstructor;
 import org.apache.commons.logging.Log;
@@ -23,16 +23,16 @@ public class RoleCreatedEventHandler {
 
     @Async
     @EventListener
-    public void handleRoleCreatedEvent(RoleCreatedEvent event) {
+    public void handleRoleCreatedEvent(DomainEventInterface event) {
         sendMessageToKafkaBroker(event);
     }
 
-    private void sendMessageToKafkaBroker(RoleCreatedEvent event) {
+    private void sendMessageToKafkaBroker(DomainEventInterface event) {
         Role role = (Role) event.getEventData();
         RoleEventDto roleEventDto = new RoleEventDto(
                 role.getId().toString(),
-                role.getName(),
-                role.getDescription()
+                role.getName().getValue(),
+                role.getDescription().getValue()
         );
 
         ProducerRecord<String, RoleEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, MESSAGE_KEY, roleEventDto);

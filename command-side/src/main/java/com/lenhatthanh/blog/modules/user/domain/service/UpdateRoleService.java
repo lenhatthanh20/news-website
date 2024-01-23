@@ -1,6 +1,8 @@
 package com.lenhatthanh.blog.modules.user.domain.service;
 
 import com.lenhatthanh.blog.modules.user.domain.Role;
+import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
+import com.lenhatthanh.blog.modules.user.domain.RoleName;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyExistException;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
@@ -17,11 +19,14 @@ public class UpdateRoleService implements UpdateRoleServiceInterface {
 
     public void update(RoleDto newRoleDto) {
         Role currentRole = this.roleMustExistByIdOrError(newRoleDto.getId());
-        if (!currentRole.getName().equals(newRoleDto.getName())) {
+        if (!currentRole.getName().getValue().equals(newRoleDto.getName())) {
             this.newRoleNameDoesNotExistOrError(newRoleDto.getName());
         }
 
-        currentRole.update(newRoleDto.getName(), newRoleDto.getDescription());
+        currentRole.update(
+                new RoleName(newRoleDto.getName()),
+                new RoleDescription(newRoleDto.getDescription())
+        );
         roleRepository.save(currentRole);
     }
 

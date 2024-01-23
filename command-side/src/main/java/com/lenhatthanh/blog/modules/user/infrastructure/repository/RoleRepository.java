@@ -3,6 +3,8 @@ package com.lenhatthanh.blog.modules.user.infrastructure.repository;
 import com.lenhatthanh.blog.core.domain.AggregateId;
 import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.Role;
+import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
+import com.lenhatthanh.blog.modules.user.domain.RoleName;
 import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
 import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.RoleEntity;
 import lombok.AllArgsConstructor;
@@ -23,8 +25,8 @@ public class RoleRepository implements RoleRepositoryInterface {
         LocalDateTime currentTime = LocalDateTime.now();
         RoleEntity roleEntity = new RoleEntity(
                 role.getId().toString(),
-                role.getName(),
-                role.getDescription(),
+                role.getName().getValue(),
+                role.getDescription().getValue(),
                 currentTime,
                 currentTime
         );
@@ -39,8 +41,8 @@ public class RoleRepository implements RoleRepositoryInterface {
         LocalDateTime currentTime = LocalDateTime.now();
         Iterable<RoleEntity> roleEntities = roles.stream().map(role -> new RoleEntity(
                 role.getId().toString(),
-                role.getName(),
-                role.getDescription(),
+                role.getName().getValue(),
+                role.getDescription().getValue(),
                 currentTime,
                 currentTime
         )).toList();
@@ -59,8 +61,8 @@ public class RoleRepository implements RoleRepositoryInterface {
 
         Role role = Role.create(
                 new AggregateId(roleEntity.get().getId()),
-                roleEntity.get().getName(),
-                roleEntity.get().getDescription()
+                new RoleName(roleEntity.get().getName()),
+                new RoleDescription(roleEntity.get().getDescription())
         );
 
         return Optional.of(role);
@@ -75,8 +77,8 @@ public class RoleRepository implements RoleRepositoryInterface {
 
         Role role = Role.create(
                 new AggregateId(roleEntity.get().getId()),
-                roleEntity.get().getName(),
-                roleEntity.get().getDescription()
+                new RoleName(roleEntity.get().getName()),
+                new RoleDescription(roleEntity.get().getDescription())
         );
 
         return Optional.of(role);

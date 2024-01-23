@@ -3,26 +3,28 @@ package com.lenhatthanh.blog.modules.user.domain;
 import com.lenhatthanh.blog.core.domain.AggregateId;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleCreatedEvent;
+import com.lenhatthanh.blog.modules.user.domain.event.RoleUpdatedEvent;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class Role extends AggregateRoot<AggregateId> {
-    private String name;
-    private String description;
+    private RoleName name;
+    private RoleDescription description;
 
-    private Role(AggregateId id, String name, String description) {
+    private Role(AggregateId id, RoleName name, RoleDescription description) {
         super(id);
         this.name = name;
         this.description = description;
     }
 
-    public void update(String name, String description) {
+    public void update(RoleName name, RoleDescription description) {
         this.name = name;
         this.description = description;
+
+        this.registerEvent(new RoleUpdatedEvent(this));
     }
 
-    public static Role create(AggregateId id, String name, String description) {
+    public static Role create(AggregateId id, RoleName name, RoleDescription description) {
         Role role = new Role(id, name, description);
         role.registerEvent(new RoleCreatedEvent(role));
 
