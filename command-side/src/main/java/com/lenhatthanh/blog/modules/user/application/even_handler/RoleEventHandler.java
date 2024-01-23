@@ -46,6 +46,6 @@ public class RoleEventHandler {
         ProducerRecord<String, RoleEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, messageKey, roleEventDto);
         this.kafkaTemplate.send(record);
 
-        logger.info("Event sent to kafka broker - " + messageKey + " with aggregate ID:" + event.getAggregateId() + " !!");
+        logger.info("Event sent to Kafka broker - " + messageKey + " with aggregate ID:" + event.getAggregateId() + " !!");
     }
 }
