@@ -6,28 +6,30 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Order(1)
 @Component
 @AllArgsConstructor
 public class InitSystemRole implements CommandLineRunner {
-    protected final Log logger = LogFactory.getLog(getClass());
+    private final Log logger = LogFactory.getLog(getClass());
     private CreateSystemRolesUseCase createSystemRolesUseCase;
     private Environment env;
 
     @Override
     public void run(String... args) {
-        logger.info("Create system roles !!");
+        logger.info("CREATE SYSTEMS ROLES !!");
 
         String adminRoleName = env.getProperty("systemRole.admin.name");
         String adminRoleDescription = env.getProperty("systemRole.admin.description");
-        String authorRoleName = env.getProperty("role.author.name");
+        String authorRoleName = env.getProperty("systemRole.author.name");
         String authorRoleDescription = env.getProperty("systemRole.author.description");
-        String subscriberRoleName = env.getProperty("role.subscriber.name");
+        String subscriberRoleName = env.getProperty("systemRole.subscriber.name");
         String subscriberRoleDescription = env.getProperty("systemRole.subscriber.description");
 
         RoleDto AdminRoleDto = new RoleDto(adminRoleName, adminRoleDescription);

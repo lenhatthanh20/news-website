@@ -8,6 +8,7 @@ import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.RoleEn
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,10 +20,13 @@ public class RoleRepository implements RoleRepositoryInterface {
 
     @Override
     public void save(Role role) {
+        LocalDateTime createAt = LocalDateTime.now();
         RoleEntity roleEntity = new RoleEntity(
                 role.getId().toString(),
                 role.getName(),
-                role.getDescription()
+                role.getDescription(),
+                createAt,
+                createAt
         );
 
         role.publishEvents(domainEventsPublisher);
@@ -32,10 +36,13 @@ public class RoleRepository implements RoleRepositoryInterface {
 
     @Override
     public void saveAll(List<Role> roles) {
+        LocalDateTime createAt = LocalDateTime.now();
         Iterable<RoleEntity> roleEntities = roles.stream().map(role -> new RoleEntity(
                 role.getId().toString(),
                 role.getName(),
-                role.getDescription()
+                role.getDescription(),
+                createAt,
+                createAt
         )).toList();
 
         roles.forEach(role -> role.publishEvents(domainEventsPublisher));
