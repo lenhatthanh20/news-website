@@ -3,6 +3,8 @@ package com.lenhatthanh.blog.modules.user.infrastructure.repository.entity;
 import com.lenhatthanh.blog.modules.article.infrastructure.repository.entity.ArticleEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -44,18 +46,17 @@ public class UserEntity implements Serializable {
     private Set<String> roleIds = new HashSet<>();
 
     @Column(nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public UserEntity(String id, String name, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public UserEntity(String id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     public void addRole(String roleId) {

@@ -2,15 +2,15 @@ package com.lenhatthanh.blog.modules.user.infrastructure.repository.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
 @Entity
 @Table(name="roles")
 public class RoleEntity implements Serializable {
@@ -28,8 +28,15 @@ public class RoleEntity implements Serializable {
     private String description;
 
     @Column(nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public RoleEntity(String id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 }

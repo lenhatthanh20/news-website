@@ -21,14 +21,11 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public void save(User user) {
-        LocalDateTime currentTime = LocalDateTime.now();
         UserEntity userEntity = new UserEntity(
                 user.getId().toString(),
                 user.getName().getValue(),
                 user.getEmail().getValue(),
-                user.getPassword(),
-                currentTime,
-                currentTime
+                user.getPassword()
         );
 
         user.getRoleIds().forEach(roleId -> {
