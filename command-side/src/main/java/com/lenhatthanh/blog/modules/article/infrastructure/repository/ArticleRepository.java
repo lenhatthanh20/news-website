@@ -1,48 +1,85 @@
 package com.lenhatthanh.blog.modules.article.infrastructure.repository;
 
-import com.lenhatthanh.blog.modules.article.domain.Article;
+import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.modules.article.domain.*;
 import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepositoryInterface;
 import com.lenhatthanh.blog.modules.article.infrastructure.repository.entity.ArticleEntity;
+import com.lenhatthanh.blog.modules.article.infrastructure.repository.entity.CommentEntity;
 import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEntity;
 import lombok.AllArgsConstructor;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 @AllArgsConstructor
 public class ArticleRepository implements ArticleRepositoryInterface {
-//    public static final String MESSAGE_QUEUE_TOPIC = "article";
     private ArticleJpaRepository articleJpaRepository;
-//    private KafkaTemplate<String, ArticleEntity> kafkaTemplate;
 
     @Override
     public void save(Article article) {
+        // I don't want to fetch all UserEntity from database
         UserEntity user = new UserEntity();
-        user.setId(article.getUserId());
+        user.setId(article.getUserId().toString());
 
-        LocalDateTime createAt = LocalDateTime.now();
-        ArticleEntity articleEntity = ArticleEntity.builder()
-                .id(article.getId().toString())
-                .title(article.getTitle())
-                .content(article.getContent())
-                .user(user)
-                .summary(article.getSummary())
-                .thumbnail(article.getThumbnail())
-                .slug(article.getSlug().getValue())
-                .publishedAt(createAt)
-                .createdAt(createAt)
-                .updatedAt(createAt)
-                .build();
+        ArticleEntity articleEntity = new ArticleEntity(
+                article.getId().toString(),
+                article.getTitle().getValue(),
+                article.getContent().getValue(),
+                user,
+                article.getSummary().getValue(),
+                article.getThumbnail(),
+                article.getSlug().getValue(),
+                article.getPublishedAt()
+        );
+
+        List<CommentEntity> commentEntities = new ArrayList<>();
+        article.getComments().stream().map(
+                comment -> {
+                    UserEntity commentUser = new UserEntity();
+                    commentUser.setId(comment.getUserId().toString());
+                    return new CommentEntity(comment.getId().toString(), commentUser, comment.getContent());
+                }
+        ).forEach(commentEntities::add);
+
+        commentEntities.forEach(commentEntity -> commentEntity.setArticle(articleEntity));
+        articleEntity.setComments(commentEntities);
 
         this.articleJpaRepository.save(articleEntity);
-//        this.syncToQuerySide(articleEntity);
     }
 
-//    private void syncToQuerySide(ArticleEntity article) {
-//        ProducerRecord<String, ArticleEntity> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, Command.CREATED, article);
-//        this.kafkaTemplate.send(record);
-//    }
+    @Override
+    public Optional<Article> findById(String id) {
+        Optional<ArticleEntity> articleEntity = this.articleJpaRepository.findById(id);
+        if (articleEntity.isEmpty()) {
+            return Optional.empty();
+        }
+
+        ArticleEntity article = articleEntity.get();
+        List<CommentEntity> comments = article.getComments();
+        List<Comment> commentList = new ArrayList<>();
+        comments.stream().map(
+                commentEntity -> new Comment(
+                        new AggregateId(commentEntity.getId()),
+                        commentEntity.getContent(),
+                        new AggregateId(commentEntity.getUser().getId())
+                )
+        ).forEach(commentList::add);
+
+        return Optional.of(
+                new Article(
+                        new AggregateId(article.getId()),
+                        new Title(article.getTitle()),
+                        new ArticleContent(article.getContent()),
+                        new AggregateId(article.getUser().getId()),
+                        new Summary(article.getSummary()),
+                        article.getThumbnail(),
+                        new Slug(article.getSlug(), new Title(article.getTitle())),
+                        commentList,
+                        article.getPublishedAt()
+                )
+        );
+    }
 }

@@ -1,7 +1,6 @@
 package com.lenhatthanh.blog.modules.user.domain;
 
 import com.lenhatthanh.blog.modules.user.domain.exception.InvalidRoleNameException;
-import com.lenhatthanh.blog.modules.user.domain.exception.SystemRoleViolationException;
 import lombok.Getter;
 
 @Getter
@@ -22,10 +21,6 @@ public class RoleName {
 
         if (!value.matches("^[a-zA-Z_]+$")) {
             throw new InvalidRoleNameException();
-        }
-
-        if (value.equals(SystemRole.ADMIN) || value.equals(SystemRole.SUBSCRIBER) || value.equals(SystemRole.AUTHOR)) {
-            throw new SystemRoleViolationException();
         }
 
         this.value = value;
