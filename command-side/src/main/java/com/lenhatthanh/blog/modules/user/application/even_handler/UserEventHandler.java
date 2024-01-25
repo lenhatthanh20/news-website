@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.application.even_handler;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.DomainEventInterface;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
@@ -36,7 +36,7 @@ public class UserEventHandler {
                 user.getId().toString(),
                 user.getName().getValue(),
                 user.getEmail().getValue(),
-                user.getRoleIds().stream().map(AggregateId::toString).collect(Collectors.toSet())
+                user.getRoleIds().stream().map(Id::toString).collect(Collectors.toSet())
         );
 
         String messageKey = event.getClass().getSimpleName();

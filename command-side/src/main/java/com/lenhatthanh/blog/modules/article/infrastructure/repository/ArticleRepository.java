@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.article.infrastructure.repository;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.article.domain.*;
 import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepositoryInterface;
 import com.lenhatthanh.blog.modules.article.infrastructure.repository.entity.ArticleEntity;
@@ -62,18 +62,18 @@ public class ArticleRepository implements ArticleRepositoryInterface {
         List<Comment> commentList = new ArrayList<>();
         comments.stream().map(
                 commentEntity -> new Comment(
-                        new AggregateId(commentEntity.getId()),
+                        new Id(commentEntity.getId()),
                         commentEntity.getContent(),
-                        new AggregateId(commentEntity.getUser().getId())
+                        new Id(commentEntity.getUser().getId())
                 )
         ).forEach(commentList::add);
 
         return Optional.of(
                 new Article(
-                        new AggregateId(article.getId()),
+                        new Id(article.getId()),
                         new Title(article.getTitle()),
                         new ArticleContent(article.getContent()),
-                        new AggregateId(article.getUser().getId()),
+                        new Id(article.getUser().getId()),
                         new Summary(article.getSummary()),
                         article.getThumbnail(),
                         new Slug(article.getSlug(), new Title(article.getTitle())),

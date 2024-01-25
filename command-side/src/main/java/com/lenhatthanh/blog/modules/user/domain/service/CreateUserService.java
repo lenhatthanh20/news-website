@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.domain.service;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.user.domain.*;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyExistsException;
@@ -49,7 +49,7 @@ public class CreateUserService implements CreateUserServiceInterface {
         }
 
         return User.create(
-                new AggregateId(UniqueIdGenerator.create()),
+                new Id(UniqueIdGenerator.create()),
                 new UserName(userDto.getName()),
                 new Email(userDto.getEmail()),
                 passwordEncoder.encode(userDto.getPassword())

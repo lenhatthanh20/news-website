@@ -1,21 +1,21 @@
 package com.lenhatthanh.blog.modules.article.domain;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.Entity;
 import lombok.Getter;
 
 @Getter
-public class Comment extends Entity<AggregateId> {
+public class Comment extends Entity<Id> {
     private String content;
-    private AggregateId userId;
+    private Id userId;
 
-    public Comment(AggregateId id, String content, AggregateId userId) {
+    public Comment(Id id, String content, Id userId) {
         super(id);
         this.content = content;
         this.userId = userId;
     }
 
-    public Comment create(AggregateId id, String content, AggregateId userId) {
+    public Comment create(Id id, String content, Id userId) {
         return new Comment(id, content, userId);
     }
 }

@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.repository;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
@@ -53,7 +53,7 @@ public class RoleRepository implements RoleRepositoryInterface {
         }
 
         Role role = new Role(
-                new AggregateId(roleEntity.get().getId()),
+                new Id(roleEntity.get().getId()),
                 new RoleName(roleEntity.get().getName()),
                 new RoleDescription(roleEntity.get().getDescription())
         );
@@ -69,7 +69,7 @@ public class RoleRepository implements RoleRepositoryInterface {
         }
 
         Role role = new Role(
-                new AggregateId(roleEntity.get().getId()),
+                new Id(roleEntity.get().getId()),
                 new RoleName(roleEntity.get().getName()),
                 new RoleDescription(roleEntity.get().getDescription())
         );

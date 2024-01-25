@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.domain.event;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.DomainEventInterface;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import org.springframework.context.ApplicationEvent;
@@ -18,7 +18,7 @@ public class RoleUpdatedEvent extends ApplicationEvent implements DomainEventInt
     }
 
     @Override
-    public AggregateId getAggregateId() {
+    public Id getAggregateId() {
         Role source = (Role) this.getSource();
         return source.getId();
     }

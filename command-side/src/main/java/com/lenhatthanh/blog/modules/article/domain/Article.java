@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.article.domain;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.Getter;
@@ -12,19 +12,19 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Article extends AggregateRoot<AggregateId> {
+public class Article extends AggregateRoot<Id> {
 //    private static final int MAX_COMMENT = 100;
 
     private Title title;
     private ArticleContent content;
-    private AggregateId userId;
+    private Id userId;
     private Summary summary;
     private String thumbnail;
     private Slug slug;
     private List<Comment> comments = new ArrayList<>();
     private LocalDateTime publishedAt;
 
-    public Article(AggregateId id, Title title, ArticleContent content, AggregateId userId, Summary summary, String thumbnail, Slug slug) {
+    public Article(Id id, Title title, ArticleContent content, Id userId, Summary summary, String thumbnail, Slug slug) {
         super(id);
         this.setTitle(title);
         this.setContent(content);
@@ -35,7 +35,7 @@ public class Article extends AggregateRoot<AggregateId> {
         this.publishedAt = LocalDateTime.now();
     }
 
-    public Article(AggregateId id, Title title, ArticleContent content, AggregateId userId, Summary summary, String thumbnail, Slug slug, List<Comment> comments, LocalDateTime publishedAt) {
+    public Article(Id id, Title title, ArticleContent content, Id userId, Summary summary, String thumbnail, Slug slug, List<Comment> comments, LocalDateTime publishedAt) {
         super(id);
         this.setTitle(title);
         this.setContent(content);
@@ -59,7 +59,7 @@ public class Article extends AggregateRoot<AggregateId> {
         this.slug = slug;
     }
 
-    public static Article create(AggregateId id, Title title, ArticleContent content, AggregateId userId, Summary summary, String thumbnail, Slug slug) {
+    public static Article create(Id id, Title title, ArticleContent content, Id userId, Summary summary, String thumbnail, Slug slug) {
         return new Article(id, title, content, userId, summary, thumbnail, slug);
 
         // @TODO register domain event ArticleCreatedEvent
@@ -71,7 +71,7 @@ public class Article extends AggregateRoot<AggregateId> {
 //            throw new CommentsLimitExceededException();
 //        }
 
-        Comment comment = new Comment(new AggregateId(UniqueIdGenerator.create()),content, new AggregateId(userId));
+        Comment comment = new Comment(new Id(UniqueIdGenerator.create()),content, new Id(userId));
         this.comments.add(comment);
 
         // @TODO register domain event CommentAddedEvent

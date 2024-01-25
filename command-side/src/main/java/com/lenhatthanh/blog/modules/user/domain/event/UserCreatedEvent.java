@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.domain.event;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.DomainEventInterface;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import lombok.Getter;
@@ -20,7 +20,7 @@ public class UserCreatedEvent extends ApplicationEvent implements DomainEventInt
     }
 
     @Override
-    public AggregateId getAggregateId() {
+    public Id getAggregateId() {
         User source = (User) this.getSource();
         return source.getId();
     }

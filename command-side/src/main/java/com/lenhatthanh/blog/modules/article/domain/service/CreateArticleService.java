@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.article.domain.service;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.article.application.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.article.domain.*;
 import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepositoryInterface;
@@ -35,7 +35,7 @@ public class CreateArticleService implements CreateArticleServiceInterface {
     }
 
     private Article createArticleAggregate(User user, ArticleDto articleDto) {
-        AggregateId articleId = new AggregateId(UniqueIdGenerator.create());
+        Id articleId = new Id(UniqueIdGenerator.create());
         Title title = new Title(articleDto.getTitle());
         Summary summary = new Summary(articleDto.getSummary());
         ArticleContent content = new ArticleContent(articleDto.getContent());

@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.domain.service;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
 import com.lenhatthanh.blog.modules.user.domain.RoleName;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyExistException;
@@ -26,7 +26,7 @@ public class CreateRoleService implements CreateRoleServiceInterface{
         // Checking the role must not system roles
 
         Role role = Role.create(
-                new AggregateId(UniqueIdGenerator.create()),
+                new Id(UniqueIdGenerator.create()),
                 new RoleName(roleDto.getName()),
                 new RoleDescription(roleDto.getDescription())
         );
@@ -38,7 +38,7 @@ public class CreateRoleService implements CreateRoleServiceInterface{
         List<Role> roles = roleDtoList.stream().map(roleDto -> {
             this.roleDoesNotExistOrError(roleDto.getName());
             return Role.create(
-                    new AggregateId(UniqueIdGenerator.create()),
+                    new Id(UniqueIdGenerator.create()),
                     new RoleName(roleDto.getName()),
                     new RoleDescription(roleDto.getDescription())
             );

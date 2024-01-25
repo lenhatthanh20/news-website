@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.domain;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Getter
-public class User extends AggregateRoot<AggregateId> {
+public class User extends AggregateRoot<Id> {
     public int MAX_NAME_LENGTH = 50;
     public int MIN_NAME_LENGTH = 3;
 
@@ -18,9 +18,9 @@ public class User extends AggregateRoot<AggregateId> {
     private final String password;
 
     // Relationship with Role aggregate via id
-    private final Set<AggregateId> roleIds = new HashSet<>();
+    private final Set<Id> roleIds = new HashSet<>();
 
-    public User(AggregateId id, UserName name, Email email, String password) {
+    public User(Id id, UserName name, Email email, String password) {
         super(id);
         this.setName(name);
         this.setEmail(email);
@@ -35,7 +35,7 @@ public class User extends AggregateRoot<AggregateId> {
         this.email = email;
     }
 
-    public void addRole(AggregateId roleId) {
+    public void addRole(Id roleId) {
         if (roleIds.contains(roleId)) {
             return;
         }
@@ -43,7 +43,7 @@ public class User extends AggregateRoot<AggregateId> {
         roleIds.add(roleId);
     }
 
-    public void removeRole(AggregateId roleId) {
+    public void removeRole(Id roleId) {
         if (!roleIds.contains(roleId)) {
             return;
         }
@@ -51,7 +51,7 @@ public class User extends AggregateRoot<AggregateId> {
         roleIds.remove(roleId);
     }
 
-    public static User create(AggregateId id, UserName name, Email email, String password) {
+    public static User create(Id id, UserName name, Email email, String password) {
         User user = new User(id, name, email, password);
 
         // Add domain event

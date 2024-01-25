@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.repository;
 
-import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.Email;
 import com.lenhatthanh.blog.modules.user.domain.User;
@@ -45,7 +45,7 @@ public class UserRepository implements UserRepositoryInterface {
         }
 
         User user = new User(
-                new AggregateId(userEntity.get().getId()),
+                new Id(userEntity.get().getId()),
                 new UserName(userEntity.get().getName()),
                 new Email(userEntity.get().getEmail()),
                 userEntity.get().getPassword()
@@ -62,7 +62,7 @@ public class UserRepository implements UserRepositoryInterface {
         }
 
         User user = new User(
-                new AggregateId(userEntity.get().getId()),
+                new Id(userEntity.get().getId()),
                 new UserName(userEntity.get().getName()),
                 new Email(userEntity.get().getEmail()),
                 userEntity.get().getPassword()
