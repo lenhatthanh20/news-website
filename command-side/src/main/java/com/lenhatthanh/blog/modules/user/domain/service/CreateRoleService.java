@@ -21,6 +21,10 @@ public class CreateRoleService implements CreateRoleServiceInterface{
 
     public void create(RoleDto roleDto) {
         this.roleDoesNotExistOrError(roleDto.getName());
+
+        // TODO: Add business logic:
+        // Checking the role must not system roles
+
         Role role = Role.create(
                 new AggregateId(UniqueIdGenerator.create()),
                 new RoleName(roleDto.getName()),
