@@ -13,6 +13,8 @@ import java.util.List;
 @Getter
 @Setter
 public class Article extends AggregateRoot<AggregateId> {
+//    private static final int MAX_COMMENT = 100;
+
     private Title title;
     private ArticleContent content;
     private AggregateId userId;
@@ -64,7 +66,14 @@ public class Article extends AggregateRoot<AggregateId> {
     }
 
     public void addComment(String content, String userId) {
+        // True invariants here
+//        if (this.comments.size() >= MAX_COMMENT) {
+//            throw new CommentsLimitExceededException();
+//        }
+
         Comment comment = new Comment(new AggregateId(UniqueIdGenerator.create()),content, new AggregateId(userId));
         this.comments.add(comment);
+
+        // @TODO register domain event CommentAddedEvent
     }
 }
