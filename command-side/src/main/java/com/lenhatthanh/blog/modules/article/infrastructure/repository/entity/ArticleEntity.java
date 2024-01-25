@@ -9,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
@@ -40,6 +41,9 @@ public class ArticleEntity implements Serializable {
     @Column(nullable = false, unique = true, length = 100)
     private String slug;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
+    private List<CommentEntity> comments;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime publishedAt;
 
@@ -50,7 +54,15 @@ public class ArticleEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public ArticleEntity(String id, String title, String content, UserEntity user, String summary, String thumbnail, String slug, LocalDateTime publishedAt) {
+    public ArticleEntity(
+            String id,
+            String title,
+            String content,
+            UserEntity user,
+            String summary,
+            String thumbnail,
+            String slug,
+            LocalDateTime publishedAt) {
         this.id = id;
         this.title = title;
         this.content = content;

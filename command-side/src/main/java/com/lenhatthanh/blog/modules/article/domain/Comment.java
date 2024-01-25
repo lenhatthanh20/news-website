@@ -7,17 +7,15 @@ import lombok.Getter;
 @Getter
 public class Comment extends Entity<AggregateId> {
     private String content;
-    private AggregateId authorId;
-    private AggregateId articleId;
+    private AggregateId userId;
 
-    public Comment(AggregateId id, String content, AggregateId authorId, AggregateId articleId) {
+    public Comment(AggregateId id, String content, AggregateId userId) {
         super(id);
         this.content = content;
-        this.authorId = authorId;
-        this.articleId = articleId;
+        this.userId = userId;
     }
 
-    public Comment create(AggregateId id, String content, AggregateId authorId, AggregateId articleId) {
-        return new Comment(id, content, authorId, articleId);
+    public Comment create(AggregateId id, String content, AggregateId userId) {
+        return new Comment(id, content, userId);
     }
 }
