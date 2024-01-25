@@ -1,9 +1,9 @@
 package com.lenhatthanh.blog.modules.article.application.usecase;
 
 import com.lenhatthanh.blog.core.domain.AggregateId;
+import com.lenhatthanh.blog.modules.article.domain.*;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import com.lenhatthanh.blog.modules.article.application.exception.UserNotFoundException;
-import com.lenhatthanh.blog.modules.article.domain.Article;
 
 import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepositoryInterface;
 import com.lenhatthanh.blog.modules.article.dto.ArticleDto;
@@ -30,16 +30,17 @@ public class CreateArticleUseCase {
             throw new UserNotFoundException();
         }
 
-        Article article = Article.create(
-                new AggregateId(UniqueIdGenerator.create()),
-                articleRequest.getTitle(),
-                articleRequest.getContent(),
-                user.get().getId().toString(),
-                articleRequest.getSummary(),
-                articleRequest.getThumbnail(),
-                articleRequest.getSlug()
-        );
-
+        Article article = createArticleAggregate(user.get(), articleRequest);
         articleRepository.save(article);
+    }
+
+    private Article createArticleAggregate(User user, ArticleDto articleDto) {
+        AggregateId articleId = new AggregateId(UniqueIdGenerator.create());
+        Title title = new Title(articleDto.getTitle());
+        Summary summary = new Summary(articleDto.getSummary());
+        ArticleContent content = new ArticleContent(articleDto.getContent());
+        Slug slug = new Slug(articleDto.getSlug(), title);
+
+        return Article.create(articleId, title, content, user.getId(), summary, articleDto.getThumbnail(), slug);
     }
 }

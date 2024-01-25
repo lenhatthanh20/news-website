@@ -17,9 +17,9 @@ public class Slug {
 
     private final String value;
 
-    public Slug(String slug, String title) {
+    public Slug(String slug, Title title) {
         if (slug == null || slug.isEmpty()) {
-            slug = this.generateSlug(title);
+            slug = this.generateSlugFromTitle(title);
         }
 
         if (slug.length() < MIN_SLUG_LENGTH || slug.length() > MAX_SLUG_LENGTH) {
@@ -33,8 +33,8 @@ public class Slug {
         this.value = slug;
     }
 
-    private String generateSlug(String title) {
-        return title.toLowerCase().replaceAll(SLUG_REGEX, EMPTY).replaceAll(SLUG_SEPARATOR_REGEX, SLUG_SEPARATOR);
+    private String generateSlugFromTitle(Title title) {
+        return title.getValue().toLowerCase().replaceAll(SLUG_REGEX, EMPTY).replaceAll(SLUG_SEPARATOR_REGEX, SLUG_SEPARATOR);
     }
 
     private boolean isSlugValid(String slug) {

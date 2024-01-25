@@ -14,35 +14,25 @@ import java.time.LocalDateTime;
 @Component
 @AllArgsConstructor
 public class ArticleRepository implements ArticleRepositoryInterface {
-//    public static final String MESSAGE_QUEUE_TOPIC = "article";
     private ArticleJpaRepository articleJpaRepository;
-//    private KafkaTemplate<String, ArticleEntity> kafkaTemplate;
 
     @Override
     public void save(Article article) {
+        // I don't want to fetch all UserEntity from database
         UserEntity user = new UserEntity();
-        user.setId(article.getUserId());
+        user.setId(article.getUserId().toString());
 
-        LocalDateTime createAt = LocalDateTime.now();
-        ArticleEntity articleEntity = ArticleEntity.builder()
-                .id(article.getId().toString())
-                .title(article.getTitle())
-                .content(article.getContent())
-                .user(user)
-                .summary(article.getSummary())
-                .thumbnail(article.getThumbnail())
-                .slug(article.getSlug().getValue())
-                .publishedAt(createAt)
-                .createdAt(createAt)
-                .updatedAt(createAt)
-                .build();
+        ArticleEntity articleEntity = new ArticleEntity(
+                article.getId().toString(),
+                article.getTitle().getValue(),
+                article.getContent().getValue(),
+                user,
+                article.getSummary().getValue(),
+                article.getThumbnail(),
+                article.getSlug().getValue(),
+                article.getPublishedAt()
+        );
 
         this.articleJpaRepository.save(articleEntity);
-//        this.syncToQuerySide(articleEntity);
     }
-
-//    private void syncToQuerySide(ArticleEntity article) {
-//        ProducerRecord<String, ArticleEntity> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, Command.CREATED, article);
-//        this.kafkaTemplate.send(record);
-//    }
 }
