@@ -5,11 +5,7 @@ import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepositoryI
 import com.lenhatthanh.blog.modules.article.infrastructure.repository.entity.ArticleEntity;
 import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEntity;
 import lombok.AllArgsConstructor;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDateTime;
 
 @Component
 @AllArgsConstructor
