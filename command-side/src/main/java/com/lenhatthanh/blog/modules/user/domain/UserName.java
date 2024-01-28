@@ -5,6 +5,9 @@ import lombok.Getter;
 
 @Getter
 public class UserName {
+    private static final int MIN_LENGTH = 3;
+    private static final int MAX_LENGTH = 50;
+
     private String value;
 
     public UserName(String value) {
@@ -12,7 +15,7 @@ public class UserName {
     }
 
     private void setValue(String value) {
-        if (value.length() < 3 || value.length() > 50) {
+        if (value.length() < MIN_LENGTH || value.length() > MAX_LENGTH) {
             throw new InvalidUserNameException();
         }
 
