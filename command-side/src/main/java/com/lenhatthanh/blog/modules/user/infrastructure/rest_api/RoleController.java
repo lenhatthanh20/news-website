@@ -1,6 +1,7 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.rest_api;
 
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateRoleUseCase;
+import com.lenhatthanh.blog.modules.user.application.usecase.DeleteRoleUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.UpdateRoleUseCase;
 import com.lenhatthanh.blog.modules.user.dto.RoleDto;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class RoleController {
     private CreateRoleUseCase createRoleUseCase;
     private UpdateRoleUseCase updateRoleUseCase;
+    private DeleteRoleUseCase deleteRoleUseCase;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -24,5 +26,12 @@ public class RoleController {
     @ResponseStatus(HttpStatus.OK)
     public void updateRole(@RequestBody RoleDto role) {
         updateRoleUseCase.execute(role);
+    }
+
+    @DeleteMapping
+    @RequestMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteRole(@PathVariable String id) {
+        deleteRoleUseCase.execute(id);
     }
 }

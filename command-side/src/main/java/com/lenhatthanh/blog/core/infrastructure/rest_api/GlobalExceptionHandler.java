@@ -20,26 +20,15 @@ import java.util.Date;
 public class GlobalExceptionHandler {
     private Messages messages;
 
-    @ExceptionHandler({
-            InvalidArticleTitleException.class,
-            InvalidArticleContentException.class,
-            InvalidSlugException.class,
-            InvalidUserNameException.class,
-            EmailNotEmptyException.class,
-            InvalidEmailException.class,
-            RoleAlreadyExistException.class,
-            RoleNotFoundException.class,
-            InvalidRoleNameException.class,
-            InvalidRoleDescriptionException.class,
-            UserAlreadyExistsException.class,
-            SystemRoleViolationException.class,
-    })
+    // All domain exceptions will be handled here
+    @ExceptionHandler({DomainException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse handleDomainException(DomainException exception, final HttpServletRequest request) {
         return createExceptionResponse(exception.getCode(), messages.getMessage(exception.getCode()), request.getRequestURI(), new Date());
     }
 
-    @ExceptionHandler({UserNotFoundException.class})
+    // All application exceptions will be handled here
+    @ExceptionHandler({ApplicationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ExceptionResponse handleApplicationException(ApplicationException exception, final HttpServletRequest request) {
         return createExceptionResponse(exception.getCode(), messages.getMessage(exception.getCode()), request.getRequestURI(), new Date());
