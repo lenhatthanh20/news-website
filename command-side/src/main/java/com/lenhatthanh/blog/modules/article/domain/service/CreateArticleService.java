@@ -3,7 +3,7 @@ package com.lenhatthanh.blog.modules.article.domain.service;
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.article.application.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.article.domain.*;
-import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepositoryInterface;
+import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepository;
 import com.lenhatthanh.blog.modules.article.dto.ArticleDto;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepositoryInterface;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @Component
 @AllArgsConstructor
 public class CreateArticleService implements CreateArticleServiceInterface {
-    private ArticleRepositoryInterface articleRepository;
+    private ArticleRepository articleRepository;
     private UserRepositoryInterface userRepository;
 
     @Override
