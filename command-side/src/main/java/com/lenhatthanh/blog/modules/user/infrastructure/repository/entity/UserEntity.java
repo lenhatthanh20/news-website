@@ -10,9 +10,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @NoArgsConstructor
 @Data
@@ -38,10 +36,12 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ArticleEntity> articles = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role_id")
-    private Set<String> roleIds = new HashSet<>();
+    @JoinColumn(name = "role_id", insertable = false, updatable = false)
+    @ManyToOne(targetEntity = RoleEntity.class, fetch = FetchType.LAZY)
+    private RoleEntity role;
+
+    @Column(name = "role_id", nullable = false)
+    private String roleId;
 
     @Version
     @Column(nullable = false)
@@ -60,9 +60,5 @@ public class UserEntity implements Serializable {
         this.email = email;
         this.password = password;
         this.version = version;
-    }
-
-    public void addRole(String roleId) {
-        this.roleIds.add(roleId);
     }
 }
