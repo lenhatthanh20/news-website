@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.article.infrastructure.repository;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.article.domain.*;
-import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepositoryInterface;
+import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepository;
 import com.lenhatthanh.blog.modules.article.infrastructure.repository.entity.ArticleEntity;
 import com.lenhatthanh.blog.modules.article.infrastructure.repository.entity.CommentEntity;
 import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEntity;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Component
 @AllArgsConstructor
-public class ArticleRepository implements ArticleRepositoryInterface {
+public class ArticleRepositoryImpl implements ArticleRepository {
     private ArticleJpaRepository articleJpaRepository;
 
     @Override

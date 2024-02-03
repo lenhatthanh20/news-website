@@ -4,7 +4,7 @@ import com.lenhatthanh.blog.modules.article.domain.Article;
 
 import java.util.Optional;
 
-public interface ArticleRepositoryInterface {
+public interface ArticleRepository {
     void save(Article article);
 
     Optional<Article> findById(String id);

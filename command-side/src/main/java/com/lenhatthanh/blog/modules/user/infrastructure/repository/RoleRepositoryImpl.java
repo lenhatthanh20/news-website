@@ -1,11 +1,11 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.repository;
 
-import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
 import com.lenhatthanh.blog.modules.user.domain.RoleName;
-import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
+import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.RoleEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Component
 @AllArgsConstructor
-public class RoleRepository implements RoleRepositoryInterface {
+public class RoleRepositoryImpl implements RoleRepository {
     private RoleJpaRepository roleJpaRepository;
     private DomainEventPublisher domainEventPublisher;
 

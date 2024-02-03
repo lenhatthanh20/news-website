@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.modules.user.application.even_handler;
 
 import com.lenhatthanh.blog.core.domain.Id;
-import com.lenhatthanh.blog.core.domain.DomainEventInterface;
+import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
 import com.lenhatthanh.blog.modules.user.dto.UserEventDto;
@@ -30,7 +30,7 @@ public class UserEventHandler {
         sendMessageToKafkaBroker(event);
     }
 
-    private void sendMessageToKafkaBroker(DomainEventInterface event) {
+    private void sendMessageToKafkaBroker(DomainEvent event) {
         User user = (User) event.getEventData();
         UserEventDto userEventDto = new UserEventDto(
                 user.getId().toString(),

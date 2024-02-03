@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.user.application.service;
 
 import com.lenhatthanh.blog.modules.user.application.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepositoryInterface;
+import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 @Service
 public class UserService {
-    private final UserRepositoryInterface userRepository;
+    private final UserRepository userRepository;
 
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {

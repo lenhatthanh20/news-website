@@ -1,14 +1,14 @@
 package com.lenhatthanh.blog.modules.user.domain.event;
 
 import com.lenhatthanh.blog.core.domain.Id;
-import com.lenhatthanh.blog.core.domain.DomainEventInterface;
+import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import org.springframework.context.ApplicationEvent;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
 
-public class RoleUpdatedEvent extends ApplicationEvent implements DomainEventInterface {
+public class RoleUpdatedEvent extends ApplicationEvent implements DomainEvent {
     public RoleUpdatedEvent(Object source) {
         super(source);
     }
