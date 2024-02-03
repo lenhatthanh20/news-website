@@ -8,11 +8,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class RoleEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6009937215357249663L;
@@ -30,6 +32,12 @@ public class RoleEntity implements Serializable {
     @Version
     @Column(nullable = false)
     private Long version;
+
+    /**
+     * One to many with `users` table
+     */
+    @OneToMany(mappedBy = "role")
+    private Set<UserEntity> users = new HashSet<>();
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

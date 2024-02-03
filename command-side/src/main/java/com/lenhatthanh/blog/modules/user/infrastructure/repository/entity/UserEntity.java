@@ -36,11 +36,14 @@ public class UserEntity implements Serializable {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ArticleEntity> articles = new ArrayList<>();
 
+    /**
+     * Many to one with `roles` table
+     */
     @JoinColumn(name = "role_id", insertable = false, updatable = false)
-    @ManyToOne(targetEntity = RoleEntity.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = RoleEntity.class)
     private RoleEntity role;
 
-    @Column(name = "role_id", nullable = false)
+    @Column(name = "role_id")
     private String roleId;
 
     @Version
