@@ -6,7 +6,7 @@ import com.lenhatthanh.blog.modules.article.domain.*;
 import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepository;
 import com.lenhatthanh.blog.modules.article.dto.ArticleDto;
 import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepositoryInterface;
+import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CreateArticleServiceImpl implements CreateArticleService {
     private ArticleRepository articleRepository;
-    private UserRepositoryInterface userRepository;
+    private UserRepository userRepository;
 
     @Override
     public void create(ArticleDto articleDto) {

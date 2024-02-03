@@ -4,8 +4,8 @@ import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.user.domain.*;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyExistsException;
-import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepositoryInterface;
+import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
+import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.dto.UserDto;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.AllArgsConstructor;
@@ -17,8 +17,8 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class CreateUserService implements CreateUserServiceInterface {
-    private UserRepositoryInterface userRepository;
-    private RoleRepositoryInterface roleRepository;
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
 
     public void createSubscriber(UserDto userDto) {

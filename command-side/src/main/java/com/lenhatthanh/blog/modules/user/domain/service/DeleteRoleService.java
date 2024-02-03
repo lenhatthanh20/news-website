@@ -4,14 +4,14 @@ import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.SystemRole;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.SystemRoleCannotBeModifiedException;
-import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
+import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 public class DeleteRoleService implements DeleteRoleServiceInterface {
-    private final RoleRepositoryInterface roleRepository;
+    private final RoleRepository roleRepository;
 
     @Override
     public void delete(String roleId) {

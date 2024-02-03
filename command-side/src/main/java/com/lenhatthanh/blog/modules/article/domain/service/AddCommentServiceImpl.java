@@ -6,7 +6,7 @@ import com.lenhatthanh.blog.modules.article.domain.exception.ArticleNotFoundExce
 import com.lenhatthanh.blog.modules.article.domain.repository.ArticleRepository;
 import com.lenhatthanh.blog.modules.article.dto.CommentDto;
 import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepositoryInterface;
+import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +16,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class AddCommentServiceImpl implements AddCommentService {
     private ArticleRepository articleRepository;
-    private UserRepositoryInterface userRepository;
+    private UserRepository userRepository;
 
     @Override
     public void add(String articleId, CommentDto commentDto) {

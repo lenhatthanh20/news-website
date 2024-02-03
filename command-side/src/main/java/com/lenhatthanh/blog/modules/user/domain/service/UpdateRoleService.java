@@ -7,7 +7,7 @@ import com.lenhatthanh.blog.modules.user.domain.SystemRole;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyExistException;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.SystemRoleCannotBeModifiedException;
-import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
+import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.dto.RoleDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class UpdateRoleService implements UpdateRoleServiceInterface {
-    RoleRepositoryInterface roleRepository;
+    RoleRepository roleRepository;
 
     public void update(RoleDto newRoleDto) {
         Role currentRole = this.roleMustExistByIdOrError(newRoleDto.getId());

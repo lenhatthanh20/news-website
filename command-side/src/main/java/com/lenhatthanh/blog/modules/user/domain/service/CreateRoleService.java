@@ -5,7 +5,7 @@ import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
 import com.lenhatthanh.blog.modules.user.domain.RoleName;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyExistException;
 import com.lenhatthanh.blog.modules.user.domain.Role;
-import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepositoryInterface;
+import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.dto.RoleDto;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class CreateRoleService implements CreateRoleServiceInterface{
-    RoleRepositoryInterface roleRepository;
+    RoleRepository roleRepository;
 
     public void create(RoleDto roleDto) {
         this.roleDoesNotExistOrError(roleDto.getName());

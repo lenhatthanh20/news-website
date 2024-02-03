@@ -5,7 +5,7 @@ import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.Email;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.UserName;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepositoryInterface;
+import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Component
 @AllArgsConstructor
-public class UserRepository implements UserRepositoryInterface {
+public class UserRepositoryImpl implements UserRepository {
     private UserJpaRepository userJpaRepository;
     private DomainEventPublisher domainEventPublisher;
 
