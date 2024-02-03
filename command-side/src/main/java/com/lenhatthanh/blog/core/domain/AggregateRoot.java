@@ -17,7 +17,7 @@ public class AggregateRoot<Type> extends Entity<Type> {
      * The version of the aggregate
      * It is used to checking the concurrency (optimistic locking)
      */
-    private Long aggregateVersion;
+    private final Long aggregateVersion;
 
     public AggregateRoot(Type id, Long aggregateVersion) {
         super(id);
@@ -49,13 +49,8 @@ public class AggregateRoot<Type> extends Entity<Type> {
         logger.error("The domain events have been cleared");
     }
 
-    public void updateAggregateVersion(Long aggregateVersion) {
-        if (aggregateVersion <= this.aggregateVersion) {
-            logger.error("The new version of the aggregate is less than or equal to the current version");
-            // Don't need to show this error to the user
-            throw new RuntimeException();
-        }
-
-        this.aggregateVersion = aggregateVersion;
-    }
+    // For testing
+//    public void updateAggregateVersion(Long aggregateVersion) {
+//        this.aggregateVersion = aggregateVersion;
+//    }
 }

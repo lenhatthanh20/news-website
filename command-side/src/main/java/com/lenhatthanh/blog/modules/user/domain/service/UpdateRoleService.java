@@ -28,7 +28,8 @@ public class UpdateRoleService implements UpdateRoleServiceInterface {
 
         currentRole.updateRoleName(new RoleName(newRoleDto.getName()));
         currentRole.updateDescription(new RoleDescription(newRoleDto.getDescription()));
-        currentRole.updateAggregateVersion(currentRole.getAggregateVersion() + 1);
+        // For testing
+//        currentRole.updateAggregateVersion(currentRole.getAggregateVersion() - 1);
         roleRepository.save(currentRole);
     }
 
