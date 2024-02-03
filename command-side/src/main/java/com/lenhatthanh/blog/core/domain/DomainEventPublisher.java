@@ -9,7 +9,7 @@ public class DomainEventPublisher implements DomainEventPublisherInterface {
     @Autowired
     ApplicationEventPublisher applicationEventPublisher;
 
-    public void publishEvent(DomainEventInterface event) {
+    public void publishEvent(DomainEvent event) {
         applicationEventPublisher.publishEvent(event);
     }
 }

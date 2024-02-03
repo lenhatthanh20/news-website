@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.application.even_handler;
 
-import com.lenhatthanh.blog.core.domain.DomainEventInterface;
+import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleCreatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleUpdatedEvent;
@@ -24,17 +24,17 @@ public class RoleEventHandler {
 
     @Async
     @EventListener(RoleCreatedEvent.class)
-    public void handleRoleCreatedEvent(DomainEventInterface event) {
+    public void handleRoleCreatedEvent(DomainEvent event) {
         sendMessageToKafkaBroker(event);
     }
 
     @Async
     @EventListener(RoleUpdatedEvent.class)
-    public void handleRoleUpdatedEvent(DomainEventInterface event) {
+    public void handleRoleUpdatedEvent(DomainEvent event) {
         sendMessageToKafkaBroker(event);
     }
 
-    private void sendMessageToKafkaBroker(DomainEventInterface event) {
+    private void sendMessageToKafkaBroker(DomainEvent event) {
         Role role = (Role) event.getEventData();
         RoleEventDto roleEventDto = new RoleEventDto(
                 role.getId().toString(),
