@@ -43,6 +43,9 @@ public class UserEntity implements Serializable {
     @Column(name = "role_id")
     private Set<String> roleIds = new HashSet<>();
 
+    @Column(nullable = false)
+    private Long version;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -50,11 +53,12 @@ public class UserEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public UserEntity(String id, String name, String email, String password) {
+    public UserEntity(String id, String name, String email, String password, Long version) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.version = version;
     }
 
     public void addRole(String roleId) {

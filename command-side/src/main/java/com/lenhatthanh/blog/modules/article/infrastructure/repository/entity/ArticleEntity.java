@@ -47,6 +47,9 @@ public class ArticleEntity implements Serializable {
     @Column(nullable = false, updatable = false)
     private LocalDateTime publishedAt;
 
+    @Column(nullable = false)
+    private Long version;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -62,7 +65,9 @@ public class ArticleEntity implements Serializable {
             String summary,
             String thumbnail,
             String slug,
-            LocalDateTime publishedAt) {
+            LocalDateTime publishedAt,
+            Long version
+    ) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -71,5 +76,6 @@ public class ArticleEntity implements Serializable {
         this.thumbnail = thumbnail;
         this.slug = slug;
         this.publishedAt = publishedAt;
+        this.version = version;
     }
 }

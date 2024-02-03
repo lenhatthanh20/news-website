@@ -20,8 +20,8 @@ public class User extends AggregateRoot<Id> {
     // Relationship with Role aggregate via id
     private final Set<Id> roleIds = new HashSet<>();
 
-    public User(Id id, UserName name, Email email, String password) {
-        super(id);
+    public User(Id id, UserName name, Email email, String password, Long aggregateVersion) {
+        super(id, aggregateVersion);
         this.setName(name);
         this.setEmail(email);
         this.password = password;
@@ -52,7 +52,8 @@ public class User extends AggregateRoot<Id> {
     }
 
     public static User create(Id id, UserName name, Email email, String password) {
-        User user = new User(id, name, email, password);
+        Long firstVersion = 1L;
+        User user = new User(id, name, email, password, firstVersion);
 
         // Add domain event
         user.registerEvent(new UserCreatedEvent(user));

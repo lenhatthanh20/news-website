@@ -24,8 +24,8 @@ public class Article extends AggregateRoot<Id> {
     private List<Comment> comments = new ArrayList<>();
     private LocalDateTime publishedAt;
 
-    public Article(Id id, Title title, ArticleContent content, Id userId, Summary summary, String thumbnail, Slug slug) {
-        super(id);
+    public Article(Id id, Title title, ArticleContent content, Id userId, Summary summary, String thumbnail, Slug slug, Long aggregateVersion) {
+        super(id, aggregateVersion);
         this.setTitle(title);
         this.setContent(content);
         this.setSlug(slug);
@@ -35,8 +35,8 @@ public class Article extends AggregateRoot<Id> {
         this.publishedAt = LocalDateTime.now();
     }
 
-    public Article(Id id, Title title, ArticleContent content, Id userId, Summary summary, String thumbnail, Slug slug, List<Comment> comments, LocalDateTime publishedAt) {
-        super(id);
+    public Article(Id id, Title title, ArticleContent content, Id userId, Summary summary, String thumbnail, Slug slug, List<Comment> comments, LocalDateTime publishedAt, Long aggregateVersion) {
+        super(id, aggregateVersion);
         this.setTitle(title);
         this.setContent(content);
         this.setSlug(slug);
@@ -59,14 +59,28 @@ public class Article extends AggregateRoot<Id> {
         this.slug = slug;
     }
 
-    public static Article create(Id id, Title title, ArticleContent content, Id userId, Summary summary, String thumbnail, Slug slug) {
-        return new Article(id, title, content, userId, summary, thumbnail, slug);
+    public static Article create(
+            Id id,
+            Title title,
+            ArticleContent content,
+            Id userId,
+            Summary summary,
+            String thumbnail,
+            Slug slug
+    ) {
+        // True invariants here, example
+        Long firstVersion = 1L;
+        return new Article(id, title, content, userId, summary, thumbnail, slug, firstVersion);
 
         // @TODO register domain event ArticleCreatedEvent
     }
 
     public void addComment(String content, String userId) {
-        // True invariants here
+        // True invariants here, example
+        // Total of comments must be less than 100
+        // When the status of the article is DRAFT, can not add comment
+
+
 //        if (this.comments.size() >= MAX_COMMENT) {
 //            throw new CommentsLimitExceededException();
 //        }

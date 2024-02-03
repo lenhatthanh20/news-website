@@ -24,7 +24,8 @@ public class RoleRepository implements RoleRepositoryInterface {
         RoleEntity roleEntity = new RoleEntity(
                 role.getId().toString(),
                 role.getName().getValue(),
-                role.getDescription().getValue()
+                role.getDescription().getValue(),
+                role.getAggregateVersion()
         );
 
         role.publishEvents(domainEventPublisher);
@@ -37,7 +38,8 @@ public class RoleRepository implements RoleRepositoryInterface {
         Iterable<RoleEntity> roleEntities = roles.stream().map(role -> new RoleEntity(
                 role.getId().toString(),
                 role.getName().getValue(),
-                role.getDescription().getValue()
+                role.getDescription().getValue(),
+                role.getAggregateVersion()
         )).toList();
 
         roles.forEach(role -> role.publishEvents(domainEventPublisher));
@@ -55,7 +57,8 @@ public class RoleRepository implements RoleRepositoryInterface {
         Role role = new Role(
                 new Id(roleEntity.get().getId()),
                 new RoleName(roleEntity.get().getName()),
-                new RoleDescription(roleEntity.get().getDescription())
+                new RoleDescription(roleEntity.get().getDescription()),
+                roleEntity.get().getVersion()
         );
 
         return Optional.of(role);
@@ -71,7 +74,8 @@ public class RoleRepository implements RoleRepositoryInterface {
         Role role = new Role(
                 new Id(roleEntity.get().getId()),
                 new RoleName(roleEntity.get().getName()),
-                new RoleDescription(roleEntity.get().getDescription())
+                new RoleDescription(roleEntity.get().getDescription()),
+                roleEntity.get().getVersion()
         );
 
         return Optional.of(role);

@@ -24,7 +24,8 @@ public class UserRepository implements UserRepositoryInterface {
                 user.getId().toString(),
                 user.getName().getValue(),
                 user.getEmail().getValue(),
-                user.getPassword()
+                user.getPassword(),
+                user.getAggregateVersion()
         );
 
         user.getRoleIds().forEach(roleId -> {
@@ -48,7 +49,8 @@ public class UserRepository implements UserRepositoryInterface {
                 new Id(userEntity.get().getId()),
                 new UserName(userEntity.get().getName()),
                 new Email(userEntity.get().getEmail()),
-                userEntity.get().getPassword()
+                userEntity.get().getPassword(),
+                userEntity.get().getVersion()
         );
 
         return Optional.of(user);
@@ -65,7 +67,8 @@ public class UserRepository implements UserRepositoryInterface {
                 new Id(userEntity.get().getId()),
                 new UserName(userEntity.get().getName()),
                 new Email(userEntity.get().getEmail()),
-                userEntity.get().getPassword()
+                userEntity.get().getPassword(),
+                userEntity.get().getVersion()
         );
 
         return Optional.of(user);
