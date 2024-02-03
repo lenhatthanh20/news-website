@@ -22,7 +22,7 @@ public class AggregateRoot<Type> extends Entity<Type> {
     public AggregateRoot(Type id, Long aggregateVersion) {
         super(id);
         if (aggregateVersion < 0L) {
-            logger.error("The aggregate version is less than 1");
+            logger.error("The aggregate version is less than 0");
             throw new RuntimeException();
         }
 
