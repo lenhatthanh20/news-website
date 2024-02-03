@@ -1,6 +1,5 @@
 package com.lenhatthanh.blog.modules.user.application.even_handler;
 
-import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
@@ -13,8 +12,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -36,7 +33,7 @@ public class UserEventHandler {
                 user.getId().toString(),
                 user.getName().getValue(),
                 user.getEmail().getValue(),
-                user.getRoleIds().stream().map(Id::toString).collect(Collectors.toSet())
+                user.getRoleId().toString()
         );
 
         String messageKey = event.getClass().getSimpleName();

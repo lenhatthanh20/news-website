@@ -27,10 +27,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.getPassword(),
                 user.getAggregateVersion()
         );
-
-        user.getRoleIds().forEach(roleId -> {
-            userEntity.addRole(roleId.toString());
-        });
+        userEntity.setRoleId(user.getRoleId().toString());
 
         this.userJpaRepository.save(userEntity);
         // Publish domain events
