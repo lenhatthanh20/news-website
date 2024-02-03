@@ -29,7 +29,7 @@ public class AggregateRoot<Type> extends Entity<Type> {
         this.aggregateVersion = aggregateVersion;
     }
 
-    protected void registerEvent(DomainEvent event) {
+    public void registerEvent(DomainEvent event) {
         for(DomainEvent domainEvent : domainEvents) {
             if (domainEvent.getClass().equals(event.getClass())) {
                 return;
