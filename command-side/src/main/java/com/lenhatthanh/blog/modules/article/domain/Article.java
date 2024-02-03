@@ -69,7 +69,7 @@ public class Article extends AggregateRoot<Id> {
             Slug slug
     ) {
         // True invariants here, example
-        Long firstVersion = 1L;
+        Long firstVersion = 0L;
         return new Article(id, title, content, userId, summary, thumbnail, slug, firstVersion);
 
         // @TODO register domain event ArticleCreatedEvent

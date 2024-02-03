@@ -52,7 +52,7 @@ public class User extends AggregateRoot<Id> {
     }
 
     public static User create(Id id, UserName name, Email email, String password) {
-        Long firstVersion = 1L;
+        Long firstVersion = 0L;
         User user = new User(id, name, email, password, firstVersion);
 
         // Add domain event

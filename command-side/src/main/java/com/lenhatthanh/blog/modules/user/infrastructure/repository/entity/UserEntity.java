@@ -43,6 +43,7 @@ public class UserEntity implements Serializable {
     @Column(name = "role_id")
     private Set<String> roleIds = new HashSet<>();
 
+    @Version
     @Column(nullable = false)
     private Long version;
 

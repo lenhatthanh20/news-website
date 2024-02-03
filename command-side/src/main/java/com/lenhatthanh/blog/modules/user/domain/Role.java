@@ -28,7 +28,7 @@ public class Role extends AggregateRoot<Id> {
     }
 
     public static Role create(Id id, RoleName name, RoleDescription description) {
-        Long firstVersion = 1L;
+        Long firstVersion = 0L;
         Role role = new Role(id, name, description, firstVersion);
         role.registerEvent(new RoleCreatedEvent(role));
 

@@ -47,6 +47,7 @@ public class ArticleEntity implements Serializable {
     @Column(nullable = false, updatable = false)
     private LocalDateTime publishedAt;
 
+    @Version
     @Column(nullable = false)
     private Long version;
 

@@ -27,6 +27,7 @@ public class RoleEntity implements Serializable {
     @Column(nullable = false, columnDefinition = "TEXT", length = 1000)
     private String description;
 
+    @Version
     @Column(nullable = false)
     private Long version;
 

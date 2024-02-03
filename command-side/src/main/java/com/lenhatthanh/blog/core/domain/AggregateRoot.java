@@ -15,7 +15,7 @@ public class AggregateRoot<Type> extends Entity<Type> {
 
     /**
      * The version of the aggregate
-     * It is used to checking the concurrency
+     * It is used to checking the concurrency (optimistic locking)
      */
     private Long aggregateVersion;
 
