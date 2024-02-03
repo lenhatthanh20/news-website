@@ -30,15 +30,19 @@ public class AggregateRoot<Type> extends Entity<Type> {
     }
 
     protected void registerEvent(DomainEventInterface event) {
-        if (domainEvents.contains(event)) return;
-        domainEvents.add(event);
+        for(DomainEventInterface domainEvent : domainEvents) {
+            if (domainEvent.getClass().equals(event.getClass())) {
+                return;
+            }
+        }
 
+        domainEvents.add(event);
         logger.error("The domain event has been registered: " + event.getClass().getSimpleName());
     }
 
     public void publishEvents(DomainEventPublisherInterface publisher) {
-        domainEvents.forEach(publisher::publishEvent);
         logger.error("The domain events have been published");
+        domainEvents.forEach(publisher::publishEvent);
 
         // After publish events, we need to clear them
         clearDomainEvents();

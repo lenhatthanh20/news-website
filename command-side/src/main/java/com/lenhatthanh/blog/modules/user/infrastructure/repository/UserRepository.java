@@ -32,10 +32,9 @@ public class UserRepository implements UserRepositoryInterface {
             userEntity.addRole(roleId.toString());
         });
 
+        this.userJpaRepository.save(userEntity);
         // Publish domain events
         user.publishEvents(domainEventPublisher);
-
-        this.userJpaRepository.save(userEntity);
     }
 
     @Override

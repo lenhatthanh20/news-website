@@ -28,9 +28,8 @@ public class RoleRepository implements RoleRepositoryInterface {
                 role.getAggregateVersion()
         );
 
-        role.publishEvents(domainEventPublisher);
-
         roleJpaRepository.save(roleEntity);
+        role.publishEvents(domainEventPublisher);
     }
 
     @Override
@@ -42,9 +41,8 @@ public class RoleRepository implements RoleRepositoryInterface {
                 role.getAggregateVersion()
         )).toList();
 
-        roles.forEach(role -> role.publishEvents(domainEventPublisher));
-
         roleJpaRepository.saveAll(roleEntities);
+        roles.forEach(role -> role.publishEvents(domainEventPublisher));
     }
 
     @Override
