@@ -2,6 +2,7 @@ package com.lenhatthanh.blog.modules.user.domain.service;
 
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.SystemRole;
+import com.lenhatthanh.blog.modules.user.domain.event.RoleDeletedEvent;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.SystemRoleCannotBeModifiedException;
 import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
@@ -18,7 +19,8 @@ public class DeleteRoleServiceImpl implements DeleteRoleService {
         Role role = this.getRoleByIdOrError(roleId);
         this.isNotSystemRoleOrError(role.getName().getValue());
 
-        roleRepository.delete(roleId);
+        role.registerEvent(new RoleDeletedEvent(role));
+        roleRepository.delete(role);
     }
 
     private Role getRoleByIdOrError(String roleId) {

@@ -80,7 +80,8 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
     @Override
-    public void delete(String id) {
-        roleJpaRepository.deleteById(id);
+    public void delete(Role role) {
+        roleJpaRepository.deleteById(role.getId().toString());
+        role.publishEvents(domainEventPublisher);
     }
 }
