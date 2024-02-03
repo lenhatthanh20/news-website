@@ -20,11 +20,12 @@ public class UpdateRoleService implements UpdateRoleServiceInterface {
     RoleRepositoryInterface roleRepository;
 
     public void update(RoleDto newRoleDto) {
-        this.isNotSystemRoleOrError(newRoleDto.getName());
         Role currentRole = this.roleMustExistByIdOrError(newRoleDto.getId());
         if (!currentRole.getName().getValue().equals(newRoleDto.getName())) {
             this.newRoleNameDoesNotExistOrError(newRoleDto.getName());
         }
+
+        this.isNotSystemRoleOrError(currentRole.getName().getValue());
 
         currentRole.updateRoleName(new RoleName(newRoleDto.getName()));
         currentRole.updateDescription(new RoleDescription(newRoleDto.getDescription()));

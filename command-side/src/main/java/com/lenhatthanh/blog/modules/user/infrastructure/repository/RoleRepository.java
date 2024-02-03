@@ -78,4 +78,9 @@ public class RoleRepository implements RoleRepositoryInterface {
 
         return Optional.of(role);
     }
+
+    @Override
+    public void delete(String id) {
+        roleJpaRepository.deleteById(id);
+    }
 }
