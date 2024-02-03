@@ -40,7 +40,7 @@ public class AggregateRoot<Type> extends Entity<Type> {
         logger.error("The domain event has been registered: " + event.getClass().getSimpleName());
     }
 
-    public void publishEvents(DomainEventPublisherInterface publisher) {
+    public void publishEvents(DomainEventPublisher publisher) {
         logger.error("The domain events have been published");
         domainEvents.forEach(publisher::publishEvent);
 
