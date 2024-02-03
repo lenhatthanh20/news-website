@@ -32,7 +32,8 @@ public class ArticleRepository implements ArticleRepositoryInterface {
                 article.getSummary().getValue(),
                 article.getThumbnail(),
                 article.getSlug().getValue(),
-                article.getPublishedAt()
+                article.getPublishedAt(),
+                article.getAggregateVersion()
         );
 
         List<CommentEntity> commentEntities = new ArrayList<>();
@@ -78,7 +79,8 @@ public class ArticleRepository implements ArticleRepositoryInterface {
                         article.getThumbnail(),
                         new Slug(article.getSlug(), new Title(article.getTitle())),
                         commentList,
-                        article.getPublishedAt()
+                        article.getPublishedAt(),
+                        article.getVersion()
                 )
         );
     }
