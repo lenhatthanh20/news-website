@@ -36,7 +36,7 @@ public class RoleEntity implements Serializable {
     /**
      * One to many with `users` table
      */
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private Set<UserEntity> users = new HashSet<>();
 
     @Column(nullable = false, updatable = false)
