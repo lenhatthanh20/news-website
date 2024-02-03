@@ -4,6 +4,6 @@ import com.lenhatthanh.blog.core.domain.DomainException;
 
 public class UserAlreadyExistsException extends DomainException {
     public UserAlreadyExistsException() {
-        super("DOMAIN-ERROR-0012");
+        super("DOMAIN-ERROR-0015");
     }
 }
