@@ -37,10 +37,10 @@ CREATE TABLE IF NOT EXISTS articles (
     summary TEXT,
     thumbnail VARCHAR(255) UNIQUE NOT NULL,
     slug VARCHAR(100) UNIQUE NOT NULL,
-    publishedAt TIMESTAMP NOT NULL,
+    published_at TIMESTAMP NOT NULL,
     version BIGINT NOT NULL,
-    createdAt TIMESTAMP NOT NULL,
-    updatedAt TIMESTAMP,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP,
     CONSTRAINT articles_fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL
 );
 
@@ -50,8 +50,8 @@ CREATE TABLE IF NOT EXISTS comments (
     user_id VARCHAR(100),
     content TEXT,
     article_id VARCHAR(100) NOT NULL,
-    createdAt TIMESTAMP NOT NULL,
-    updatedAt TIMESTAMP,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP,
     CONSTRAINT comments_fk_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE SET NULL,
     CONSTRAINT comments_fk_article FOREIGN KEY (article_id) REFERENCES articles (id) ON DELETE CASCADE
 );
