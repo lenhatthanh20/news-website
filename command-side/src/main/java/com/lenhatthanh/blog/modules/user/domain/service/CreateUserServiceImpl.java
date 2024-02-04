@@ -24,21 +24,21 @@ public class CreateUserServiceImpl implements CreateUserService {
     public void createSubscriber(UserDto userDto) {
         Role role = this.getRoleByNameOrError(SystemRole.SUBSCRIBER);
         User user = createUserDoesNotExistBeforeOrError(userDto);
-        user.changeRole(role.getId());
+        user.updateRole(role.getId());
         userRepository.save(user);
     }
 
     public void createAuthor(UserDto userDto) {
         Role role = this.getRoleByNameOrError(SystemRole.AUTHOR);
         User user = createUserDoesNotExistBeforeOrError(userDto);
-        user.changeRole(role.getId());
+        user.updateRole(role.getId());
         userRepository.save(user);
     }
 
     public void createAdmin(UserDto userDto) {
         Role role = this.getRoleByNameOrError(SystemRole.ADMIN);
         User user = createUserDoesNotExistBeforeOrError(userDto);
-        user.changeRole(role.getId());
+        user.updateRole(role.getId());
         userRepository.save(user);
     }
 

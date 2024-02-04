@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.application.service;
 
-import com.lenhatthanh.blog.modules.user.application.exception.UserNotFoundException;
+import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;

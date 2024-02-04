@@ -21,15 +21,15 @@ public class User extends AggregateRoot<Id> {
         this.password = password;
     }
 
-    protected void updateName(UserName name) {
+    public void updateName(UserName name) {
         this.name = name;
     }
 
-    protected void updateEmail(Email email) {
+    public void updateEmail(Email email) {
         this.email = email;
     }
 
-    public void changeRole(Id roleId) {
+    public void updateRole(Id roleId) {
         this.roleId = roleId;
     }
 
