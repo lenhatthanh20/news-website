@@ -23,15 +23,15 @@ public class RoleEntity implements Serializable {
     @Column(nullable = false, unique = true, length = 100)
     private String id;
 
+    @Version
+    @Column(nullable = false)
+    private Long version;
+
     @Column(nullable = false, unique = true, length = 100)
     private String name;
 
     @Column(nullable = false, columnDefinition = "TEXT", length = 1000)
     private String description;
-
-    @Version
-    @Column(nullable = false)
-    private Long version;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -40,10 +40,10 @@ public class RoleEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public RoleEntity(String id, String name, String description, Long version) {
+    public RoleEntity(String id, Long version, String name, String description) {
         this.id = id;
+        this.version = version;
         this.name = name;
         this.description = description;
-        this.version = version;
     }
 }

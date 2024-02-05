@@ -1,9 +1,9 @@
 INSERT INTO public.roles
   ( id, version, name, description, created_at )
 VALUES
-  ( '0ee12a71-d742-4ccb-a05c-6df8d2fa811d', 'Subscriber', 'Somebody who only can view the site', 0, CURRENT_TIMESTAMP ),
-  ( '2c6dca92-5e66-45b5-8353-27acbff7d4f1', 'Author', 'Somebody who can publish and manage their own posts', 0, CURRENT_TIMESTAMP ),
-  ( 'acd20a3f-1e07-44ff-bb5e-14d04a9d7416', 'Administrator', 'Somebody who has access to all the administration features within a single site', 0, CURRENT_TIMESTAMP );
+  ( '0ee12a71-d742-4ccb-a05c-6df8d2fa811d', 0, 'Subscriber', 'Somebody who only can view the site', CURRENT_TIMESTAMP ),
+  ( '2c6dca92-5e66-45b5-8353-27acbff7d4f1', 0, 'Author', 'Somebody who can publish and manage their own posts', CURRENT_TIMESTAMP ),
+  ( 'acd20a3f-1e07-44ff-bb5e-14d04a9d7416', 0, 'Administrator', 'Somebody who has access to all the administration features within a single site', CURRENT_TIMESTAMP );
 
 INSERT INTO public.users
   ( id, version, name, email, mobile_phone, password, created_at, is_active )
