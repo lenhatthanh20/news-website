@@ -39,6 +39,8 @@ public class UserEventHandler {
                 user.getId().toString(),
                 user.getName().getValue(),
                 user.getEmail().getValue(),
+                user.getMobilePhone().getValue(),
+                user.getIsActive(),
                 stringRoleIds
         );
 
@@ -46,6 +48,6 @@ public class UserEventHandler {
         ProducerRecord<String, UserEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, messageKey, userEventDto);
         this.kafkaTemplate.send(record);
 
-        logger.info("Event sent to Kafka broker - " + messageKey + " with aggregate ID:" + event.getAggregateId() + " !!");
+        logger.info("Event sent to Kafka broker - " + messageKey + " with aggregate ID: " + event.getAggregateId() + " !!");
     }
 }

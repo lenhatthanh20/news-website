@@ -33,12 +33,6 @@ public class RoleEntity implements Serializable {
     @Column(nullable = false)
     private Long version;
 
-    /**
-     * One to many with `users` table
-     */
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private Set<UserEntity> users = new HashSet<>();
-
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;

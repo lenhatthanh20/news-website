@@ -11,5 +11,7 @@ public class UserEventDto {
     private String id;
     private String name;
     private String email;
+    private String mobilePhone;
+    private Boolean isActive;
     private Set<String> roleIds;
 }
