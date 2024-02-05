@@ -3,6 +3,7 @@ package com.lenhatthanh.blog.modules.user.infrastructure.repository;
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.Email;
+import com.lenhatthanh.blog.modules.user.domain.MobilePhone;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.UserName;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
@@ -22,12 +23,17 @@ public class UserRepositoryImpl implements UserRepository {
     public void save(User user) {
         UserEntity userEntity = new UserEntity(
                 user.getId().toString(),
+                user.getAggregateVersion(),
                 user.getName().getValue(),
                 user.getEmail().getValue(),
+                user.getMobilePhone().getValue(),
                 user.getPassword(),
-                user.getAggregateVersion()
+                user.getIsActive()
         );
-        userEntity.setRoleId(user.getRoleId().toString());
+
+        user.getRoleIds().forEach(roleId -> {
+            userEntity.addRole(roleId.toString());
+        });
 
         this.userJpaRepository.save(userEntity);
         // Publish domain events
@@ -43,10 +49,12 @@ public class UserRepositoryImpl implements UserRepository {
 
         User user = new User(
                 new Id(userEntity.get().getId()),
+                userEntity.get().getVersion(),
                 new UserName(userEntity.get().getName()),
                 new Email(userEntity.get().getEmail()),
+                new MobilePhone(userEntity.get().getMobilePhone()),
                 userEntity.get().getPassword(),
-                userEntity.get().getVersion()
+                userEntity.get().getIsActive()
         );
 
         return Optional.of(user);
@@ -61,10 +69,12 @@ public class UserRepositoryImpl implements UserRepository {
 
         User user = new User(
                 new Id(userEntity.get().getId()),
+                userEntity.get().getVersion(),
                 new UserName(userEntity.get().getName()),
                 new Email(userEntity.get().getEmail()),
+                new MobilePhone(userEntity.get().getMobilePhone()),
                 userEntity.get().getPassword(),
-                userEntity.get().getVersion()
+                userEntity.get().getIsActive()
         );
 
         return Optional.of(user);

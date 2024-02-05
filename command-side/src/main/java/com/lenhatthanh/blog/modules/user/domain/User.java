@@ -12,13 +12,13 @@ public class User extends AggregateRoot<Id> {
     private UserName name;
     private Email email;
     private MobilePhone mobilePhone;
-    private final String password;
+    private String password;
     Boolean isActive;
 
     // Relationship with Role aggregate via id
     private Set<Id> roleIds;
 
-    public User(Id id, UserName name, Email email, MobilePhone mobilePhone, String password, Boolean isActive, Long aggregateVersion) {
+    public User(Id id, Long aggregateVersion, UserName name, Email email, MobilePhone mobilePhone, String password, Boolean isActive) {
         super(id, aggregateVersion);
         this.name = name;
         this.email = email;
@@ -47,10 +47,18 @@ public class User extends AggregateRoot<Id> {
         this.roleIds.remove(roleId);
     }
 
+    public void activate() {
+        this.isActive = true;
+    }
+
+    public void deactivate() {
+        this.isActive = false;
+    }
+
     public static User create(Id id, UserName name, Email email, MobilePhone mobilePhone, String password) {
         Long firstVersion = 0L;
         Boolean isActive = true;
-        User user = new User(id, name, email, mobilePhone, password, isActive, firstVersion);
+        User user = new User(id, firstVersion, name, email, mobilePhone, password, isActive);
 
         // Add domain event
         user.registerEvent(new UserCreatedEvent(user));
