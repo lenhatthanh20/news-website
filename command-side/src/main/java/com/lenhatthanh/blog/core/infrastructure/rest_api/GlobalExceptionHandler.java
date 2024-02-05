@@ -2,9 +2,6 @@ package com.lenhatthanh.blog.core.infrastructure.rest_api;
 
 import com.lenhatthanh.blog.core.application.ApplicationException;
 import com.lenhatthanh.blog.core.domain.DomainException;
-import com.lenhatthanh.blog.modules.article.application.exception.UserNotFoundException;
-import com.lenhatthanh.blog.modules.article.domain.exception.*;
-import com.lenhatthanh.blog.modules.user.domain.exception.*;
 import com.lenhatthanh.blog.shared.Messages;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;

@@ -23,9 +23,9 @@ public class RoleRepositoryImpl implements RoleRepository {
     public void save(Role role) {
         RoleEntity roleEntity = new RoleEntity(
                 role.getId().toString(),
+                role.getAggregateVersion(),
                 role.getName().getValue(),
-                role.getDescription().getValue(),
-                role.getAggregateVersion()
+                role.getDescription().getValue()
         );
 
         roleJpaRepository.save(roleEntity);
@@ -36,9 +36,9 @@ public class RoleRepositoryImpl implements RoleRepository {
     public void saveAll(List<Role> roles) {
         Iterable<RoleEntity> roleEntities = roles.stream().map(role -> new RoleEntity(
                 role.getId().toString(),
+                role.getAggregateVersion(),
                 role.getName().getValue(),
-                role.getDescription().getValue(),
-                role.getAggregateVersion()
+                role.getDescription().getValue()
         )).toList();
 
         roleJpaRepository.saveAll(roleEntities);
@@ -54,9 +54,9 @@ public class RoleRepositoryImpl implements RoleRepository {
 
         Role role = new Role(
                 new Id(roleEntity.get().getId()),
+                roleEntity.get().getVersion(),
                 new RoleName(roleEntity.get().getName()),
-                new RoleDescription(roleEntity.get().getDescription()),
-                roleEntity.get().getVersion()
+                new RoleDescription(roleEntity.get().getDescription())
         );
 
         return Optional.of(role);
@@ -71,9 +71,9 @@ public class RoleRepositoryImpl implements RoleRepository {
 
         Role role = new Role(
                 new Id(roleEntity.get().getId()),
+                roleEntity.get().getVersion(),
                 new RoleName(roleEntity.get().getName()),
-                new RoleDescription(roleEntity.get().getDescription()),
-                roleEntity.get().getVersion()
+                new RoleDescription(roleEntity.get().getDescription())
         );
 
         return Optional.of(role);

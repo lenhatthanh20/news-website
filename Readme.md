@@ -24,7 +24,7 @@ The below image describe for the design of this application.
 ## CQRS
 Because this is a News website, so the `read requests` (`GET` method) ammount has majority compared to `write requests` (`POST`, `PUT`, `DELETE`, ...). 
 So we need to apply the CQRS pattern to seperate the Write side (Command side) and Read side (Query side) for scaling in both codebase and server.
-I will write a article to dive deep into CQRS later (Vietnamese in https://lenhatthanh.com)
+I will write a post to dive deep into CQRS later (Vietnamese in https://lenhatthanh.com)
 
 ## DDD and Clean Architecture in Write Side
 In the Write side, we apply DDD to isolate the business logics (in `domain` layer), and apply some useful concepts of DDD to handle business logics.

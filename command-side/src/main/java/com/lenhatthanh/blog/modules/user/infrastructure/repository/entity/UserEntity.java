@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.repository.entity;
 
-import com.lenhatthanh.blog.modules.article.infrastructure.repository.entity.ArticleEntity;
+import com.lenhatthanh.blog.modules.post.infrastructure.repository.entity.PostEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -9,11 +9,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class UserEntity implements Serializable {
@@ -24,31 +25,21 @@ public class UserEntity implements Serializable {
     @Column(nullable = false, length = 100, unique = true)
     private String id;
 
+    @Version
+    @Column(nullable = false)
+    private Long version;
+
     @Column(nullable = false, length = 100)
     private String name;
 
     @Column(nullable = false, length = 100, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 100)
-    private String password;
+    @Column(nullable = false, length = 15, unique = true)
+    private String mobilePhone;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ArticleEntity> articles = new ArrayList<>();
-
-    /**
-     * Many to one with `roles` table
-     */
-    @JoinColumn(name = "role_id", insertable = false, updatable = false)
-    @ManyToOne(targetEntity = RoleEntity.class)
-    private RoleEntity role;
-
-    @Column(name = "role_id")
-    private String roleId;
-
-    @Version
     @Column(nullable = false)
-    private Long version;
+    private String password;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -57,11 +48,38 @@ public class UserEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public UserEntity(String id, String name, String email, String password, Long version) {
+    @Column(nullable = false)
+    private Boolean isActive;
+
+    /**
+     * One to many with `posts` table
+     */
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PostEntity> posts = new HashSet<>();
+
+    /**
+     * Many to many with `roles` table
+     */
+    @ElementCollection
+    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role_id")
+    private Set<String> roleIds = new HashSet<>();
+
+    public UserEntity(String id, Long version, String name, String email, String mobilePhone, String password, Boolean isActive) {
         this.id = id;
+        this.version = version;
         this.name = name;
         this.email = email;
+        this.mobilePhone = mobilePhone;
         this.password = password;
-        this.version = version;
+        this.isActive = isActive;
+    }
+
+    public void addRole(String roleId) {
+        this.roleIds.add(roleId);
+    }
+
+    public void removeRole(String roleId) {
+        this.roleIds.remove(roleId);
     }
 }

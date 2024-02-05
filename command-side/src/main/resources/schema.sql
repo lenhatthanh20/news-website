@@ -3,12 +3,10 @@ DROP TABLE IF EXISTS users CASCADE;
 CREATE TABLE IF NOT EXISTS users (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
-    username VARCHAR(255) UNIQUE NOT NULL,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE NOT NULL,
+    mobile_phone VARCHAR(15) NULL,
     password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE NOT NULL,
-    mobile VARCHAR(15) NULL,
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT NULL,
     last_login TIMESTAMP,
@@ -87,10 +85,11 @@ CREATE TABLE IF NOT EXISTS audit_logs (
 );
 
 -- Creating `posts` table
-CREATE TABLE posts (
+DROP TABLE IF EXISTS posts CASCADE;
+CREATE TABLE IF NOT EXISTS posts (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
-    author_id VARCHAR(100) NOT NULL,
+    user_id VARCHAR(100) NOT NULL,
     parent_id VARCHAR(100) DEFAULT NULL,
     title VARCHAR(100) NOT NULL,
     meta_title VARCHAR(100) DEFAULT NULL,
@@ -103,14 +102,14 @@ CREATE TABLE posts (
     published_at TIMESTAMP DEFAULT NULL,
     content TEXT DEFAULT NULL,
     CONSTRAINT fk_post_user
-        FOREIGN KEY (author_id)
+        FOREIGN KEY (user_id)
         REFERENCES users(id)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 );
 
 CREATE UNIQUE INDEX uq_slug ON posts (slug);
-CREATE INDEX idx_post_user ON posts (author_id);
+CREATE INDEX idx_post_user ON posts (user_id);
 CREATE INDEX idx_post_parent ON posts (parent_id);
 
 ALTER TABLE posts
@@ -121,7 +120,8 @@ ALTER TABLE posts
     ON UPDATE NO ACTION;
 
 -- Creating `post_meta` table
-CREATE TABLE post_meta (
+DROP TABLE IF EXISTS post_meta CASCADE;
+CREATE TABLE IF NOT EXISTS post_meta (
     id VARCHAR(100) PRIMARY KEY,
     post_id VARCHAR(100) NOT NULL,
     meta_key VARCHAR(50) NOT NULL,
@@ -137,7 +137,8 @@ CREATE INDEX idx_meta_post ON post_meta (post_id);
 CREATE UNIQUE INDEX uq_post_meta ON post_meta (post_id, meta_key);
 
 -- Creating `comments` table
-CREATE TABLE comments (
+DROP TABLE IF EXISTS comments CASCADE;
+CREATE TABLE IF NOT EXISTS comments (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
     post_id VARCHAR(100) NOT NULL,
@@ -164,7 +165,8 @@ ALTER TABLE comments
     ON UPDATE NO ACTION;
 
 -- Creating `categories` table
-CREATE TABLE categories (
+DROP TABLE IF EXISTS categories CASCADE;
+CREATE TABLE IF NOT EXISTS categories (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
     parent_id VARCHAR(100) DEFAULT NULL,
@@ -183,7 +185,8 @@ ALTER TABLE categories
     ON UPDATE NO ACTION;
 
 -- Creating `post_category` table
-CREATE TABLE posts_categories (
+DROP TABLE IF EXISTS posts_categories CASCADE;
+CREATE TABLE IF NOT EXISTS posts_categories (
     post_id VARCHAR(100) NOT NULL,
     category_id VARCHAR(100) NOT NULL,
     PRIMARY KEY (post_id, category_id),
@@ -203,7 +206,8 @@ CREATE INDEX idx_posts_categories_category ON posts_categories (category_id);
 CREATE INDEX idx_posts_categories_post ON posts_categories (post_id);
 
 -- Creating `tags` table
-CREATE TABLE tags (
+DROP TABLE IF EXISTS tags CASCADE;
+CREATE TABLE IF NOT EXISTS tags (
     id VARCHAR(100) PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     meta_title varchar(100) DEFAULT NULL,
@@ -211,7 +215,9 @@ CREATE TABLE tags (
     content text
 );
 
-CREATE TABLE posts_tags (
+-- Creating `posts_tags` table
+DROP TABLE IF EXISTS posts_tags CASCADE;
+CREATE TABLE IF NOT EXISTS posts_tags (
     post_id VARCHAR(100) NOT NULL,
     tag_id VARCHAR(100) NOT NULL,
     PRIMARY KEY (post_id, tag_id),

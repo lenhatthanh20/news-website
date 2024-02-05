@@ -6,24 +6,17 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 public class UserDto {
     private String id;
     private String name;
     private String email;
+    private String mobilePhone;
     private String password;
-    private String roleId;
 
-    public UserDto(String name, String email, String password) {
+    public UserDto(String name, String email, String mobilePhone, String password) {
         this.name = name;
         this.email = email;
+        this.mobilePhone = mobilePhone;
         this.password = password;
-    }
-
-    public UserDto(String name, String email, String password, String roleId) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.roleId = roleId;
     }
 }
