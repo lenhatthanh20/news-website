@@ -14,8 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="articles")
-public class ArticleEntity implements Serializable {
+@Table(name="posts")
+public class PostEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6009937215357249661L;
 
@@ -41,7 +41,7 @@ public class ArticleEntity implements Serializable {
     @Column(nullable = false, unique = true, length = 100)
     private String slug;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.ALL)
     private List<CommentEntity> comments;
 
     @Column(nullable = false, updatable = false)
@@ -58,7 +58,7 @@ public class ArticleEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public ArticleEntity(
+    public PostEntity(
             String id,
             String title,
             String content,

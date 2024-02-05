@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class AddCommentUseCase {
     private AddCommentService addCommentService;
 
-    public void execute(String articleId, CommentDto commentDto) {
-        addCommentService.add(articleId, commentDto);
+    public void execute(String postId, CommentDto commentDto) {
+        addCommentService.add(postId, commentDto);
     }
 }

@@ -12,11 +12,11 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Article extends AggregateRoot<Id> {
+public class Post extends AggregateRoot<Id> {
 //    private static final int MAX_COMMENT = 100;
 
     private Title title;
-    private ArticleContent content;
+    private PostContent content;
     private Id userId;
     private Summary summary;
     private String thumbnail;
@@ -24,7 +24,7 @@ public class Article extends AggregateRoot<Id> {
     private List<Comment> comments = new ArrayList<>();
     private LocalDateTime publishedAt;
 
-    public Article(Id id, Title title, ArticleContent content, Id userId, Summary summary, String thumbnail, Slug slug, Long aggregateVersion) {
+    public Post(Id id, Title title, PostContent content, Id userId, Summary summary, String thumbnail, Slug slug, Long aggregateVersion) {
         super(id, aggregateVersion);
         this.setTitle(title);
         this.setContent(content);
@@ -35,7 +35,7 @@ public class Article extends AggregateRoot<Id> {
         this.publishedAt = LocalDateTime.now();
     }
 
-    public Article(Id id, Title title, ArticleContent content, Id userId, Summary summary, String thumbnail, Slug slug, List<Comment> comments, LocalDateTime publishedAt, Long aggregateVersion) {
+    public Post(Id id, Title title, PostContent content, Id userId, Summary summary, String thumbnail, Slug slug, List<Comment> comments, LocalDateTime publishedAt, Long aggregateVersion) {
         super(id, aggregateVersion);
         this.setTitle(title);
         this.setContent(content);
@@ -51,7 +51,7 @@ public class Article extends AggregateRoot<Id> {
         this.title = title;
     }
 
-    public void setContent(ArticleContent content) {
+    public void setContent(PostContent content) {
         this.content = content;
     }
 
@@ -59,10 +59,10 @@ public class Article extends AggregateRoot<Id> {
         this.slug = slug;
     }
 
-    public static Article create(
+    public static Post create(
             Id id,
             Title title,
-            ArticleContent content,
+            PostContent content,
             Id userId,
             Summary summary,
             String thumbnail,
@@ -70,15 +70,15 @@ public class Article extends AggregateRoot<Id> {
     ) {
         // True invariants here, example
         Long firstVersion = 0L;
-        return new Article(id, title, content, userId, summary, thumbnail, slug, firstVersion);
+        return new Post(id, title, content, userId, summary, thumbnail, slug, firstVersion);
 
-        // @TODO register domain event ArticleCreatedEvent
+        // @TODO register domain event PostCreatedEvent
     }
 
     public void addComment(String content, String userId) {
         // True invariants here, example
         // Total of comments must be less than 100
-        // When the status of the article is DRAFT, can not add comment
+        // When the status of the post is DRAFT, can not add comment
 
 
 //        if (this.comments.size() >= MAX_COMMENT) {

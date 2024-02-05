@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.repository.entity;
 
-import com.lenhatthanh.blog.modules.post.infrastructure.repository.entity.ArticleEntity;
+import com.lenhatthanh.blog.modules.post.infrastructure.repository.entity.PostEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -52,10 +52,10 @@ public class UserEntity implements Serializable {
     private Boolean isActive;
 
     /**
-     * One to many with `articles` table
+     * One to many with `posts` table
      */
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<ArticleEntity> articles = new HashSet<>();
+    private Set<PostEntity> posts = new HashSet<>();
 
     /**
      * Many to one with `roles` table

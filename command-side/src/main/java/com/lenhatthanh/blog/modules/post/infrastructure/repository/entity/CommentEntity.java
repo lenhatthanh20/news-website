@@ -29,8 +29,8 @@ public class CommentEntity implements Serializable {
     private String content;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="article_id", nullable=false)
-    private ArticleEntity article;
+    @JoinColumn(name="post_id", nullable=false)
+    private PostEntity post;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

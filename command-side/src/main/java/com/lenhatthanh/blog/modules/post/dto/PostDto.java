@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class ArticleDto {
+public class PostDto {
     private String title;
     private String content;
     private String userId;

@@ -13,8 +13,8 @@ class KafkaConfig {
     }
 
     @Bean
-    public NewTopic topicArticle() {
-        return TopicBuilder.name("article").build();
+    public NewTopic topicPost() {
+        return TopicBuilder.name("post").build();
     }
 
     @Bean
