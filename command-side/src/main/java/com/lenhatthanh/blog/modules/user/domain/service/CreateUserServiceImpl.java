@@ -23,26 +23,26 @@ public class CreateUserServiceImpl implements CreateUserService {
 
     public void createSubscriber(UserDto userDto) {
         Role role = this.getRoleByNameOrError(SystemRole.SUBSCRIBER);
-        User user = createUserDoesNotExistBeforeOrError(userDto);
-        user.updateRole(role.getId());
+        User user = createUserWithEmailDoesNotExistBeforeOrError(userDto);
+        user.addRole(role.getId());
         userRepository.save(user);
     }
 
     public void createAuthor(UserDto userDto) {
         Role role = this.getRoleByNameOrError(SystemRole.AUTHOR);
-        User user = createUserDoesNotExistBeforeOrError(userDto);
-        user.updateRole(role.getId());
+        User user = createUserWithEmailDoesNotExistBeforeOrError(userDto);
+        user.addRole(role.getId());
         userRepository.save(user);
     }
 
     public void createAdmin(UserDto userDto) {
         Role role = this.getRoleByNameOrError(SystemRole.ADMIN);
-        User user = createUserDoesNotExistBeforeOrError(userDto);
-        user.updateRole(role.getId());
+        User user = createUserWithEmailDoesNotExistBeforeOrError(userDto);
+        user.addRole(role.getId());
         userRepository.save(user);
     }
 
-    private User createUserDoesNotExistBeforeOrError(UserDto userDto) {
+    private User createUserWithEmailDoesNotExistBeforeOrError(UserDto userDto) {
         Optional<User> user = userRepository.findByEmail(userDto.getEmail());
         if (user.isPresent()) {
             throw new UserAlreadyExistsException();
@@ -52,6 +52,7 @@ public class CreateUserServiceImpl implements CreateUserService {
                 new Id(UniqueIdGenerator.create()),
                 new UserName(userDto.getName()),
                 new Email(userDto.getEmail()),
+                new MobilePhone(userDto.getMobilePhone()),
                 passwordEncoder.encode(userDto.getPassword())
         );
     }

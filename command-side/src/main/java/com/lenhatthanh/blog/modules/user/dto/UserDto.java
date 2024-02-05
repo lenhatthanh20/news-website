@@ -10,12 +10,12 @@ public class UserDto {
     private String name;
     private String email;
     private String password;
-    private String mobile;
+    private String mobilePhone;
 
-    public UserDto(String name, String email, String password, String mobile) {
+    public UserDto(String name, String email, String password, String mobilePhone) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.mobile = mobile;
+        this.mobilePhone = mobilePhone;
     }
 }
