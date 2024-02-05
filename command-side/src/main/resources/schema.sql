@@ -85,7 +85,8 @@ CREATE TABLE IF NOT EXISTS audit_logs (
 );
 
 -- Creating `posts` table
-CREATE TABLE posts (
+DROP TABLE IF EXISTS posts CASCADE;
+CREATE TABLE IF NOT EXISTS posts (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
     author_id VARCHAR(100) NOT NULL,
@@ -119,7 +120,8 @@ ALTER TABLE posts
     ON UPDATE NO ACTION;
 
 -- Creating `post_meta` table
-CREATE TABLE post_meta (
+DROP TABLE IF EXISTS post_meta CASCADE;
+CREATE TABLE IF NOT EXISTS post_meta (
     id VARCHAR(100) PRIMARY KEY,
     post_id VARCHAR(100) NOT NULL,
     meta_key VARCHAR(50) NOT NULL,
@@ -135,7 +137,8 @@ CREATE INDEX idx_meta_post ON post_meta (post_id);
 CREATE UNIQUE INDEX uq_post_meta ON post_meta (post_id, meta_key);
 
 -- Creating `comments` table
-CREATE TABLE comments (
+DROP TABLE IF EXISTS comments CASCADE;
+CREATE TABLE IF NOT EXISTS comments (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
     post_id VARCHAR(100) NOT NULL,
@@ -162,7 +165,8 @@ ALTER TABLE comments
     ON UPDATE NO ACTION;
 
 -- Creating `categories` table
-CREATE TABLE categories (
+DROP TABLE IF EXISTS categories CASCADE;
+CREATE TABLE IF NOT EXISTS categories (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
     parent_id VARCHAR(100) DEFAULT NULL,
@@ -181,7 +185,8 @@ ALTER TABLE categories
     ON UPDATE NO ACTION;
 
 -- Creating `post_category` table
-CREATE TABLE posts_categories (
+DROP TABLE IF EXISTS posts_categories CASCADE;
+CREATE TABLE IF NOT EXISTS posts_categories (
     post_id VARCHAR(100) NOT NULL,
     category_id VARCHAR(100) NOT NULL,
     PRIMARY KEY (post_id, category_id),
@@ -201,7 +206,8 @@ CREATE INDEX idx_posts_categories_category ON posts_categories (category_id);
 CREATE INDEX idx_posts_categories_post ON posts_categories (post_id);
 
 -- Creating `tags` table
-CREATE TABLE tags (
+DROP TABLE IF EXISTS tags CASCADE;
+CREATE TABLE IF NOT EXISTS tags (
     id VARCHAR(100) PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     meta_title varchar(100) DEFAULT NULL,
@@ -209,7 +215,9 @@ CREATE TABLE tags (
     content text
 );
 
-CREATE TABLE posts_tags (
+-- Creating `posts_tags` table
+DROP TABLE IF EXISTS posts_tags CASCADE;
+CREATE TABLE IF NOT EXISTS posts_tags (
     post_id VARCHAR(100) NOT NULL,
     tag_id VARCHAR(100) NOT NULL,
     PRIMARY KEY (post_id, tag_id),
