@@ -10,7 +10,6 @@ import lombok.Getter;
 public class Role extends AggregateRoot<Id> {
     private RoleName name;
     private RoleDescription description;
-    private MobilePhone mobilePhone;
 
     public Role(Id id, RoleName name, RoleDescription description, Long aggregateVersion) {
         super(id, aggregateVersion);
