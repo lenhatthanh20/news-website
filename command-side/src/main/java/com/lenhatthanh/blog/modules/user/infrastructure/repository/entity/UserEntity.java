@@ -58,7 +58,7 @@ public class UserEntity implements Serializable {
     private Set<PostEntity> posts = new HashSet<>();
 
     /**
-     * Many to one with `roles` table
+     * Many to many with `roles` table
      */
     @ElementCollection
     @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
