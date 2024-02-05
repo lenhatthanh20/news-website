@@ -89,7 +89,7 @@ DROP TABLE IF EXISTS posts CASCADE;
 CREATE TABLE IF NOT EXISTS posts (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
-    author_id VARCHAR(100) NOT NULL,
+    user_id VARCHAR(100) NOT NULL,
     parent_id VARCHAR(100) DEFAULT NULL,
     title VARCHAR(100) NOT NULL,
     meta_title VARCHAR(100) DEFAULT NULL,
@@ -102,14 +102,14 @@ CREATE TABLE IF NOT EXISTS posts (
     published_at TIMESTAMP DEFAULT NULL,
     content TEXT DEFAULT NULL,
     CONSTRAINT fk_post_user
-        FOREIGN KEY (author_id)
+        FOREIGN KEY (user_id)
         REFERENCES users(id)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 );
 
 CREATE UNIQUE INDEX uq_slug ON posts (slug);
-CREATE INDEX idx_post_user ON posts (author_id);
+CREATE INDEX idx_post_user ON posts (user_id);
 CREATE INDEX idx_post_parent ON posts (parent_id);
 
 ALTER TABLE posts

@@ -5,6 +5,7 @@ import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
 import lombok.Getter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -16,7 +17,7 @@ public class User extends AggregateRoot<Id> {
     Boolean isActive;
 
     // Relationship with Role aggregate via id
-    private Set<Id> roleIds;
+    private Set<Id> roleIds = new HashSet<>();
 
     public User(Id id, Long aggregateVersion, UserName name, Email email, MobilePhone mobilePhone, String password, Boolean isActive) {
         super(id, aggregateVersion);
