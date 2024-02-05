@@ -1,6 +1,7 @@
 package com.lenhatthanh.blog.modules.user.infrastructure.rest_api;
 
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateSubscriberUserUseCase;
+import com.lenhatthanh.blog.modules.user.application.usecase.DeleteSubscriberUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.UpdateSubscriberUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.UserLoginUseCase;
 import com.lenhatthanh.blog.modules.user.dto.LoginDto;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private CreateSubscriberUserUseCase createSubscriberUserUseCase;
     private UpdateSubscriberUserUseCase updateSubscriberUserUseCase;
+    private DeleteSubscriberUserUseCase deleteSubscriberUserUseCase;
     private UserLoginUseCase userLoginUseCase;
 
     @PostMapping
@@ -29,6 +31,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public void updateUser(@RequestBody UserDto user) {
         updateSubscriberUserUseCase.execute(user);
+    }
+
+    @DeleteMapping
+    @RequestMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUser(@PathVariable String id) {
+        deleteSubscriberUserUseCase.execute(id);
     }
 
     @PostMapping("/auth/login")

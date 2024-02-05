@@ -79,4 +79,9 @@ public class UserRepositoryImpl implements UserRepository {
 
         return Optional.of(user);
     }
+
+    @Override
+    public void delete(User user) {
+        this.userJpaRepository.deleteById(user.getId().toString());
+    }
 }
