@@ -119,22 +119,22 @@ ALTER TABLE posts
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
--- Creating `post_meta` table
-DROP TABLE IF EXISTS post_meta CASCADE;
-CREATE TABLE IF NOT EXISTS post_meta (
+-- Creating `meta` table
+DROP TABLE IF EXISTS meta CASCADE;
+CREATE TABLE IF NOT EXISTS meta (
     id VARCHAR(100) PRIMARY KEY,
     post_id VARCHAR(100) NOT NULL,
     meta_key VARCHAR(50) NOT NULL,
     content TEXT DEFAULT NULL,
-    CONSTRAINT fk_meta_post
+    CONSTRAINT fk_meta
         FOREIGN KEY (post_id)
         REFERENCES posts(id)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 );
 
-CREATE INDEX idx_meta_post ON post_meta (post_id);
-CREATE UNIQUE INDEX uq_post_meta ON post_meta (post_id, meta_key);
+CREATE INDEX idx_meta ON meta (post_id);
+CREATE UNIQUE INDEX uq_meta ON meta (post_id, meta_key);
 
 -- Creating `comments` table
 DROP TABLE IF EXISTS comments CASCADE;
