@@ -8,4 +8,6 @@ public interface PostRepository {
     void save(Post post);
 
     Optional<Post> findById(String id);
+
+    void delete(Post post);
 }

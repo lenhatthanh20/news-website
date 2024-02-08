@@ -66,4 +66,9 @@ public class PostRepositoryImpl implements PostRepository {
                 )
         );
     }
+
+    @Override
+    public void delete(Post post) {
+        this.postJpaRepository.deleteById(post.getId().toString());
+    }
 }
