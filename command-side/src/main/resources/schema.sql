@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS posts_categories (
     CONSTRAINT fk_posts_categories_category_id
         FOREIGN KEY (category_id)
         REFERENCES categories (id)
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         ON UPDATE NO ACTION
 );
 
@@ -231,7 +231,7 @@ CREATE TABLE IF NOT EXISTS posts_tags (
     CONSTRAINT fk_posts_tags_tag_id
         FOREIGN KEY (tag_id)
         REFERENCES tags (id)
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         ON UPDATE NO ACTION
 );
 
