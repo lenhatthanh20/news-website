@@ -48,12 +48,4 @@ public class CategoryEntity implements Serializable {
         this.title = title;
         this.slug = slug;
     }
-
-    public CategoryEntity(String id, Long version, String parentId, String title, String slug) {
-        this.id = id;
-        this.version = version;
-        this.parentId = parentId;
-        this.title = title;
-        this.slug = slug;
-    }
 }

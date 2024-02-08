@@ -4,14 +4,10 @@ import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.post.domain.*;
 import com.lenhatthanh.blog.modules.post.domain.repository.PostRepository;
 import com.lenhatthanh.blog.modules.post.infra.repository.entity.PostEntity;
-import com.lenhatthanh.blog.modules.post.infra.repository.entity.CommentEntity;
-import com.lenhatthanh.blog.modules.user.infra.repository.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 @AllArgsConstructor
@@ -20,33 +16,27 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     public void save(Post post) {
-        // I don't want to fetch all UserEntity from database
-        UserEntity user = new UserEntity();
-        user.setId(post.getUserId().toString());
-
         PostEntity postEntity = new PostEntity(
                 post.getId().toString(),
+                post.getAggregateVersion(),
                 post.getTitle().getValue(),
+                post.getMetaTitle(),
                 post.getContent().getValue(),
-                user,
                 post.getSummary().getValue(),
                 post.getThumbnail(),
                 post.getSlug().getValue(),
-                post.getPublishedAt(),
-                post.getAggregateVersion()
+                post.getPublishedAt()
         );
 
-        List<CommentEntity> commentEntities = new ArrayList<>();
-        post.getComments().stream().map(
-                comment -> {
-                    UserEntity commentUser = new UserEntity();
-                    commentUser.setId(comment.getUserId().toString());
-                    return new CommentEntity(comment.getId().toString(), commentUser, comment.getContent());
-                }
-        ).forEach(commentEntities::add);
+        postEntity.setUserId(post.getUserId().toString());
 
-        commentEntities.forEach(commentEntity -> commentEntity.setPost(postEntity));
-        postEntity.setComments(commentEntities);
+        Set<String> categoryIds = new HashSet<>();
+        post.getCategoryIds().forEach(categoryId -> categoryIds.add(categoryId.toString()));
+        postEntity.setCategoryIds(categoryIds);
+
+        Set<String> tagIds = new HashSet<>();
+        post.getTagIds().forEach(tagId -> tagIds.add(tagId.toString()));
+        postEntity.setTagIds(tagIds);
 
         this.postJpaRepository.save(postEntity);
     }
@@ -59,28 +49,20 @@ public class PostRepositoryImpl implements PostRepository {
         }
 
         PostEntity post = postEntity.get();
-        List<CommentEntity> comments = post.getComments();
-        List<Comment> commentList = new ArrayList<>();
-        comments.stream().map(
-                commentEntity -> new Comment(
-                        new Id(commentEntity.getId()),
-                        commentEntity.getContent(),
-                        new Id(commentEntity.getUser().getId())
-                )
-        ).forEach(commentList::add);
-
+        Id parentId = post.getParentId() != null ? new Id(post.getParentId()) : null;
         return Optional.of(
                 new Post(
                         new Id(post.getId()),
+                        post.getVersion(),
+                        parentId,
                         new Title(post.getTitle()),
+                        post.getMetaTitle(),
                         new PostContent(post.getContent()),
                         new Id(post.getUser().getId()),
                         new Summary(post.getSummary()),
                         post.getThumbnail(),
                         new Slug(post.getSlug(), new Title(post.getTitle())),
-                        commentList,
-                        post.getPublishedAt(),
-                        post.getVersion()
+                        post.getPublishedAt()
                 )
         );
     }

@@ -9,7 +9,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @Data
@@ -23,14 +24,20 @@ public class PostEntity implements Serializable {
     @Column(nullable = false, unique = true, length = 100)
     private String id;
 
+    @Version
+    @Column(nullable = false)
+    private Long version;
+
+    @Column()
+    private String parentId;
+
     @Column(nullable = false)
     private String title;
 
+    private String metaTitle;
+
     @Column(columnDefinition = "TEXT", length = 20000)
     private String content;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity user;
 
     @Column(columnDefinition = "TEXT", length = 500)
     private String summary;
@@ -41,15 +48,8 @@ public class PostEntity implements Serializable {
     @Column(nullable = false, unique = true, length = 100)
     private String slug;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.ALL)
-    private List<CommentEntity> comments;
-
     @Column(nullable = false, updatable = false)
     private LocalDateTime publishedAt;
-
-    @Version
-    @Column(nullable = false)
-    private Long version;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -58,25 +58,60 @@ public class PostEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    // In microservice system, we don't need to join to `users` table
+    // We just need to store `user_id` to identify the user who created the post
+    // We will verify the user_id with user service in application level
+    /**
+     * Many to one with `users` table
+     */
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @ManyToOne(targetEntity = UserEntity.class)
+    private UserEntity user;
+
+    @Column(name = "user_id")
+    private String userId;
+
+    /**
+     * One to many with `comments` table
+     */
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    private Set<CommentEntity> comments = new HashSet<>();
+
+    /**
+     * Many to many with `categories` table
+     */
+    @ElementCollection
+    @CollectionTable(name = "posts_categories", joinColumns = @JoinColumn(name = "post_id"))
+    @Column(name = "category_id")
+    private Set<String> categoryIds = new HashSet<>();
+
+    /**
+     * Many to many with `tags` table
+     */
+    @ElementCollection
+    @CollectionTable(name = "posts_tags", joinColumns = @JoinColumn(name = "post_id"))
+    @Column(name = "tag_id")
+    private Set<String> tagIds = new HashSet<>();
+
     public PostEntity(
             String id,
+            Long version,
             String title,
+            String metaTitle,
             String content,
-            UserEntity user,
             String summary,
             String thumbnail,
             String slug,
-            LocalDateTime publishedAt,
-            Long version
+            LocalDateTime publishedAt
     ) {
         this.id = id;
+        this.version = version;
         this.title = title;
+        this.metaTitle = metaTitle;
         this.content = content;
-        this.user = user;
         this.summary = summary;
         this.thumbnail = thumbnail;
         this.slug = slug;
         this.publishedAt = publishedAt;
-        this.version = version;
     }
 }

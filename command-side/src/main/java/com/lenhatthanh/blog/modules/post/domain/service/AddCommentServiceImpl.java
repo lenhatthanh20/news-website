@@ -30,7 +30,7 @@ public class AddCommentServiceImpl implements AddCommentService {
         }
 
         Post post = getPostOrError(postId);
-        post.addComment(commentDto.getContent(), user.get().getId().toString()); //
+//        post.addComment(commentDto.getContent(), user.get().getId().toString()); //
         postRepository.save(post);
 
 

@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS posts (
     user_id VARCHAR(100) NOT NULL,
     parent_id VARCHAR(100) DEFAULT NULL,
     title VARCHAR(100) NOT NULL,
-    meta_title VARCHAR(100) DEFAULT NULL,
+    meta_title VARCHAR(255) DEFAULT NULL,
     thumbnail VARCHAR(255) NOT NULL,
     slug VARCHAR(100) UNIQUE NOT NULL,
     summary TEXT DEFAULT NULL,
