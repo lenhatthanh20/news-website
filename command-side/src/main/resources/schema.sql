@@ -171,7 +171,9 @@ CREATE TABLE IF NOT EXISTS categories (
     version BIGINT NOT NULL,
     parent_id VARCHAR(100) DEFAULT NULL,
     slug VARCHAR(100) UNIQUE NOT NULL,
-    title VARCHAR(100) NOT NULL
+    title VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT NULL
 );
 
 CREATE INDEX idx_category_parent ON categories (parent_id);

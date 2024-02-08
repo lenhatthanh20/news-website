@@ -7,22 +7,29 @@ import lombok.Getter;
 
 @Getter
 public class Category extends AggregateRoot<Id> {
+    private Id parentId = null;
     private Slug slug;
-    private String title;
+    private Title title;
 
-    public Category(Id id, Long aggregateVersion, Slug slug, String name) {
+    public Category(Id id, Long aggregateVersion, Slug slug, Title title) {
         super(id, aggregateVersion);
         this.slug = slug;
-        this.title = name;
+        this.title = title;
     }
 
-    public void setName(String name) {
-        this.title = name;
+    public void setTitle(Title title) {
+        this.title = title;
     }
 
-    public static Category create(String title) {
+    public void setParentId(Id parentId) {
+        this.parentId = parentId;
+    }
+
+    public static Category create(Title title) {
         Id id = new Id(UniqueIdGenerator.create());
-        Slug slug = new Slug(new Title(title));
-        return new Category(id, 0L, slug, title);
+        Slug slug = new Slug(title);
+        Long firstVersion = 1L;
+
+        return new Category(id, firstVersion, slug, title);
     }
 }
