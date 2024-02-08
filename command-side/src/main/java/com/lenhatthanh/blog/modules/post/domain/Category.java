@@ -28,7 +28,7 @@ public class Category extends AggregateRoot<Id> {
     public static Category create(Title title) {
         Id id = new Id(UniqueIdGenerator.create());
         Slug slug = new Slug(title);
-        Long firstVersion = 1L;
+        Long firstVersion = 0L;
 
         return new Category(id, firstVersion, slug, title);
     }

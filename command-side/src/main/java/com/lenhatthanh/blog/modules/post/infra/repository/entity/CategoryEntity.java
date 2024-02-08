@@ -27,7 +27,7 @@ public class CategoryEntity implements Serializable {
     private Long version;
 
     @Column()
-    private String parentId = null;
+    private String parentId;
 
     @Column(nullable = false, length = 100)
     private String slug;
