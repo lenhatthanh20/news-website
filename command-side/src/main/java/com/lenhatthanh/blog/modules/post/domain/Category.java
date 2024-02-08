@@ -7,14 +7,15 @@ import lombok.Getter;
 
 @Getter
 public class Category extends AggregateRoot<Id> {
-    private Id parentId = null;
+    private Id parentId;
     private Slug slug;
     private Title title;
 
-    public Category(Id id, Long aggregateVersion, Slug slug, Title title) {
+    public Category(Id id, Long aggregateVersion, Id parentId, Title title, Slug slug) {
         super(id, aggregateVersion);
-        this.slug = slug;
+        this.parentId = parentId;
         this.title = title;
+        this.slug = slug;
     }
 
     public void setTitle(Title title) {
@@ -30,6 +31,6 @@ public class Category extends AggregateRoot<Id> {
         Slug slug = new Slug(title);
         Long firstVersion = 0L;
 
-        return new Category(id, firstVersion, slug, title);
+        return new Category(id, firstVersion, null, title, slug);
     }
 }

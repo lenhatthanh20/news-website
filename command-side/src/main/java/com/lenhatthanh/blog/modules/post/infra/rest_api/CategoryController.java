@@ -1,6 +1,7 @@
 package com.lenhatthanh.blog.modules.post.infra.rest_api;
 
 import com.lenhatthanh.blog.modules.post.application.usecase.CreateCategoryUseCase;
+import com.lenhatthanh.blog.modules.post.application.usecase.DeleteCategoryUseCase;
 import com.lenhatthanh.blog.modules.post.dto.CategoryDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,11 +12,18 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class CategoryController {
     CreateCategoryUseCase createCategoryUseCase;
+    DeleteCategoryUseCase deleteCategoryUseCase;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createCategory(@RequestBody CategoryDto post) {
         createCategoryUseCase.execute(post);
     }
-}
 
+    @DeleteMapping
+    @RequestMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCategory(@PathVariable String id) {
+        deleteCategoryUseCase.execute(id);
+    }
+}
