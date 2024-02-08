@@ -1,6 +1,6 @@
-package com.lenhatthanh.blog.modules.user.infrastructure.repository;
+package com.lenhatthanh.blog.modules.user.infra.repository;
 
-import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEntity;
+import com.lenhatthanh.blog.modules.user.infra.repository.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

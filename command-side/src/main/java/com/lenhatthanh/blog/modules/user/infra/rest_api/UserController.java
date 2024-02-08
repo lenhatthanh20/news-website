@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.infrastructure.rest_api;
+package com.lenhatthanh.blog.modules.user.infra.rest_api;
 
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateSubscriberUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.DeleteSubscriberUserUseCase;

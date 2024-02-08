@@ -1,11 +1,11 @@
-package com.lenhatthanh.blog.modules.post.infrastructure.repository;
+package com.lenhatthanh.blog.modules.post.infra.repository;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.post.domain.*;
 import com.lenhatthanh.blog.modules.post.domain.repository.PostRepository;
-import com.lenhatthanh.blog.modules.post.infrastructure.repository.entity.PostEntity;
-import com.lenhatthanh.blog.modules.post.infrastructure.repository.entity.CommentEntity;
-import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEntity;
+import com.lenhatthanh.blog.modules.post.infra.repository.entity.PostEntity;
+import com.lenhatthanh.blog.modules.post.infra.repository.entity.CommentEntity;
+import com.lenhatthanh.blog.modules.user.infra.repository.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

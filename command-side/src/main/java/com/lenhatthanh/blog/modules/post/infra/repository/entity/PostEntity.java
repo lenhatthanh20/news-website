@@ -1,6 +1,6 @@
-package com.lenhatthanh.blog.modules.post.infrastructure.repository.entity;
+package com.lenhatthanh.blog.modules.post.infra.repository.entity;
 
-import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEntity;
+import com.lenhatthanh.blog.modules.user.infra.repository.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

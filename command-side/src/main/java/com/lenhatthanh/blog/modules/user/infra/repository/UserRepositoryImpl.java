@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.infrastructure.repository;
+package com.lenhatthanh.blog.modules.user.infra.repository;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
@@ -7,7 +7,7 @@ import com.lenhatthanh.blog.modules.user.domain.MobilePhone;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.UserName;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
-import com.lenhatthanh.blog.modules.user.infrastructure.repository.entity.UserEntity;
+import com.lenhatthanh.blog.modules.user.infra.repository.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
