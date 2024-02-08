@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.post.infrastructure.rest_api;
+package com.lenhatthanh.blog.modules.post.infra.rest_api;
 
 import com.lenhatthanh.blog.modules.post.application.usecase.AddCommentUseCase;
 import com.lenhatthanh.blog.modules.post.application.usecase.CreatePostUseCase;

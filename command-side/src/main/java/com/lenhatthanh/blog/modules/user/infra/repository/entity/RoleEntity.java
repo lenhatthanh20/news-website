@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.infrastructure.repository.entity;
+package com.lenhatthanh.blog.modules.user.infra.repository.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,8 +8,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @NoArgsConstructor
 @Data

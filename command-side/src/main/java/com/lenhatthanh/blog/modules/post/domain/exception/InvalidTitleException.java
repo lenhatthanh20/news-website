@@ -2,8 +2,8 @@ package com.lenhatthanh.blog.modules.post.domain.exception;
 
 import com.lenhatthanh.blog.core.domain.DomainException;
 
-public class InvalidPostTitleException extends DomainException {
-    public InvalidPostTitleException() {
+public class InvalidTitleException extends DomainException {
+    public InvalidTitleException() {
         super("DOMAIN-ERROR-0001");
     }
 }

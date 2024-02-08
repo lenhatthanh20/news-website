@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.post.domain;
 
-import com.lenhatthanh.blog.modules.post.domain.exception.InvalidPostTitleException;
+import com.lenhatthanh.blog.modules.post.domain.exception.InvalidTitleException;
 import lombok.Getter;
 
 @Getter
@@ -12,8 +12,8 @@ public class Title {
     }
 
     private void setValue(String value) {
-        if (value.length() < 3 || value.length() > 255) {
-            throw new InvalidPostTitleException();
+        if (value.length() < 3 || value.length() > 100) {
+            throw new InvalidTitleException();
         }
 
         this.value = value;

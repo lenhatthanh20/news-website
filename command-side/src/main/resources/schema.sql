@@ -116,7 +116,7 @@ ALTER TABLE posts
     ADD CONSTRAINT fk_post_parent
     FOREIGN KEY (parent_id)
     REFERENCES posts(id)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE NO ACTION;
 
 -- Creating `meta` table
@@ -161,7 +161,7 @@ ALTER TABLE comments
     ADD CONSTRAINT fk_comment_parent
     FOREIGN KEY (parent_id)
     REFERENCES comments (id)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE NO ACTION;
 
 -- Creating `categories` table
@@ -170,9 +170,10 @@ CREATE TABLE IF NOT EXISTS categories (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
     parent_id VARCHAR(100) DEFAULT NULL,
-    meta_title VARCHAR(100) DEFAULT NULL,
     slug VARCHAR(100) UNIQUE NOT NULL,
-    content TEXT DEFAULT NULL
+    title VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT NULL
 );
 
 CREATE INDEX idx_category_parent ON categories (parent_id);
@@ -181,10 +182,10 @@ ALTER TABLE categories
     ADD CONSTRAINT fk_category_parent
     FOREIGN KEY (parent_id)
     REFERENCES categories (id)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE NO ACTION;
 
--- Creating `post_category` table
+-- Creating `posts_categories` table
 DROP TABLE IF EXISTS posts_categories CASCADE;
 CREATE TABLE IF NOT EXISTS posts_categories (
     post_id VARCHAR(100) NOT NULL,
@@ -209,10 +210,9 @@ CREATE INDEX idx_posts_categories_post ON posts_categories (post_id);
 DROP TABLE IF EXISTS tags CASCADE;
 CREATE TABLE IF NOT EXISTS tags (
     id VARCHAR(100) PRIMARY KEY,
-    title VARCHAR(100) NOT NULL,
-    meta_title varchar(100) DEFAULT NULL,
+    version BIGINT NOT NULL,
     slug VARCHAR(100) UNIQUE NOT NULL,
-    content text
+    title VARCHAR(100) NOT NULL
 );
 
 -- Creating `posts_tags` table

@@ -22,6 +22,17 @@ public class Slug {
             slug = this.generateSlugFromTitle(title);
         }
 
+        this.validate(slug);
+        this.value = slug;
+    }
+
+    public Slug(Title title) {
+        String slug = this.generateSlugFromTitle(title);
+        this.validate(slug);
+        this.value = slug;
+    }
+
+    private void validate(String slug) {
         if (slug.length() < MIN_SLUG_LENGTH || slug.length() > MAX_SLUG_LENGTH) {
             throw new InvalidSlugException();
         }
@@ -29,8 +40,6 @@ public class Slug {
         if (!this.isSlugValid(slug)) {
             throw new InvalidSlugException();
         }
-
-        this.value = slug;
     }
 
     private String generateSlugFromTitle(Title title) {

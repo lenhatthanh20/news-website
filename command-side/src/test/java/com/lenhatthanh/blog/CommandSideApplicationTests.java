@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog;
 
-import com.lenhatthanh.blog.modules.user.infrastructure.rest_api.UserController;
+import com.lenhatthanh.blog.modules.user.infra.rest_api.UserController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,12 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CommandSideApplicationTests {
 	@Autowired
 	private UserController controller;
-
-	/**
-	 * Don't need to run this bean when startup application in test environment
-	 */
-	@MockBean
-	ApplicationStartupRunner applicationStartupRunner;
 
 	@Test
 	void contextLoads() {
