@@ -10,11 +10,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="comments")
+@Table(name = "comments")
 public class CommentEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6009937215357249661L;
@@ -23,14 +25,21 @@ public class CommentEntity implements Serializable {
     @Column(nullable = false, unique = true, length = 100)
     private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity user;
+    @Version
+    @Column(nullable = false)
+    private Long version;
 
+    @Column()
+    private String parentId;
+
+    @Column()
     private String content;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="post_id", nullable=false)
-    private PostEntity post;
+    @Column()
+    private boolean isApproved;
+
+    @Column()
+    private LocalDateTime publishedAt;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -39,9 +48,37 @@ public class CommentEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public CommentEntity(String id, UserEntity user, String content) {
+    /**
+     * Many to one with `posts` table
+     */
+    @JoinColumn(name = "post_id", insertable = false, updatable = false)
+    @ManyToOne(targetEntity = PostEntity.class)
+    private PostEntity post;
+
+    @Column(name = "post_id")
+    private String postId;
+
+    /**
+     * Many to one with `users` table
+     */
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @ManyToOne(targetEntity = UserEntity.class)
+    private UserEntity user;
+
+    @Column(name = "user_id")
+    private String userId;
+
+    public CommentEntity(
+            String id,
+            Long version,
+            String content,
+            boolean isApproved,
+            LocalDateTime publishedAt
+    ) {
         this.id = id;
-        this.user = user;
+        this.version = version;
         this.content = content;
+        this.isApproved = isApproved;
+        this.publishedAt = publishedAt;
     }
 }

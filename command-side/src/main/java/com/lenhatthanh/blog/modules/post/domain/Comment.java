@@ -1,21 +1,46 @@
 package com.lenhatthanh.blog.modules.post.domain;
 
+import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.core.domain.Id;
-import com.lenhatthanh.blog.core.domain.Entity;
 import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
-public class Comment extends Entity<Id> {
+@Setter
+public class Comment extends AggregateRoot<Id> {
+    private Id parentId;
     private String content;
-    private Id userId;
+    private boolean isApproved;
+    private LocalDateTime publishedAt;
 
-    public Comment(Id id, String content, Id userId) {
-        super(id);
+    private Id userId;
+    private Id postId;
+
+    public Comment(
+            Id id,
+            Long aggregateVersion,
+            Id parentId,
+            String content,
+            boolean isApproved,
+            LocalDateTime publishedAt,
+            Id userId,
+            Id postId
+    ) {
+        super(id, aggregateVersion);
+        this.parentId = parentId;
         this.content = content;
+        this.isApproved = isApproved;
+        this.publishedAt = publishedAt;
         this.userId = userId;
+        this.postId = postId;
     }
 
-    public Comment create(Id id, String content, Id userId) {
-        return new Comment(id, content, userId);
+    public static Comment create(Id id, Id parentId, String content, boolean isApproved, Id userId, Id postId) {
+        Long firstVersion = 0L;
+        LocalDateTime publishedAt = LocalDateTime.now();
+
+        return new Comment(id, firstVersion, parentId, content, isApproved, publishedAt, userId, postId);
     }
 }

@@ -1,5 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infra.repository.entity;
 
+import com.lenhatthanh.blog.modules.post.infra.repository.entity.CommentEntity;
 import com.lenhatthanh.blog.modules.post.infra.repository.entity.PostEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -54,8 +55,14 @@ public class UserEntity implements Serializable {
     /**
      * One to many with `posts` table
      */
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<PostEntity> posts = new HashSet<>();
+
+    /**
+     * One to many with `comments` table
+     */
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<CommentEntity> comments = new HashSet<>();
 
     /**
      * Many to many with `roles` table

@@ -89,7 +89,7 @@ DROP TABLE IF EXISTS posts CASCADE;
 CREATE TABLE IF NOT EXISTS posts (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
-    user_id VARCHAR(100) NOT NULL,
+    user_id VARCHAR(100) DEFAULT NULL,
     parent_id VARCHAR(100) DEFAULT NULL,
     title VARCHAR(100) NOT NULL,
     meta_title VARCHAR(255) DEFAULT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS posts (
     CONSTRAINT fk_post_user
         FOREIGN KEY (user_id)
         REFERENCES users(id)
-        ON DELETE NO ACTION
+        ON DELETE SET NULL
         ON UPDATE NO ACTION
 );
 
@@ -141,16 +141,23 @@ DROP TABLE IF EXISTS comments CASCADE;
 CREATE TABLE IF NOT EXISTS comments (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
+    user_id VARCHAR(100) NOT NULL,
     post_id VARCHAR(100) NOT NULL,
     parent_id VARCHAR(100) DEFAULT NULL,
-    published BOOLEAN NOT NULL DEFAULT false,
+    is_approved BOOLEAN NOT NULL DEFAULT false,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT NULL,
     published_at TIMESTAMP DEFAULT NULL,
     content TEXT DEFAULT NULL,
+    CONSTRAINT fk_comment_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
     CONSTRAINT fk_comment_post
         FOREIGN KEY (post_id)
         REFERENCES posts(id)
-        ON DELETE NO ACTION
+        ON DELETE CASCADE
         ON UPDATE NO ACTION
 );
 

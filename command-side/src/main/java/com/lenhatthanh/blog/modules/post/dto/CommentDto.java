@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CommentDto {
+    private String parentId;
     private String content;
     private String userId;
 }

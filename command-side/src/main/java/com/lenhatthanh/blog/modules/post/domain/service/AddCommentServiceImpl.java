@@ -1,12 +1,16 @@
 package com.lenhatthanh.blog.modules.post.domain.service;
 
+import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.post.application.exception.UserNotFoundException;
+import com.lenhatthanh.blog.modules.post.domain.Comment;
 import com.lenhatthanh.blog.modules.post.domain.Post;
 import com.lenhatthanh.blog.modules.post.domain.exception.PostNotFoundException;
+import com.lenhatthanh.blog.modules.post.domain.repository.CommentRepository;
 import com.lenhatthanh.blog.modules.post.domain.repository.PostRepository;
 import com.lenhatthanh.blog.modules.post.dto.CommentDto;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
+import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +21,7 @@ import java.util.Optional;
 public class AddCommentServiceImpl implements AddCommentService {
     private PostRepository postRepository;
     private UserRepository userRepository;
+    private CommentRepository commentRepository;
 
     @Override
     public void add(String postId, CommentDto commentDto) {
@@ -24,14 +29,19 @@ public class AddCommentServiceImpl implements AddCommentService {
         // We have `User` bounded context and `Post` bounded context.
         // That means we have two microservices for each bounded context.
         // So we can use Rest API (non-blocking) to get user information from `User` bounded context.
-        Optional<User> user = userRepository.findById(commentDto.getUserId());
-        if (user.isEmpty()) {
-            throw new UserNotFoundException();
-        }
+        User user = this.getUserOrError(commentDto.getUserId());
+        Post post = this.getPostOrError(postId);
 
-        Post post = getPostOrError(postId);
-//        post.addComment(commentDto.getContent(), user.get().getId().toString()); //
-        postRepository.save(post);
+        Id parentId = commentDto.getParentId() != null ? new Id(commentDto.getParentId()) : null;
+        Comment comment = Comment.create(
+                new Id(UniqueIdGenerator.create()),
+                parentId,
+                commentDto.getContent(),
+                false,
+                new Id(user.getId().toString()),
+                new Id(post.getId().toString())
+        );
+        commentRepository.save(comment);
 
 
 
@@ -79,6 +89,15 @@ public class AddCommentServiceImpl implements AddCommentService {
 //         Request 2: Lưu post
 //         Vậy là số lượng comments của post sẽ là 101 comments, vượt quá giới hạn 100 comments của post
 //         Vậy là có thể xảy ra lỗi khi có nhiều request đồng thời
+    }
+
+    private User getUserOrError(String userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            throw new UserNotFoundException();
+        }
+
+        return user.get();
     }
 
     private Post getPostOrError(String postId) {
