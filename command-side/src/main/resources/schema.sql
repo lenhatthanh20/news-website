@@ -212,7 +212,9 @@ CREATE TABLE IF NOT EXISTS tags (
     id VARCHAR(100) PRIMARY KEY,
     version BIGINT NOT NULL,
     slug VARCHAR(100) UNIQUE NOT NULL,
-    title VARCHAR(100) NOT NULL
+    title VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT NULL
 );
 
 -- Creating `posts_tags` table

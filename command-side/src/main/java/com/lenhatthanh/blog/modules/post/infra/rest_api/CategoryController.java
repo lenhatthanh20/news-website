@@ -16,8 +16,8 @@ public class CategoryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCategory(@RequestBody CategoryDto post) {
-        createCategoryUseCase.execute(post);
+    public void createCategory(@RequestBody CategoryDto categoryDto) {
+        createCategoryUseCase.execute(categoryDto);
     }
 
     @DeleteMapping
