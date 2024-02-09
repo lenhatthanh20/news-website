@@ -1,5 +1,6 @@
 package com.lenhatthanh.blog.modules.post.infra.repository.entity;
 
+import com.lenhatthanh.blog.modules.post.domain.Comment;
 import com.lenhatthanh.blog.modules.user.infra.repository.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,8 +11,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @NoArgsConstructor
 @Data
@@ -80,5 +79,23 @@ public class CommentEntity implements Serializable {
         this.content = content;
         this.isApproved = isApproved;
         this.publishedAt = publishedAt;
+    }
+
+    public static CommentEntity fromDomainModel(Comment comment) {
+        CommentEntity commentEntity = new CommentEntity(
+                comment.getId().toString(),
+                comment.getAggregateVersion(),
+                comment.getContent(),
+                comment.isApproved(),
+                comment.getPublishedAt()
+        );
+        if (commentEntity.getParentId() != null) {
+            commentEntity.setParentId(comment.getParentId().toString());
+        }
+
+        commentEntity.setUserId(comment.getUserId().toString());
+        commentEntity.setPostId(comment.getPostId().toString());
+
+        return commentEntity;
     }
 }

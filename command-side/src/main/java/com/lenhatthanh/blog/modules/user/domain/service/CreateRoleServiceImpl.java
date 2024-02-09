@@ -11,8 +11,9 @@ import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -31,15 +32,15 @@ public class CreateRoleServiceImpl implements CreateRoleService {
         roleRepository.save(role);
     }
 
-    public void createList(List<RoleDto> roleDtoList) {
-        List<Role> roles = roleDtoList.stream().map(roleDto -> {
+    public void createList(Set<RoleDto> roleDtoList) {
+        Set<Role> roles = roleDtoList.stream().map(roleDto -> {
             this.roleDoesNotExistOrError(roleDto.getName());
             return Role.create(
                     new Id(UniqueIdGenerator.create()),
                     new RoleName(roleDto.getName()),
                     new RoleDescription(roleDto.getDescription())
             );
-        }).toList();
+        }).collect(Collectors.toSet());
 
         roleRepository.saveAll(roles);
     }

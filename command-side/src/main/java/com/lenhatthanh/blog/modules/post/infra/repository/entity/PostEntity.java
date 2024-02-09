@@ -1,5 +1,6 @@
 package com.lenhatthanh.blog.modules.post.infra.repository.entity;
 
+import com.lenhatthanh.blog.modules.post.domain.*;
 import com.lenhatthanh.blog.modules.user.infra.repository.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -113,5 +114,51 @@ public class PostEntity implements Serializable {
         this.thumbnail = thumbnail;
         this.slug = slug;
         this.publishedAt = publishedAt;
+    }
+
+    public static PostEntity fromDomainModel(Post post) {
+        PostEntity postEntity = new PostEntity(
+                post.getId().toString(),
+                post.getAggregateVersion(),
+                post.getTitle().getValue(),
+                post.getMetaTitle(),
+                post.getContent().getValue(),
+                post.getSummary().getValue(),
+                post.getThumbnail(),
+                post.getSlug().getValue(),
+                post.getPublishedAt()
+        );
+
+        postEntity.setUserId(post.getUserId().toString());
+
+        Set<String> categoryIds = new HashSet<>();
+        post.getCategoryIds().forEach(categoryId -> categoryIds.add(categoryId.toString()));
+        postEntity.setCategoryIds(categoryIds);
+
+        Set<String> tagIds = new HashSet<>();
+        post.getTagIds().forEach(tagId -> tagIds.add(tagId.toString()));
+        postEntity.setTagIds(tagIds);
+
+        return postEntity;
+    }
+
+    public Post toDomainModel() {
+        var id = new com.lenhatthanh.blog.core.domain.Id(this.id);
+        var parentId = this.parentId != null ? new com.lenhatthanh.blog.core.domain.Id(this.parentId) : null;
+        var userId = new com.lenhatthanh.blog.core.domain.Id(this.userId);
+
+        return new Post(
+                id,
+                this.version,
+                parentId,
+                new Title(this.title),
+                this.metaTitle,
+                new PostContent(this.content),
+                userId,
+                new Summary(this.summary),
+                this.thumbnail,
+                new Slug(this.slug, new Title(this.title)),
+                this.publishedAt
+        );
     }
 }
