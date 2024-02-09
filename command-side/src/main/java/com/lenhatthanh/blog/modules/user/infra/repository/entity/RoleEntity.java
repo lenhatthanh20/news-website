@@ -1,5 +1,8 @@
 package com.lenhatthanh.blog.modules.user.infra.repository.entity;
 
+import com.lenhatthanh.blog.modules.user.domain.Role;
+import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
+import com.lenhatthanh.blog.modules.user.domain.RoleName;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,6 +11,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Data
@@ -43,5 +48,29 @@ public class RoleEntity implements Serializable {
         this.version = version;
         this.name = name;
         this.description = description;
+    }
+
+    public static RoleEntity fromDomainModel(Role role) {
+        return new RoleEntity(
+                role.getId().toString(),
+                role.getAggregateVersion(),
+                role.getName().getValue(),
+                role.getDescription().getValue()
+        );
+    }
+
+    public static Set<RoleEntity> fromDomainModels(Set<Role> roles) {
+        return roles.stream().map(RoleEntity::fromDomainModel).collect(Collectors.toSet());
+    }
+
+    public Role toDomainModel() {
+        var id = new com.lenhatthanh.blog.core.domain.Id(this.id);
+
+        return new Role(
+                id,
+                this.version,
+                new RoleName(this.name),
+                new RoleDescription(this.description)
+        );
     }
 }
