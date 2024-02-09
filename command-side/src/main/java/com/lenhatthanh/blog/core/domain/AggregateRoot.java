@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,9 +56,4 @@ public class AggregateRoot<Type> extends Entity<Type> {
         domainEvents.clear();
         logger.error("The domain events have been cleared");
     }
-
-    // For testing
-//    public void updateAggregateVersion(Long aggregateVersion) {
-//        this.aggregateVersion = aggregateVersion;
-//    }
 }
