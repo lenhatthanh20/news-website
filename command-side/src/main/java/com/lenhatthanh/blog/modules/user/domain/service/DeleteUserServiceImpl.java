@@ -16,7 +16,6 @@ public class DeleteUserServiceImpl implements DeleteUserService {
         User user = this.getUserByIdOrError(userId);
         user.delete();
         // TODO: add business logic: Can't delete admin user
-        // TODO: register domain event: UserDeletedEvent
 
         userRepository.delete(user);
     }
