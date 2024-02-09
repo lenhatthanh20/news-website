@@ -4,6 +4,7 @@ import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleCreatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleUpdatedEvent;
+import com.lenhatthanh.blog.modules.user.domain.event.RoleDeletedEvent;
 import lombok.Getter;
 
 @Getter
@@ -25,6 +26,10 @@ public class Role extends AggregateRoot<Id> {
     public void updateDescription(RoleDescription description) {
         this.description = description;
         this.registerEvent(new RoleUpdatedEvent(this));
+    }
+
+    public void delete() {
+        this.registerEvent(new RoleDeletedEvent(this));
     }
 
     public static Role create(Id id, RoleName name, RoleDescription description) {

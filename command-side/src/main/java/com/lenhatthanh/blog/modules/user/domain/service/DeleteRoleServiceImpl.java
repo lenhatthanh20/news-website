@@ -18,8 +18,7 @@ public class DeleteRoleServiceImpl implements DeleteRoleService {
     public void delete(String roleId) {
         Role role = this.getRoleByIdOrError(roleId);
         this.isNotSystemRoleOrError(role.getName().getValue());
-
-        role.registerEvent(new RoleDeletedEvent(role));
+        role.delete();
         roleRepository.delete(role);
     }
 
