@@ -1,9 +1,6 @@
 package com.lenhatthanh.blog.modules.post.infra.repository;
 
-import com.lenhatthanh.blog.core.domain.Id;
-import com.lenhatthanh.blog.modules.post.domain.Slug;
 import com.lenhatthanh.blog.modules.post.domain.Tag;
-import com.lenhatthanh.blog.modules.post.domain.Title;
 import com.lenhatthanh.blog.modules.post.domain.repository.TagRepository;
 import com.lenhatthanh.blog.modules.post.infra.repository.entity.TagEntity;
 import lombok.AllArgsConstructor;
