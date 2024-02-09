@@ -54,12 +54,12 @@ public class CategoryEntity implements Serializable {
 
     public Category toDomainModel() {
         var id = new com.lenhatthanh.blog.core.domain.Id(this.id);
-        var parentId = new com.lenhatthanh.blog.core.domain.Id(this.parentId);
+        var parentId = this.parentId != null ? new com.lenhatthanh.blog.core.domain.Id(this.parentId) : null;
 
         return new Category(
                 id,
                 this.version,
-                this.parentId != null ? parentId : null,
+                parentId,
                 new Title(this.title),
                 new Slug(this.slug, new Title(this.title))
         );
