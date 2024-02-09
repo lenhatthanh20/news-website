@@ -71,7 +71,7 @@ public class UserEntity implements Serializable {
     /**
      * Many to many with `roles` table
      */
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_id")
     private Set<String> roleIds = new HashSet<>();
@@ -114,6 +114,8 @@ public class UserEntity implements Serializable {
 
     public User toDomainModel() {
         var id = new com.lenhatthanh.blog.core.domain.Id(this.id);
+        var roleIds = new HashSet<com.lenhatthanh.blog.core.domain.Id>();
+        this.roleIds.forEach(roleId -> roleIds.add(new com.lenhatthanh.blog.core.domain.Id(roleId)));
 
         return new User(
                 id,
@@ -122,7 +124,8 @@ public class UserEntity implements Serializable {
                 new Email(this.email),
                 new MobilePhone(this.mobilePhone),
                 this.password,
-                this.isActive
+                this.isActive,
+                roleIds
         );
     }
 }
