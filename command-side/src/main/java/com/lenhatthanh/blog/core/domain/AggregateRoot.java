@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,8 +42,12 @@ public class AggregateRoot<Type> extends Entity<Type> {
     }
 
     public void publishEvents(DomainEventPublisher publisher) {
-        logger.error("The domain events have been published");
+        if (domainEvents.isEmpty()) {
+            return;
+        }
+
         domainEvents.forEach(publisher::publishEvent);
+        logger.error("The domain events have been published");
 
         // After publish events, we need to clear them
         clearDomainEvents();

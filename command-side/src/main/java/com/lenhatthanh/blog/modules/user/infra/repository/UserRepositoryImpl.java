@@ -42,5 +42,6 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public void delete(User user) {
         this.userJpaRepository.deleteById(user.getId().toString());
+        user.publishEvents(domainEventPublisher);
     }
 }

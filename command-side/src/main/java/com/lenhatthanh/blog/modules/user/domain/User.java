@@ -4,6 +4,7 @@ import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.UserUpdatedEvent;
+import com.lenhatthanh.blog.modules.user.domain.event.UserDeletedEvent;
 import lombok.Getter;
 
 import java.util.HashSet;
@@ -19,7 +20,7 @@ public class User extends AggregateRoot<Id> {
     Boolean isActive;
 
     // Relationship with Role aggregate via id
-    private Set<Id> roleIds = new HashSet<>();
+    private Set<Id> roleIds;
 
     public User(Id id, Long aggregateVersion, UserName name, Email email, MobilePhone mobilePhone, String password, Boolean isActive, Set<Id> roleIds) {
         super(id, aggregateVersion);
@@ -62,6 +63,10 @@ public class User extends AggregateRoot<Id> {
 
     public void deactivate() {
         update(user -> user.isActive = false);
+    }
+
+    public void delete() {
+        this.registerEvent(new UserDeletedEvent(this));
     }
 
     public static User create(Id id, UserName name, Email email, MobilePhone mobilePhone, String password, Id roleId) {
