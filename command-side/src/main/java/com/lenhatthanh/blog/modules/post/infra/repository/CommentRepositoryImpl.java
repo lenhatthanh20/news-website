@@ -13,20 +13,7 @@ public class CommentRepositoryImpl implements CommentRepository {
 
     @Override
     public void save(Comment comment) {
-        CommentEntity commentEntity = new CommentEntity(
-                comment.getId().toString(),
-                comment.getAggregateVersion(),
-                comment.getContent(),
-                comment.isApproved(),
-                comment.getPublishedAt()
-        );
-
-        if (commentEntity.getParentId() != null) {
-            commentEntity.setParentId(comment.getParentId().toString());
-        }
-
-        commentEntity.setUserId(comment.getUserId().toString());
-        commentEntity.setPostId(comment.getPostId().toString());
+        CommentEntity commentEntity = CommentEntity.fromDomainModel(comment);
         commentJpaRepository.save(commentEntity);
     }
 }
