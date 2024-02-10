@@ -1,9 +1,6 @@
 package com.lenhatthanh.blog.modules.user.domain.service;
 
-import com.lenhatthanh.blog.modules.user.domain.Email;
-import com.lenhatthanh.blog.modules.user.domain.Role;
-import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.UserName;
+import com.lenhatthanh.blog.modules.user.domain.*;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyExistsException;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
@@ -30,6 +27,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 
         user.updateName(new UserName(newUserDto.getName()));
         user.updateEmail(new Email(newUserDto.getEmail()));
+        user.updateMobilePhone(new MobilePhone(newUserDto.getMobilePhone()));
 
         userRepository.save(user);
     }
