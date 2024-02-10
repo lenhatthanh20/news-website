@@ -17,6 +17,7 @@ public class UserRepositoryImpl implements UserRepository {
     private DomainEventPublisher domainEventPublisher;
 
     @Override
+    @Transactional
     public void save(User user) {
         UserEntity userEntity = UserEntity.fromDomainModel(user);
         this.userJpaRepository.save(userEntity);
@@ -40,6 +41,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public void delete(User user) {
         this.userJpaRepository.deleteById(user.getId().toString());
         user.publishEvents(domainEventPublisher);
