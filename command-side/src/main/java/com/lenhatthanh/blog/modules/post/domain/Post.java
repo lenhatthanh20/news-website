@@ -2,16 +2,19 @@ package com.lenhatthanh.blog.modules.post.domain;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
+import com.lenhatthanh.blog.modules.post.domain.exception.CategoryLimitExceededException;
+import com.lenhatthanh.blog.modules.post.domain.exception.TagLimitExceededException;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter
-@Setter
 public class Post extends AggregateRoot<Id> {
+    public static final int MAX_CATEGORIES = 5;
+    public static final int MAX_TAGS = 10;
+
     private Id parentId;
     private Title title;
     private String metaTitle;
@@ -68,5 +71,21 @@ public class Post extends AggregateRoot<Id> {
         return new Post(id, firstVersion, parentId, title, metaTitle, content, userId, summary, thumbnail, slug, publishedAt);
 
         // @TODO register domain event PostCreatedEvent
+    }
+
+    public void setCategoryIds(Set<Id> categoryIds) {
+        if (categoryIds.size() > MAX_CATEGORIES) {
+            throw new CategoryLimitExceededException();
+        }
+
+        this.categoryIds = categoryIds;
+    }
+
+    public void setTagIds(Set<Id> tagIds) {
+        if (tagIds.size() > MAX_TAGS) {
+            throw new TagLimitExceededException();
+        }
+
+        this.tagIds = tagIds;
     }
 }
