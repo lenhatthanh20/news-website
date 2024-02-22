@@ -22,6 +22,7 @@ public class Post extends AggregateRoot<Id> {
     private Slug slug;
     private LocalDateTime publishedAt;
 
+    // Aggregate relationship via global ID
     private Set<Id> categoryIds = new HashSet<>();
     private Set<Id> tagIds = new HashSet<>();
 
@@ -43,7 +44,6 @@ public class Post extends AggregateRoot<Id> {
         this.title = title;
         this.metaTitle = metaTitle;
         this.content = content;
-        this.setSlug(slug);
         this.userId = userId;
         this.summary = summary;
         this.thumbnail = thumbnail;
@@ -62,27 +62,11 @@ public class Post extends AggregateRoot<Id> {
             String thumbnail,
             Slug slug
     ) {
-        // True invariants here, example
+        // True invariants here
         Long firstVersion = 0L;
         LocalDateTime publishedAt = LocalDateTime.now();
         return new Post(id, firstVersion, parentId, title, metaTitle, content, userId, summary, thumbnail, slug, publishedAt);
 
         // @TODO register domain event PostCreatedEvent
     }
-
-//    public void addComment(String content, String userId) {
-        // True invariants here, example
-        // Total of comments must be less than 100
-        // When the status of the post is DRAFT, can not add comment
-
-
-//        if (this.comments.size() >= MAX_COMMENT) {
-//            throw new CommentsLimitExceededException();
-//        }
-
-//        Comment comment = new Comment(new Id(UniqueIdGenerator.create()), content, new Id(userId));
-//        this.comments.add(comment);
-
-        // @TODO register domain event CommentAddedEvent
-//    }
 }
