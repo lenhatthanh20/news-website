@@ -22,7 +22,6 @@ public class RoleEventHandler {
     private KafkaTemplate<String, RoleEventDto> kafkaTemplate;
     private final Log logger = LogFactory.getLog(getClass());
 
-    @Async
     @EventListener(RoleCreatedEvent.class)
     public void handleRoleCreatedEvent(DomainEvent event) {
         sendMessageToKafkaBroker(event);

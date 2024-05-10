@@ -25,7 +25,6 @@ public class UserEventHandler {
     private KafkaTemplate<String, UserEventDto> kafkaTemplate;
     private final Log logger = LogFactory.getLog(getClass());
 
-    @Async
     @EventListener(UserCreatedEvent.class)
     public void handleUserCreatedEvent(UserCreatedEvent event) {
         sendMessageToKafkaBroker(event);
