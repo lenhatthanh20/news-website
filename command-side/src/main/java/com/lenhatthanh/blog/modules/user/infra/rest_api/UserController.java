@@ -1,8 +1,8 @@
 package com.lenhatthanh.blog.modules.user.infra.rest_api;
 
-import com.lenhatthanh.blog.modules.user.application.usecase.CreateSubscriberUserUseCase;
-import com.lenhatthanh.blog.modules.user.application.usecase.DeleteSubscriberUserUseCase;
-import com.lenhatthanh.blog.modules.user.application.usecase.UpdateSubscriberUserUseCase;
+import com.lenhatthanh.blog.modules.user.application.usecase.CreateAuthorUserUseCase;
+import com.lenhatthanh.blog.modules.user.application.usecase.DeleteAuthorUserUseCase;
+import com.lenhatthanh.blog.modules.user.application.usecase.UpdateAuthorUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.UserLoginUseCase;
 import com.lenhatthanh.blog.modules.user.dto.LoginDto;
 import com.lenhatthanh.blog.modules.user.dto.LoginResponseDto;
@@ -16,28 +16,28 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-    private CreateSubscriberUserUseCase createSubscriberUserUseCase;
-    private UpdateSubscriberUserUseCase updateSubscriberUserUseCase;
-    private DeleteSubscriberUserUseCase deleteSubscriberUserUseCase;
+    private CreateAuthorUserUseCase createAuthorUserUseCase;
+    private UpdateAuthorUserUseCase updateAuthorUserUseCase;
+    private DeleteAuthorUserUseCase deleteAuthorUserUseCase;
     private UserLoginUseCase userLoginUseCase;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody UserDto user) {
-        createSubscriberUserUseCase.execute(user);
+        createAuthorUserUseCase.execute(user);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void updateUser(@RequestBody UserDto user) {
-        updateSubscriberUserUseCase.execute(user);
+        updateAuthorUserUseCase.execute(user);
     }
 
     @DeleteMapping
     @RequestMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable String id) {
-        deleteSubscriberUserUseCase.execute(id);
+        deleteAuthorUserUseCase.execute(id);
     }
 
     @PostMapping("/auth/login")

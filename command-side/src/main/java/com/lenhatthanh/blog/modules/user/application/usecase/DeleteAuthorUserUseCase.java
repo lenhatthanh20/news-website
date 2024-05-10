@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class DeleteSubscriberUserUseCase {
+public class DeleteAuthorUserUseCase {
     DeleteUserService deleteUserService;
 
     public void execute(String userId) {
-        deleteUserService.deleteSubscriber(userId);
+        deleteUserService.deleteAuthor(userId);
     }
 }

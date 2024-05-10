@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class UpdateSubscriberUserUseCase {
+public class UpdateAuthorUserUseCase {
     UpdateUserService updateUserService;
     public void execute(UserDto user) {
-        updateUserService.updateSubscriber(user);
+        updateUserService.updateAuthor(user);
     }
 }

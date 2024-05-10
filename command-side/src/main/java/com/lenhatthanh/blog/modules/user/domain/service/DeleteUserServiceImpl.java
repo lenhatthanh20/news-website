@@ -12,7 +12,7 @@ public class DeleteUserServiceImpl implements DeleteUserService {
     UserRepository userRepository;
 
     @Override
-    public void deleteSubscriber(String userId) {
+    public void deleteAuthor(String userId) {
         User user = this.getUserByIdOrError(userId);
         user.delete();
         // TODO: add business logic: Can't delete admin user

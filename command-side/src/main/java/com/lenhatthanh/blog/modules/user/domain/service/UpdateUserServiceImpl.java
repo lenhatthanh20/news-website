@@ -19,7 +19,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
     private RoleRepository roleRepository;
 
     @Override
-    public void updateSubscriber(UserDto newUserDto) {
+    public void updateAuthor(UserDto newUserDto) {
         User user = getUserByIdOrError(newUserDto.getId());
         if (!user.getEmail().getValue().equals(newUserDto.getName())) {
             this.newEmailDoesNotExistOrError(newUserDto.getEmail());
