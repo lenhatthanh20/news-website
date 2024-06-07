@@ -119,6 +119,7 @@ public class UserEntity implements Serializable {
                 .mobilePhone(new MobilePhone(userEntity.getMobilePhone()))
                 .password(userEntity.getPassword())
                 .isActive(userEntity.getIsActive())
+                .roleIds(new ArrayList<>())
                 .build();
         user.setId(new com.lenhatthanh.blog.core.domain.Id(userEntity.getId()));
         user.setAggregateVersion(userEntity.getVersion());
