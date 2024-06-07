@@ -7,7 +7,6 @@ import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyExistsExcep
 import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.dto.UserDto;
-import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -45,14 +44,8 @@ public class CreateUserServiceImpl implements CreateUserService {
             throw new UserAlreadyExistsException();
         }
 
-        return User.create(
-                new Id(UniqueIdGenerator.create()),
-                new UserName(userDto.getName()),
-                new Email(userDto.getEmail()),
-                new MobilePhone(userDto.getMobilePhone()),
-                passwordEncoder.encode(userDto.getPassword()),
-                roleId
-        );
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        return User.create(userDto, roleId);
     }
 
     private Role getRoleByNameOrError(String roleName) {

@@ -11,6 +11,7 @@ import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -22,25 +23,15 @@ public class CreateRoleServiceImpl implements CreateRoleService {
 
     public void create(RoleDto roleDto) {
         this.roleDoesNotExistOrError(roleDto.getName());
-
-        Role role = Role.create(
-                new Id(UniqueIdGenerator.create()),
-                new RoleName(roleDto.getName()),
-                new RoleDescription(roleDto.getDescription())
-        );
-
+        Role role = Role.create(roleDto);
         roleRepository.save(role);
     }
 
-    public void createList(Set<RoleDto> roleDtoList) {
-        Set<Role> roles = roleDtoList.stream().map(roleDto -> {
+    public void createList(List<RoleDto> roleDtoList) {
+        List<Role> roles = roleDtoList.stream().map(roleDto -> {
             this.roleDoesNotExistOrError(roleDto.getName());
-            return Role.create(
-                    new Id(UniqueIdGenerator.create()),
-                    new RoleName(roleDto.getName()),
-                    new RoleDescription(roleDto.getDescription())
-            );
-        }).collect(Collectors.toSet());
+            return Role.create(roleDto);
+        }).collect(Collectors.toList());
 
         roleRepository.saveAll(roles);
     }

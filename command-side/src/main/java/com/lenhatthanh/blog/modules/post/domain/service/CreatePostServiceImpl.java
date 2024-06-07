@@ -33,20 +33,18 @@ public class CreatePostServiceImpl implements CreatePostService {
         // We have `User` bounded context and `Post` bounded context.
         // That means we have two microservices for each bounded context.
         // So we can use Rest API (non-blocking) to get user information from `User` bounded context.
-        User user = this.getUserOrError(postDto.getUserId());
+        this.userExistOrError(postDto.getUserId());
         this.categoriesAndTagsExistOrError(postDto);
 
-        Post post = createPostAggregate(user, postDto);
+        Post post = Post.create(postDto);
         postRepository.save(post);
     }
 
-    private User getUserOrError(String userId) {
+    private void userExistOrError(String userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isEmpty()) {
             throw new UserNotFoundException();
         }
-
-        return user.get();
     }
 
     private void categoriesAndTagsExistOrError(PostDto postDto) {
@@ -61,33 +59,5 @@ public class CreatePostServiceImpl implements CreatePostService {
                 throw new TagNotFoundException();
             }
         });
-    }
-
-    private Post createPostAggregate(User user, PostDto postDto) {
-        Id postId = new Id(UniqueIdGenerator.create());
-        Id parentId = postDto.getParentId() != null ? new Id(postDto.getParentId()) : null;
-        Title title = new Title(postDto.getTitle());
-        Summary summary = new Summary(postDto.getSummary());
-        PostContent content = new PostContent(postDto.getContent());
-        Slug slug = new Slug(postDto.getSlug(), title);
-
-        Post post = Post.create(
-                postId,
-                parentId,
-                title,
-                postDto.getMetaTitle(),
-                content,
-                user.getId(),
-                summary,
-                postDto.getThumbnail(),
-                slug
-        );
-
-        Set<Id> categoryIds = postDto.getCategoryIds().stream().map(Id::new).collect(Collectors.toSet());
-        post.setCategoryIds(categoryIds);
-        Set<Id> tagIds = postDto.getTagIds().stream().map(Id::new).collect(Collectors.toSet());
-        post.setTagIds(tagIds);
-
-        return post;
     }
 }

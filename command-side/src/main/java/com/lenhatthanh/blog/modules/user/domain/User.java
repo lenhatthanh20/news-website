@@ -5,14 +5,19 @@ import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.UserUpdatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.UserDeletedEvent;
+import com.lenhatthanh.blog.modules.user.dto.UserDto;
+import com.lenhatthanh.blog.shared.UniqueIdGenerator;
+import lombok.Builder;
 import lombok.Getter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 @Getter
+@Builder
 public class User extends AggregateRoot<Id> {
+    private static final Boolean ACTIVATED = true;
     private UserName name;
     private Email email;
     private MobilePhone mobilePhone;
@@ -20,17 +25,7 @@ public class User extends AggregateRoot<Id> {
     Boolean isActive;
 
     // Relationship with Role aggregate via id
-    private Set<Id> roleIds;
-
-    public User(Id id, Long aggregateVersion, UserName name, Email email, MobilePhone mobilePhone, String password, Boolean isActive, Set<Id> roleIds) {
-        super(id, aggregateVersion);
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.mobilePhone = mobilePhone;
-        this.isActive = isActive;
-        this.roleIds = roleIds;
-    }
+    private List<Id> roleIds;
 
     private void update(Consumer<User> fieldUpdater) {
         fieldUpdater.accept(this);
@@ -50,6 +45,10 @@ public class User extends AggregateRoot<Id> {
     }
 
     public void addRole(Id roleId) {
+        if (roleIds.contains(roleId)) {
+            return;
+        }
+
         update(user -> user.roleIds.add(roleId));
     }
 
@@ -69,16 +68,20 @@ public class User extends AggregateRoot<Id> {
         this.registerEvent(new UserDeletedEvent(this));
     }
 
-    public static User create(Id id, UserName name, Email email, MobilePhone mobilePhone, String password, Id roleId) {
-        Long firstVersion = 0L;
-        Boolean isActive = true;
-        Set<Id> roleIds = new HashSet<>();
-        roleIds.add(roleId);
-        User user = new User(id, firstVersion, name, email, mobilePhone, password, isActive, roleIds);
+    public static User create(UserDto userDto, Id roleId) {
+        User user = User.builder()
+                .name(new UserName(userDto.getName()))
+                .email(new Email(userDto.getEmail()))
+                .mobilePhone(new MobilePhone(userDto.getMobilePhone()))
+                .password(userDto.getPassword())
+                .isActive(ACTIVATED)
+                .roleIds(new ArrayList<>())
+                .build();
+        user.setId(new Id(UniqueIdGenerator.create()));
+        user.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);
+        user.addRole(roleId);
 
-        // Add domain event
         user.registerEvent(new UserCreatedEvent(user));
-
         return user;
     }
 }

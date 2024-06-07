@@ -52,17 +52,15 @@ public class CategoryEntity implements Serializable {
         this.slug = slug;
     }
 
-    public Category toDomainModel() {
-        var id = new com.lenhatthanh.blog.core.domain.Id(this.id);
-        var parentId = this.parentId != null ? new com.lenhatthanh.blog.core.domain.Id(this.parentId) : null;
-
-        return new Category(
-                id,
-                this.version,
-                parentId,
-                new Title(this.title),
-                new Slug(this.slug, new Title(this.title))
-        );
+    public static Category toDomainModel(CategoryEntity categoryEntity) {
+        Category category = Category.builder()
+                .parentId(categoryEntity.getParentId() != null ? new com.lenhatthanh.blog.core.domain.Id(categoryEntity.getParentId()) : null)
+                .title(new Title(categoryEntity.getTitle()))
+                .slug(new Slug(categoryEntity.getSlug()))
+                .build();
+        category.setId(new com.lenhatthanh.blog.core.domain.Id(categoryEntity.getId()));
+        category.setAggregateVersion(categoryEntity.getVersion());
+        return category;
     }
 
     public static CategoryEntity fromDomainModel(Category category) {

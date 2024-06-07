@@ -13,18 +13,21 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CreateCategoryServiceImpl implements CreateCategoryService {
     private final CategoryRepository categoryRepository;
+    private final CreateSlugFromTitleService createSlugFromTitleService;
 
     @Override
     public void create(CategoryDto categoryDto) {
-        Category category = Category.create(new Title(categoryDto.getTitle()));
         if (categoryDto.getParentId() != null) {
             this.parentCategoryExistOrError(categoryDto.getParentId());
-            Id parentId = new Id(categoryDto.getParentId());
-            category.setParentId(parentId);
         }
 
-        // TODO: Business logic: category slug must be unique
+        Category category = Category.create(
+                new Title(categoryDto.getTitle()),
+                createSlugFromTitleService.create(categoryDto.getTitle()),
+                categoryDto.getParentId() == null ? null : new Id(categoryDto.getParentId())
+        );
 
+        // TODO: Business logic: category slug must be unique
         categoryRepository.save(category);
     }
 

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="tags")
+@Table(name = "tags")
 public class TagEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6009937215347249661L;
@@ -50,22 +50,13 @@ public class TagEntity implements Serializable {
     }
 
     public static TagEntity fromDomainModel(Tag tag) {
-        return new TagEntity(
-                tag.getId().toString(),
-                tag.getAggregateVersion(),
-                tag.getTitle().getValue(),
-                tag.getSlug().getValue()
-        );
+        return new TagEntity(tag.getId().toString(), tag.getAggregateVersion(), tag.getTitle().getValue(), tag.getSlug().getValue());
     }
 
-    public Tag toDomainModel() {
-        var id = new com.lenhatthanh.blog.core.domain.Id(this.id);
-
-        return new Tag(
-                id,
-                this.version,
-                new Title(this.title),
-                new Slug(this.slug, new Title(this.title))
-        );
+    public static Tag toDomainModel(TagEntity tagEntity) {
+        Tag tag = Tag.builder().title(new Title(tagEntity.getTitle())).slug(new Slug(tagEntity.getSlug())).build();
+        tag.setId(new com.lenhatthanh.blog.core.domain.Id(tagEntity.getId()));
+        tag.setAggregateVersion(tagEntity.getVersion());
+        return tag;
     }
 }

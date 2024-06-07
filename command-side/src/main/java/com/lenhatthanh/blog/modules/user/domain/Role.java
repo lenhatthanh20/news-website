@@ -5,18 +5,16 @@ import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleCreatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleUpdatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleDeletedEvent;
+import com.lenhatthanh.blog.modules.user.dto.RoleDto;
+import com.lenhatthanh.blog.shared.UniqueIdGenerator;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class Role extends AggregateRoot<Id> {
     private RoleName name;
     private RoleDescription description;
-
-    public Role(Id id, Long aggregateVersion, RoleName name, RoleDescription description) {
-        super(id, aggregateVersion);
-        this.name = name;
-        this.description = description;
-    }
 
     public void updateRoleName(RoleName name) {
         this.name = name;
@@ -32,11 +30,13 @@ public class Role extends AggregateRoot<Id> {
         this.registerEvent(new RoleDeletedEvent(this));
     }
 
-    public static Role create(Id id, RoleName name, RoleDescription description) {
-        Long firstVersion = 0L;
-        Role role = new Role(id, firstVersion, name, description);
-        role.registerEvent(new RoleCreatedEvent(role));
-
+    public static Role create(RoleDto roleDto) {
+        Role role = Role.builder()
+                .name(new RoleName(roleDto.getName()))
+                .description(new RoleDescription(roleDto.getDescription()))
+                .build();
+        role.setId(new Id(UniqueIdGenerator.create()));
+        role.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);
         return role;
     }
 }

@@ -2,6 +2,9 @@ package com.lenhatthanh.blog.modules.post.domain;
 
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.core.domain.Id;
+import com.lenhatthanh.blog.modules.post.dto.CommentDto;
+import com.lenhatthanh.blog.shared.UniqueIdGenerator;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +12,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@Builder
 public class Comment extends AggregateRoot<Id> {
     private Id parentId;
     private String content;
@@ -18,29 +22,17 @@ public class Comment extends AggregateRoot<Id> {
     private Id userId;
     private Id postId;
 
-    public Comment(
-            Id id,
-            Long aggregateVersion,
-            Id parentId,
-            String content,
-            boolean isApproved,
-            LocalDateTime publishedAt,
-            Id userId,
-            Id postId
-    ) {
-        super(id, aggregateVersion);
-        this.parentId = parentId;
-        this.content = content;
-        this.isApproved = isApproved;
-        this.publishedAt = publishedAt;
-        this.userId = userId;
-        this.postId = postId;
-    }
-
-    public static Comment create(Id id, Id parentId, String content, boolean isApproved, Id userId, Id postId) {
-        Long firstVersion = 0L;
-        LocalDateTime publishedAt = LocalDateTime.now();
-
-        return new Comment(id, firstVersion, parentId, content, isApproved, publishedAt, userId, postId);
+    public static Comment create(CommentDto commentDto) {
+        Comment comment = Comment.builder()
+                .parentId(commentDto.getParentId() != null ? new Id(commentDto.getParentId()) : null)
+                .content(commentDto.getContent())
+                .isApproved(false)
+                .publishedAt(LocalDateTime.now())
+                .userId(new Id(commentDto.getUserId()))
+                .postId(new Id(commentDto.getPostId()))
+                .build();
+        comment.setId(new Id(UniqueIdGenerator.create()));
+        comment.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);
+        return comment;
     }
 }

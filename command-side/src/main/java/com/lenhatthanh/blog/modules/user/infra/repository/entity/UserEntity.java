@@ -14,8 +14,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -60,13 +60,13 @@ public class UserEntity implements Serializable {
      * One to many with `posts` table
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<PostEntity> posts = new HashSet<>();
+    private List<PostEntity> posts = new ArrayList<>();
 
     /**
      * One to many with `comments` table
      */
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<CommentEntity> comments = new HashSet<>();
+    private List<CommentEntity> comments = new ArrayList<>();
 
     /**
      * Many to many with `roles` table
@@ -74,7 +74,7 @@ public class UserEntity implements Serializable {
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role_id")
-    private Set<String> roleIds = new HashSet<>();
+    private List<String> roleIds = new ArrayList<>();
 
     public UserEntity(String id, Long version, String name, String email, String mobilePhone, String password, Boolean isActive) {
         this.id = id;
@@ -112,20 +112,17 @@ public class UserEntity implements Serializable {
         return userEntity;
     }
 
-    public User toDomainModel() {
-        var id = new com.lenhatthanh.blog.core.domain.Id(this.id);
-        var roleIds = new HashSet<com.lenhatthanh.blog.core.domain.Id>();
-        this.roleIds.forEach(roleId -> roleIds.add(new com.lenhatthanh.blog.core.domain.Id(roleId)));
-
-        return new User(
-                id,
-                this.version,
-                new UserName(this.name),
-                new Email(this.email),
-                new MobilePhone(this.mobilePhone),
-                this.password,
-                this.isActive,
-                roleIds
-        );
+    public static User toDomainModel(UserEntity userEntity) {
+        User user = User.builder()
+                .name(new UserName(userEntity.getName()))
+                .email(new Email(userEntity.getEmail()))
+                .mobilePhone(new MobilePhone(userEntity.getMobilePhone()))
+                .password(userEntity.getPassword())
+                .isActive(userEntity.getIsActive())
+                .build();
+        user.setId(new com.lenhatthanh.blog.core.domain.Id(userEntity.getId()));
+        user.setAggregateVersion(userEntity.getVersion());
+        userEntity.getRoleIds().forEach(roleId -> user.addRole(new com.lenhatthanh.blog.core.domain.Id(roleId)));
+        return user;
     }
 }

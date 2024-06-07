@@ -11,4 +11,5 @@ public class CommentDto {
     private String parentId;
     private String content;
     private String userId;
+    private String postId;
 }

@@ -11,12 +11,16 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CreateTagServiceImpl implements CreateTagService {
     private final TagRepository tagRepository;
+    private final CreateSlugFromTitleService createSlugFromTitleService;
 
     @Override
     public void create(TagDto TagDto) {
-        Tag tag = Tag.create(new Title(TagDto.getTitle()));
-        // TODO: Business logic: Tag slug must be unique
+        Tag tag = Tag.create(
+                new Title(TagDto.getTitle()),
+                createSlugFromTitleService.create(TagDto.getTitle())
+        );
 
+        // TODO: Business logic: Tag slug must be unique
         tagRepository.save(tag);
     }
 }

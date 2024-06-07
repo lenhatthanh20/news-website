@@ -1,10 +1,10 @@
 package com.lenhatthanh.blog.core.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
-@AllArgsConstructor
+@Setter
+@EqualsAndHashCode
 public class Entity<Type> {
     private Type id;
 }
