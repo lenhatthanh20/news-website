@@ -35,7 +35,7 @@ public class AggregateRoot<Type> extends Entity<Type> {
         }
 
         domainEvents.add(event);
-        log.info("The domain event has been registered: " + event.getClass().getSimpleName());
+        log.info("The domain event has been registered: {}", event.getClass().getSimpleName());
     }
 
     public void publishEvents(DomainEventPublisher publisher) {

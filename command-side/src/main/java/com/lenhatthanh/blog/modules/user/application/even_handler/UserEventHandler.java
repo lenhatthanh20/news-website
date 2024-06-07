@@ -45,6 +45,6 @@ public class UserEventHandler {
         ProducerRecord<String, UserEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, messageKey, userEventDto);
         this.kafkaTemplate.send(record);
 
-        log.info("Event sent to Kafka broker - " + messageKey + " with aggregate ID: " + event.getAggregateId() + " !!");
+        log.info("Event sent to Kafka broker - {} with aggregate ID: {} !!", messageKey, event.getAggregateId());
     }
 }
