@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 public class AggregateRoot<Type> extends Entity<Type> {
     public static final Long CONCURRENCY_CHECKING_INITIAL_VERSION = 0L;
-    private List<DomainEvent> domainEvents = new ArrayList<>();
+    private final List<DomainEvent> domainEvents = new ArrayList<>();
 
     /**
      * The version of the aggregate
