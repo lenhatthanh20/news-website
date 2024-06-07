@@ -1,15 +1,41 @@
 package com.lenhatthanh.blog.modules.user.application.usecase;
 
-import com.lenhatthanh.blog.modules.user.domain.service.UpdateUserService;
+import com.lenhatthanh.blog.modules.user.domain.*;
+import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyExistsException;
+import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
+import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class UpdateAuthorUserUseCase {
-    UpdateUserService updateUserService;
-    public void execute(UserDto user) {
-        updateUserService.updateAuthor(user);
+    private UserRepository userRepository;
+
+    public void execute(UserDto newUserDto) {
+        User user = getUserByIdOrError(newUserDto.getId());
+        if (!user.getEmail().getValue().equals(newUserDto.getName())) {
+            this.newEmailDoesNotExistOrError(newUserDto.getEmail());
+        }
+
+        user.updateName(new UserName(newUserDto.getName()));
+        user.updateEmail(new Email(newUserDto.getEmail()));
+        user.updateMobilePhone(new MobilePhone(newUserDto.getMobilePhone()));
+
+        userRepository.save(user);
+    }
+
+    private User getUserByIdOrError(String userId) {
+        return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+    }
+
+    private void newEmailDoesNotExistOrError(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent()) {
+            throw new UserAlreadyExistsException();
+        }
     }
 }
