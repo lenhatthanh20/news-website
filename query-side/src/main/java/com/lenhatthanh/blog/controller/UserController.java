@@ -21,7 +21,6 @@ public class UserController {
 
     @GetMapping("email/{email}")
     public ResponseEntity<UserForViewDto> findByEmail(@PathVariable("email") String email) {
-        // Validate dữ liệu ==> chứa một số logics
         return ResponseEntity.ok(userService.findByEmail(email));
     }
 }
