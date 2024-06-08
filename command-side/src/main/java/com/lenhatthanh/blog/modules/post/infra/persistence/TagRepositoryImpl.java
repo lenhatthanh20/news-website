@@ -1,8 +1,8 @@
-package com.lenhatthanh.blog.modules.post.infra.repository;
+package com.lenhatthanh.blog.modules.post.infra.persistence;
 
 import com.lenhatthanh.blog.modules.post.domain.Tag;
 import com.lenhatthanh.blog.modules.post.domain.repository.TagRepository;
-import com.lenhatthanh.blog.modules.post.infra.repository.entity.TagEntity;
+import com.lenhatthanh.blog.modules.post.infra.persistence.entity.TagEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

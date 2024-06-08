@@ -1,8 +1,8 @@
-package com.lenhatthanh.blog.modules.post.infra.repository;
+package com.lenhatthanh.blog.modules.post.infra.persistence;
 
 import com.lenhatthanh.blog.modules.post.domain.Comment;
 import com.lenhatthanh.blog.modules.post.domain.repository.CommentRepository;
-import com.lenhatthanh.blog.modules.post.infra.repository.entity.CommentEntity;
+import com.lenhatthanh.blog.modules.post.infra.persistence.entity.CommentEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

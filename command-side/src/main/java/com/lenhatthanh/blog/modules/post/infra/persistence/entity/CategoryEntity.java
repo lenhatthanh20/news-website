@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.post.infra.repository.entity;;
+package com.lenhatthanh.blog.modules.post.infra.persistence.entity;;
 
 import com.lenhatthanh.blog.modules.post.domain.Category;
 import com.lenhatthanh.blog.modules.post.domain.Slug;

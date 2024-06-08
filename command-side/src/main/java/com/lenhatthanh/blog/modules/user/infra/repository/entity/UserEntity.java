@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.modules.user.infra.repository.entity;
 
-import com.lenhatthanh.blog.modules.post.infra.repository.entity.CommentEntity;
-import com.lenhatthanh.blog.modules.post.infra.repository.entity.PostEntity;
+import com.lenhatthanh.blog.modules.post.infra.persistence.entity.CommentEntity;
+import com.lenhatthanh.blog.modules.post.infra.persistence.entity.PostEntity;
 import com.lenhatthanh.blog.modules.user.domain.Email;
 import com.lenhatthanh.blog.modules.user.domain.MobilePhone;
 import com.lenhatthanh.blog.modules.user.domain.User;

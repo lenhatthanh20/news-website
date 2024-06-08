@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.post.infra.rest_api;
+package com.lenhatthanh.blog.modules.post.controller;
 
 import com.lenhatthanh.blog.modules.post.application.usecase.CreateTagUseCase;
 import com.lenhatthanh.blog.modules.post.application.usecase.DeleteTagUseCase;
