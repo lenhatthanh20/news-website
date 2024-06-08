@@ -22,6 +22,7 @@ public class CreateTagUseCaseImpl implements CreateTagUseCase {
         );
 
         // TODO: Business logic: Tag slug must be unique
+        // TODO: Check user and user roles
         tagRepository.save(tag);
     }
 }

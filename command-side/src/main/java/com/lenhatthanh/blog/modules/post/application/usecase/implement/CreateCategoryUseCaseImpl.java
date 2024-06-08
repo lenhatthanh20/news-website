@@ -29,6 +29,7 @@ public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
         );
 
         // TODO: Business logic: category slug must be unique
+        // TODO: Check user and user roles
         categoryRepository.save(category);
     }
 
