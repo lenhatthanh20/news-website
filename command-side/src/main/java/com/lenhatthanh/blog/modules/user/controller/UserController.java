@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.infra.rest_api;
+package com.lenhatthanh.blog.modules.user.controller;
 
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateAuthorUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.DeleteAuthorUserUseCase;

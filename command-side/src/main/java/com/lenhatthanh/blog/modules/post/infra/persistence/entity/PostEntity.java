@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.modules.post.infra.persistence.entity;
 
 import com.lenhatthanh.blog.modules.post.domain.*;
-import com.lenhatthanh.blog.modules.user.infra.repository.entity.UserEntity;
+import com.lenhatthanh.blog.modules.user.infra.persistence.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

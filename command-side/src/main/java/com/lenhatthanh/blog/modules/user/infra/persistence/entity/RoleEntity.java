@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.infra.repository.entity;
+package com.lenhatthanh.blog.modules.user.infra.persistence.entity;
 
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.RoleDescription;

@@ -1,6 +1,6 @@
-package com.lenhatthanh.blog.modules.user.infra.repository;
+package com.lenhatthanh.blog.modules.user.infra.persistence;
 
-import com.lenhatthanh.blog.modules.user.infra.repository.entity.RoleEntity;
+import com.lenhatthanh.blog.modules.user.infra.persistence.entity.RoleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

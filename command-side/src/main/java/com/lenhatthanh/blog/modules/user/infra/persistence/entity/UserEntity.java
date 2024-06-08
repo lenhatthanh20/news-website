@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.infra.repository.entity;
+package com.lenhatthanh.blog.modules.user.infra.persistence.entity;
 
 import com.lenhatthanh.blog.modules.post.infra.persistence.entity.CommentEntity;
 import com.lenhatthanh.blog.modules.post.infra.persistence.entity.PostEntity;

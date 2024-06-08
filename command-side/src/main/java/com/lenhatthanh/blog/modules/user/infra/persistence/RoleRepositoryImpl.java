@@ -1,9 +1,9 @@
-package com.lenhatthanh.blog.modules.user.infra.repository;
+package com.lenhatthanh.blog.modules.user.infra.persistence;
 
 import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
-import com.lenhatthanh.blog.modules.user.infra.repository.entity.RoleEntity;
+import com.lenhatthanh.blog.modules.user.infra.persistence.entity.RoleEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
