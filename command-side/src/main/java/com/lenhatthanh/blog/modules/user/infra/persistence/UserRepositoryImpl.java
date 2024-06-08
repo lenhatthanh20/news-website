@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.user.infra.persistence;
 
 import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
+import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.infra.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

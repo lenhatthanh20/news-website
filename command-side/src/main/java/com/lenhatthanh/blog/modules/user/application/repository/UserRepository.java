@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.domain.repository;
+package com.lenhatthanh.blog.modules.user.application.repository;
 
 import com.lenhatthanh.blog.modules.user.domain.User;
 

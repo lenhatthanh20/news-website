@@ -4,7 +4,7 @@ import com.lenhatthanh.blog.modules.user.application.usecase.UpdateAuthorUserUse
 import com.lenhatthanh.blog.modules.user.domain.*;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyExistsException;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
+import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

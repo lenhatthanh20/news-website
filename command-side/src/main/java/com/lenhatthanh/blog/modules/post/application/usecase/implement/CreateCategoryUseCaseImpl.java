@@ -5,7 +5,7 @@ import com.lenhatthanh.blog.modules.post.application.usecase.CreateCategoryUseCa
 import com.lenhatthanh.blog.modules.post.domain.Category;
 import com.lenhatthanh.blog.modules.post.domain.Title;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryNotFoundException;
-import com.lenhatthanh.blog.modules.post.domain.repository.CategoryRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.CategoryRepository;
 import com.lenhatthanh.blog.modules.post.domain.service.CreateSlugFromTitleService;
 import com.lenhatthanh.blog.modules.post.dto.CategoryDto;
 import lombok.AllArgsConstructor;

@@ -5,11 +5,11 @@ import com.lenhatthanh.blog.modules.post.application.usecase.AddCommentUseCase;
 import com.lenhatthanh.blog.modules.post.domain.Comment;
 import com.lenhatthanh.blog.modules.post.domain.Post;
 import com.lenhatthanh.blog.modules.post.domain.exception.PostNotFoundException;
-import com.lenhatthanh.blog.modules.post.domain.repository.CommentRepository;
-import com.lenhatthanh.blog.modules.post.domain.repository.PostRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.CommentRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.PostRepository;
 import com.lenhatthanh.blog.modules.post.dto.CommentDto;
 import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
+import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

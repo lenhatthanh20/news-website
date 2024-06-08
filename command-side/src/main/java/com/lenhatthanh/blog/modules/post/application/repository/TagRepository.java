@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.post.domain.repository;
+package com.lenhatthanh.blog.modules.post.application.repository;
 
 import com.lenhatthanh.blog.modules.post.domain.Tag;
 import org.springframework.stereotype.Repository;

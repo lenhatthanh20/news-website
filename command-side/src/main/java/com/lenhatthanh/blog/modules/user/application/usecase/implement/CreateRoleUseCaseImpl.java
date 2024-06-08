@@ -3,7 +3,7 @@ package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateRoleUseCase;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyExistException;
-import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
+import com.lenhatthanh.blog.modules.user.application.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.dto.RoleDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

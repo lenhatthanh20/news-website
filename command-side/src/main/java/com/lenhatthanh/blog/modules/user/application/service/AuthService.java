@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.user.application.service;
 
 import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
+import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.dto.LoginDto;
 import com.lenhatthanh.blog.modules.user.dto.LoginResponseDto;
 import lombok.AllArgsConstructor;

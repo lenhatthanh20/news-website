@@ -5,12 +5,12 @@ import com.lenhatthanh.blog.modules.post.application.usecase.CreatePostUseCase;
 import com.lenhatthanh.blog.modules.post.domain.Post;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryNotFoundException;
 import com.lenhatthanh.blog.modules.post.domain.exception.TagNotFoundException;
-import com.lenhatthanh.blog.modules.post.domain.repository.CategoryRepository;
-import com.lenhatthanh.blog.modules.post.domain.repository.PostRepository;
-import com.lenhatthanh.blog.modules.post.domain.repository.TagRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.CategoryRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.PostRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.TagRepository;
 import com.lenhatthanh.blog.modules.post.dto.PostDto;
 import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
+import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 

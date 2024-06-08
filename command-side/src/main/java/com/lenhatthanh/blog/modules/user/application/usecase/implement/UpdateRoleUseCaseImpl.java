@@ -8,7 +8,7 @@ import com.lenhatthanh.blog.modules.user.domain.SystemRole;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyExistException;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.SystemRoleCannotBeModifiedException;
-import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
+import com.lenhatthanh.blog.modules.user.application.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.dto.RoleDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
