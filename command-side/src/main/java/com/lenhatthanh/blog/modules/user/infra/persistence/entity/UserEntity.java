@@ -119,11 +119,10 @@ public class UserEntity implements Serializable {
                 .mobilePhone(new MobilePhone(userEntity.getMobilePhone()))
                 .password(userEntity.getPassword())
                 .isActive(userEntity.getIsActive())
-                .roleIds(new ArrayList<>())
+                .roleIds(userEntity.getRoleIds().stream().map(com.lenhatthanh.blog.core.domain.Id::new).toList())
                 .build();
         user.setId(new com.lenhatthanh.blog.core.domain.Id(userEntity.getId()));
         user.setAggregateVersion(userEntity.getVersion());
-        userEntity.getRoleIds().forEach(roleId -> user.addRole(new com.lenhatthanh.blog.core.domain.Id(roleId)));
         return user;
     }
 }

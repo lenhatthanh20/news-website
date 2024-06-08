@@ -1,34 +1,28 @@
-package com.lenhatthanh.blog.modules.user.application.even_handler;
+package com.lenhatthanh.blog.modules.user.infra.messaging;
 
 import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.core.domain.Id;
+import com.lenhatthanh.blog.modules.user.application.evenpublisher.UserEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
 import com.lenhatthanh.blog.modules.user.dto.UserEventDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.springframework.context.event.EventListener;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Service
+@Component
 @AllArgsConstructor
-public class UserEventHandler {
+public class UserEventPublisherImpl implements UserEventPublisher {
     public static final String MESSAGE_QUEUE_TOPIC = "user";
-
     private KafkaTemplate<String, UserEventDto> kafkaTemplate;
 
-    @EventListener(UserCreatedEvent.class)
-    public void handleUserCreatedEvent(UserCreatedEvent event) {
-        sendMessageToKafkaBroker(event);
-    }
-
-    private void sendMessageToKafkaBroker(DomainEvent event) {
+    @Override
+    public void publish(DomainEvent event) {
         User user = (User) event.getEventData();
         List<Id> roleIds = user.getRoleIds();
         List<String> stringRoleIds = roleIds.stream().map(Id::toString).collect(Collectors.toList());

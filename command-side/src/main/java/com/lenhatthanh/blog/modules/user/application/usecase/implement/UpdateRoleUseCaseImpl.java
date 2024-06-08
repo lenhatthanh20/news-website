@@ -1,5 +1,6 @@
 package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
+import com.lenhatthanh.blog.modules.user.application.evenpublisher.RoleEventPublisher;
 import com.lenhatthanh.blog.modules.user.application.usecase.UpdateRoleUseCase;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UpdateRoleUseCaseImpl implements UpdateRoleUseCase {
     RoleRepository roleRepository;
+    RoleEventPublisher publisher;
 
     public void execute(RoleDto newRoleDto) {
         Role currentRole = this.roleMustExistByIdOrError(newRoleDto.getId());
@@ -32,6 +34,7 @@ public class UpdateRoleUseCaseImpl implements UpdateRoleUseCase {
         currentRole.updateDescription(new RoleDescription(newRoleDto.getDescription()));
 
         roleRepository.save(currentRole);
+        this.publishDomainEvents(currentRole);
     }
 
     private void isNotSystemRoleOrError(String roleName) {
@@ -54,5 +57,9 @@ public class UpdateRoleUseCaseImpl implements UpdateRoleUseCase {
         if (role.isPresent()) {
             throw new RoleAlreadyExistException();
         }
+    }
+
+    private void publishDomainEvents(Role role) {
+        role.getDomainEvents().forEach(event -> publisher.publish(event));
     }
 }

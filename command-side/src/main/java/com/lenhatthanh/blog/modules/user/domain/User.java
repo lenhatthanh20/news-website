@@ -75,11 +75,10 @@ public class User extends AggregateRoot<Id> {
                 .mobilePhone(new MobilePhone(userDto.getMobilePhone()))
                 .password(userDto.getPassword())
                 .isActive(ACTIVATED)
-                .roleIds(new ArrayList<>())
+                .roleIds(new ArrayList<>(List.of(roleId)))
                 .build();
         user.setId(new Id(UniqueIdGenerator.create()));
         user.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);
-        user.addRole(roleId);
 
         user.registerEvent(new UserCreatedEvent(user));
         return user;

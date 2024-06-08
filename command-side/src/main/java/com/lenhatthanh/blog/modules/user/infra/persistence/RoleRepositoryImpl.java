@@ -1,6 +1,5 @@
 package com.lenhatthanh.blog.modules.user.infra.persistence;
 
-import com.lenhatthanh.blog.core.domain.DomainEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.application.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.infra.persistence.entity.RoleEntity;
@@ -14,20 +13,17 @@ import java.util.Optional;
 @AllArgsConstructor
 public class RoleRepositoryImpl implements RoleRepository {
     private RoleJpaRepository roleJpaRepository;
-    private DomainEventPublisher domainEventPublisher;
 
     @Override
     public void save(Role role) {
         RoleEntity roleEntity = RoleEntity.fromDomainModel(role);
         roleJpaRepository.save(roleEntity);
-        role.publishEvents(domainEventPublisher);
     }
 
     @Override
     public void saveAll(List<Role> roles) {
         List<RoleEntity> roleEntities = RoleEntity.fromDomainModels(roles);
         roleJpaRepository.saveAll(roleEntities);
-        roles.forEach(role -> role.publishEvents(domainEventPublisher));
     }
 
     @Override
@@ -47,6 +43,5 @@ public class RoleRepositoryImpl implements RoleRepository {
     @Override
     public void delete(Role role) {
         roleJpaRepository.deleteById(role.getId().toString());
-        role.publishEvents(domainEventPublisher);
     }
 }

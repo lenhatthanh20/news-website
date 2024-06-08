@@ -1,6 +1,7 @@
 package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
 import com.lenhatthanh.blog.core.domain.Id;
+import com.lenhatthanh.blog.modules.user.application.evenpublisher.UserEventPublisher;
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateAuthorUserUseCase;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.SystemRole;
@@ -22,11 +23,13 @@ public class CreateAuthorUserUseCaseImpl implements CreateAuthorUserUseCase {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private UserEventPublisher publisher;
 
     public void execute(UserDto userDto) {
         Role role = this.getRoleByNameOrError();
         User user = createUserWithEmailDoesNotExistBeforeOrError(userDto, role.getId());
         userRepository.save(user);
+        this.publishDomainEvents(user);
     }
 
     private User createUserWithEmailDoesNotExistBeforeOrError(UserDto userDto, Id roleId) {
@@ -46,5 +49,9 @@ public class CreateAuthorUserUseCaseImpl implements CreateAuthorUserUseCase {
         }
 
         return roleUser.get();
+    }
+
+    private void publishDomainEvents(User user) {
+        user.getDomainEvents().forEach(event -> publisher.publish(event));
     }
 }
