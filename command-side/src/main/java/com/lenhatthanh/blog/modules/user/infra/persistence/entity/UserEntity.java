@@ -113,13 +113,15 @@ public class UserEntity implements Serializable {
     }
 
     public static User toDomainModel(UserEntity userEntity) {
+        // Lazy loading roleIds
+        List<String> roleIds = userEntity.getRoleIds();
         User user = User.builder()
                 .name(new UserName(userEntity.getName()))
                 .email(new Email(userEntity.getEmail()))
                 .mobilePhone(new MobilePhone(userEntity.getMobilePhone()))
                 .password(userEntity.getPassword())
                 .isActive(userEntity.getIsActive())
-                .roleIds(userEntity.getRoleIds().stream().map(com.lenhatthanh.blog.core.domain.Id::new).toList())
+                .roleIds(roleIds.stream().map(com.lenhatthanh.blog.core.domain.Id::new).toList())
                 .build();
         user.setId(new com.lenhatthanh.blog.core.domain.Id(userEntity.getId()));
         user.setAggregateVersion(userEntity.getVersion());

@@ -5,6 +5,7 @@ import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.infra.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -27,6 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    @Transactional
     public Optional<User> findByEmail(String email) {
         Optional<UserEntity> userEntity = this.userJpaRepository.findByEmail(email);
 

@@ -18,6 +18,7 @@ public class CreateRoleUseCaseImpl implements CreateRoleUseCase {
     private RoleEventPublisher publisher;
 
     public void execute(RoleDto roleDto) {
+        // TODO: Check admin user
         this.roleDoesNotExistOrError(roleDto.getName());
         Role role = Role.create(roleDto);
         roleRepository.save(role);
