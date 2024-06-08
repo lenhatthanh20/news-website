@@ -2,8 +2,8 @@ package com.lenhatthanh.blog.modules.post.dto;
 
 import lombok.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +20,6 @@ public class PostDto {
     private String summary;
     private String thumbnail;
 
-    private Set<String> categoryIds = new HashSet<>();
-    private Set<String> tagIds = new HashSet<>();
+    private List<String> categoryIds = new ArrayList<>();
+    private List<String> tagIds = new ArrayList<>();
 }

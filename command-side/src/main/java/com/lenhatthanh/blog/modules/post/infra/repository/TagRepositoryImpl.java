@@ -23,7 +23,6 @@ public class TagRepositoryImpl implements TagRepository {
     @Override
     public Optional<Tag> findById(String id) {
         Optional<TagEntity> tagEntity = tagJpaRepository.findById(id);
-
         return tagEntity.map(TagEntity::toDomainModel);
     }
 

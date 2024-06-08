@@ -3,20 +3,15 @@ package com.lenhatthanh.blog.modules.post.domain;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class Category extends AggregateRoot<Id> {
     private Id parentId;
     private Slug slug;
     private Title title;
-
-    public Category(Id id, Long aggregateVersion, Id parentId, Title title, Slug slug) {
-        super(id, aggregateVersion);
-        this.parentId = parentId;
-        this.title = title;
-        this.slug = slug;
-    }
 
     public void setTitle(Title title) {
         this.title = title;
@@ -26,11 +21,15 @@ public class Category extends AggregateRoot<Id> {
         this.parentId = parentId;
     }
 
-    public static Category create(Title title) {
-        Id id = new Id(UniqueIdGenerator.create());
-        Slug slug = new Slug(title);
-        Long firstVersion = 0L;
+    public static Category create(Title title, Slug slug, Id parentId) {
+        Category category = Category.builder()
+                .parentId(parentId)
+                .title(title)
+                .slug(slug)
+                .build();
 
-        return new Category(id, firstVersion, null, title, slug);
+        category.setId(new Id(UniqueIdGenerator.create()));
+        category.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);
+        return category;
     }
 }

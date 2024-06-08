@@ -1,30 +1,34 @@
-package com.lenhatthanh.blog.modules.post.domain.service;
+package com.lenhatthanh.blog.modules.post.application.usecase.implement;
 
 import com.lenhatthanh.blog.core.domain.Id;
+import com.lenhatthanh.blog.modules.post.application.usecase.CreateCategoryUseCase;
 import com.lenhatthanh.blog.modules.post.domain.Category;
 import com.lenhatthanh.blog.modules.post.domain.Title;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryNotFoundException;
 import com.lenhatthanh.blog.modules.post.domain.repository.CategoryRepository;
+import com.lenhatthanh.blog.modules.post.domain.service.CreateSlugFromTitleService;
 import com.lenhatthanh.blog.modules.post.dto.CategoryDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class CreateCategoryServiceImpl implements CreateCategoryService {
+public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
     private final CategoryRepository categoryRepository;
+    private final CreateSlugFromTitleService createSlugFromTitleService;
 
-    @Override
-    public void create(CategoryDto categoryDto) {
-        Category category = Category.create(new Title(categoryDto.getTitle()));
+    public void execute(CategoryDto categoryDto) {
         if (categoryDto.getParentId() != null) {
             this.parentCategoryExistOrError(categoryDto.getParentId());
-            Id parentId = new Id(categoryDto.getParentId());
-            category.setParentId(parentId);
         }
 
-        // TODO: Business logic: category slug must be unique
+        Category category = Category.create(
+                new Title(categoryDto.getTitle()),
+                createSlugFromTitleService.create(categoryDto.getTitle()),
+                categoryDto.getParentId() == null ? null : new Id(categoryDto.getParentId())
+        );
 
+        // TODO: Business logic: category slug must be unique
         categoryRepository.save(category);
     }
 

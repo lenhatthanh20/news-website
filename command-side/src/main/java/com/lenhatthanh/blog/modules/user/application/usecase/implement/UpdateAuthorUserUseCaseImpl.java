@@ -1,10 +1,9 @@
-package com.lenhatthanh.blog.modules.user.domain.service;
+package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
+import com.lenhatthanh.blog.modules.user.application.usecase.UpdateAuthorUserUseCase;
 import com.lenhatthanh.blog.modules.user.domain.*;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyExistsException;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
-import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
-import com.lenhatthanh.blog.modules.user.domain.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.dto.UserDto;
 import lombok.AllArgsConstructor;
@@ -14,12 +13,10 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UpdateUserServiceImpl implements UpdateUserService {
+public class UpdateAuthorUserUseCaseImpl implements UpdateAuthorUserUseCase {
     private UserRepository userRepository;
-    private RoleRepository roleRepository;
 
-    @Override
-    public void updateAuthor(UserDto newUserDto) {
+    public void execute(UserDto newUserDto) {
         User user = getUserByIdOrError(newUserDto.getId());
         if (!user.getEmail().getValue().equals(newUserDto.getName())) {
             this.newEmailDoesNotExistOrError(newUserDto.getEmail());
@@ -34,10 +31,6 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 
     private User getUserByIdOrError(String userId) {
         return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
-    }
-
-    private Role getRoleOrError(String roleId) {
-        return roleRepository.findById(roleId).orElseThrow(RoleNotFoundException::new);
     }
 
     private void newEmailDoesNotExistOrError(String email) {

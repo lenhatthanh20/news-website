@@ -10,13 +10,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name="posts")
+@Table(name = "posts")
 public class PostEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 6009937215357249661L;
@@ -76,7 +76,7 @@ public class PostEntity implements Serializable {
      * One to many with `comments` table
      */
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    private Set<CommentEntity> comments = new HashSet<>();
+    private List<CommentEntity> comments = new ArrayList<>();
 
     /**
      * Many to many with `categories` table
@@ -84,7 +84,7 @@ public class PostEntity implements Serializable {
     @ElementCollection
     @CollectionTable(name = "posts_categories", joinColumns = @JoinColumn(name = "post_id"))
     @Column(name = "category_id")
-    private Set<String> categoryIds = new HashSet<>();
+    private List<String> categoryIds = new ArrayList<>();
 
     /**
      * Many to many with `tags` table
@@ -92,7 +92,7 @@ public class PostEntity implements Serializable {
     @ElementCollection
     @CollectionTable(name = "posts_tags", joinColumns = @JoinColumn(name = "post_id"))
     @Column(name = "tag_id")
-    private Set<String> tagIds = new HashSet<>();
+    private List<String> tagIds = new ArrayList<>();
 
     public PostEntity(
             String id,
@@ -131,34 +131,35 @@ public class PostEntity implements Serializable {
 
         postEntity.setUserId(post.getUserId().toString());
 
-        Set<String> categoryIds = new HashSet<>();
+        List<String> categoryIds = new ArrayList<>();
         post.getCategoryIds().forEach(categoryId -> categoryIds.add(categoryId.toString()));
         postEntity.setCategoryIds(categoryIds);
 
-        Set<String> tagIds = new HashSet<>();
+        List<String> tagIds = new ArrayList<>();
         post.getTagIds().forEach(tagId -> tagIds.add(tagId.toString()));
         postEntity.setTagIds(tagIds);
 
         return postEntity;
     }
 
-    public Post toDomainModel() {
-        var id = new com.lenhatthanh.blog.core.domain.Id(this.id);
-        var parentId = this.parentId != null ? new com.lenhatthanh.blog.core.domain.Id(this.parentId) : null;
-        var userId = new com.lenhatthanh.blog.core.domain.Id(this.userId);
+    public static Post toDomainModel(PostEntity entity) {
+        Post post = Post.builder()
+                .parentId(entity.getParentId() != null ? new com.lenhatthanh.blog.core.domain.Id(entity.getParentId()) : null)
+                .userId(new com.lenhatthanh.blog.core.domain.Id(entity.getUserId()))
+                .title(new Title(entity.getTitle()))
+                .metaTitle(entity.getMetaTitle())
+                .content(new PostContent(entity.getContent()))
+                .summary(new Summary(entity.getSummary()))
+                .thumbnail(entity.getThumbnail())
+                .slug(new Slug(entity.getSlug()))
+                .publishedAt(entity.getPublishedAt())
+                .build();
 
-        return new Post(
-                id,
-                this.version,
-                parentId,
-                new Title(this.title),
-                this.metaTitle,
-                new PostContent(this.content),
-                userId,
-                new Summary(this.summary),
-                this.thumbnail,
-                new Slug(this.slug, new Title(this.title)),
-                this.publishedAt
-        );
+        post.setId(new com.lenhatthanh.blog.core.domain.Id(entity.getUserId()));
+        post.setAggregateVersion(entity.getVersion());
+        post.setCategoryIds(entity.getCategoryIds().stream().map(com.lenhatthanh.blog.core.domain.Id::new).toList());
+        post.setTagIds(entity.getTagIds().stream().map(com.lenhatthanh.blog.core.domain.Id::new).toList());
+
+        return post;
     }
 }

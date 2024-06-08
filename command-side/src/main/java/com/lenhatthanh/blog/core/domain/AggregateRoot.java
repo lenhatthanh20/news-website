@@ -1,28 +1,26 @@
 package com.lenhatthanh.blog.core.domain;
 
 import lombok.Getter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Getter
 public class AggregateRoot<Type> extends Entity<Type> {
-    private final Log logger = LogFactory.getLog(getClass());
-
+    public static final Long CONCURRENCY_CHECKING_INITIAL_VERSION = 0L;
     private final List<DomainEvent> domainEvents = new ArrayList<>();
 
     /**
      * The version of the aggregate
      * It is used to checking the concurrency (optimistic locking)
      */
-    private final Long aggregateVersion;
+    private Long aggregateVersion;
 
-    public AggregateRoot(Type id, Long aggregateVersion) {
-        super(id);
-        if (aggregateVersion < 0L) {
-            logger.error("The aggregate version is less than 0");
+    public void setAggregateVersion(Long aggregateVersion) {
+        if (aggregateVersion < CONCURRENCY_CHECKING_INITIAL_VERSION) {
+            log.info("The aggregate version is less than 0");
             throw new RuntimeException();
         }
 
@@ -37,7 +35,7 @@ public class AggregateRoot<Type> extends Entity<Type> {
         }
 
         domainEvents.add(event);
-        logger.info("The domain event has been registered: " + event.getClass().getSimpleName());
+        log.info("The domain event has been registered: {}", event.getClass().getSimpleName());
     }
 
     public void publishEvents(DomainEventPublisher publisher) {
@@ -46,7 +44,7 @@ public class AggregateRoot<Type> extends Entity<Type> {
         }
 
         domainEvents.forEach(publisher::publishEvent);
-        logger.info("The domain events have been published");
+        log.info("The domain events have been published");
 
         // After publish events, we need to clear them
         clearDomainEvents();
@@ -54,6 +52,6 @@ public class AggregateRoot<Type> extends Entity<Type> {
 
     public void clearDomainEvents() {
         domainEvents.clear();
-        logger.info("The domain events have been cleared");
+        log.info("The domain events have been cleared");
     }
 }

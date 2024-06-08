@@ -1,5 +1,6 @@
-package com.lenhatthanh.blog.modules.user.domain.service;
+package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
+import com.lenhatthanh.blog.modules.user.application.usecase.UpdateRoleUseCase;
 import com.lenhatthanh.blog.modules.user.domain.Role;
 import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
 import com.lenhatthanh.blog.modules.user.domain.RoleName;
@@ -16,10 +17,10 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class UpdateRoleServiceImpl implements UpdateRoleService {
+public class UpdateRoleUseCaseImpl implements UpdateRoleUseCase {
     RoleRepository roleRepository;
 
-    public void update(RoleDto newRoleDto) {
+    public void execute(RoleDto newRoleDto) {
         Role currentRole = this.roleMustExistByIdOrError(newRoleDto.getId());
         if (!currentRole.getName().getValue().equals(newRoleDto.getName())) {
             this.newRoleNameDoesNotExistOrError(newRoleDto.getName());
@@ -29,13 +30,12 @@ public class UpdateRoleServiceImpl implements UpdateRoleService {
 
         currentRole.updateRoleName(new RoleName(newRoleDto.getName()));
         currentRole.updateDescription(new RoleDescription(newRoleDto.getDescription()));
-        // For testing
-//        currentRole.updateAggregateVersion(currentRole.getAggregateVersion() - 1);
+
         roleRepository.save(currentRole);
     }
 
     private void isNotSystemRoleOrError(String roleName) {
-        if(roleName.equals(SystemRole.ADMIN) || roleName.equals(SystemRole.AUTHOR) || roleName.equals(SystemRole.SUBSCRIBER)) {
+        if (roleName.equals(SystemRole.ADMIN) || roleName.equals(SystemRole.AUTHOR) || roleName.equals(SystemRole.SUBSCRIBER)) {
             throw new SystemRoleCannotBeModifiedException();
         }
     }

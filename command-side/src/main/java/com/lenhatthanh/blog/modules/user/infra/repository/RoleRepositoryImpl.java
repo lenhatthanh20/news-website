@@ -7,8 +7,8 @@ import com.lenhatthanh.blog.modules.user.infra.repository.entity.RoleEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Component
 @AllArgsConstructor
@@ -24,8 +24,8 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
     @Override
-    public void saveAll(Set<Role> roles) {
-        Set<RoleEntity> roleEntities = RoleEntity.fromDomainModels(roles);
+    public void saveAll(List<Role> roles) {
+        List<RoleEntity> roleEntities = RoleEntity.fromDomainModels(roles);
         roleJpaRepository.saveAll(roleEntities);
         roles.forEach(role -> role.publishEvents(domainEventPublisher));
     }

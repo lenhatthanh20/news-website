@@ -3,28 +3,27 @@ package com.lenhatthanh.blog.modules.post.domain;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 public class Tag extends AggregateRoot<Id> {
     private Title title;
     private Slug slug;
-
-    public Tag(Id id, Long aggregateVersion, Title title, Slug slug) {
-        super(id, aggregateVersion);
-        this.title = title;
-        this.slug = slug;
-    }
 
     public void setTitle(Title title) {
         this.title = title;
     }
 
-    public static Tag create(Title title) {
-        Id id = new Id(UniqueIdGenerator.create());
-        Slug slug = new Slug(title);
-        Long firstVersion = 0L;
+    public static Tag create(Title title, Slug slug) {
+        Tag tag = Tag.builder()
+                .title(title)
+                .slug(slug)
+                .build();
 
-        return new Tag(id, firstVersion, title, slug);
+        tag.setId(new Id(UniqueIdGenerator.create()));
+        tag.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);
+        return tag;
     }
 }

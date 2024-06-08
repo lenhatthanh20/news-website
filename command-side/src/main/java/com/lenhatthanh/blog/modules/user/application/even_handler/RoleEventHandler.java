@@ -6,20 +6,18 @@ import com.lenhatthanh.blog.modules.user.domain.event.RoleCreatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleUpdatedEvent;
 import com.lenhatthanh.blog.modules.user.dto.RoleEventDto;
 import lombok.AllArgsConstructor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.context.event.EventListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class RoleEventHandler {
     public static final String MESSAGE_QUEUE_TOPIC = "role";
-
     private KafkaTemplate<String, RoleEventDto> kafkaTemplate;
-    private final Log logger = LogFactory.getLog(getClass());
 
     @EventListener(RoleCreatedEvent.class)
     public void handleRoleCreatedEvent(DomainEvent event) {
@@ -43,6 +41,6 @@ public class RoleEventHandler {
         ProducerRecord<String, RoleEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, messageKey, roleEventDto);
         this.kafkaTemplate.send(record);
 
-        logger.info("Event sent to Kafka broker - " + messageKey + " with aggregate ID:" + event.getAggregateId() + " !!");
+        log.info("Event sent to Kafka broker - {} with aggregate ID: {} !!", messageKey, event.getAggregateId());
     }
 }

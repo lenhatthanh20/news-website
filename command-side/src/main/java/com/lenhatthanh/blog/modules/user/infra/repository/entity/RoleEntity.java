@@ -11,7 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
@@ -59,18 +59,17 @@ public class RoleEntity implements Serializable {
         );
     }
 
-    public static Set<RoleEntity> fromDomainModels(Set<Role> roles) {
-        return roles.stream().map(RoleEntity::fromDomainModel).collect(Collectors.toSet());
+    public static List<RoleEntity> fromDomainModels(List<Role> roles) {
+        return roles.stream().map(RoleEntity::fromDomainModel).collect(Collectors.toList());
     }
 
-    public Role toDomainModel() {
-        var id = new com.lenhatthanh.blog.core.domain.Id(this.id);
-
-        return new Role(
-                id,
-                this.version,
-                new RoleName(this.name),
-                new RoleDescription(this.description)
-        );
+    public static Role toDomainModel(RoleEntity roleEntity) {
+        Role role = Role.builder()
+                .name(new RoleName(roleEntity.getName()))
+                .description(new RoleDescription(roleEntity.getDescription()))
+                .build();
+        role.setId(new com.lenhatthanh.blog.core.domain.Id(roleEntity.getId()));
+        role.setAggregateVersion(roleEntity.getVersion());
+        return role;
     }
 }

@@ -1,5 +1,6 @@
-package com.lenhatthanh.blog.modules.user.domain.service;
+package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
+import com.lenhatthanh.blog.modules.user.application.usecase.DeleteAuthorUserUseCase;
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
@@ -8,11 +9,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class DeleteUserServiceImpl implements DeleteUserService {
+public class DeleteAuthorUserUseCaseImpl implements DeleteAuthorUserUseCase {
     UserRepository userRepository;
 
-    @Override
-    public void deleteAuthor(String userId) {
+    public void execute(String userId) {
         User user = this.getUserByIdOrError(userId);
         user.delete();
         // TODO: add business logic: Can't delete admin user
