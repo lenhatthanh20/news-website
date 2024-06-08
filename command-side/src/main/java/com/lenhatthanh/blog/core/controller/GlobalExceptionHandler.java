@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.core.infrastructure.rest_api;
+package com.lenhatthanh.blog.core.controller;
 
 import com.lenhatthanh.blog.core.application.ApplicationException;
 import com.lenhatthanh.blog.core.domain.DomainException;
