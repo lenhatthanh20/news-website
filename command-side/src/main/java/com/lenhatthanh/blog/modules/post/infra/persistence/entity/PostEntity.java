@@ -49,7 +49,7 @@ public class PostEntity implements Serializable {
     @Column(nullable = false, unique = true, length = 100)
     private String slug;
 
-    @Column(nullable = false, updatable = false)
+    @Column()
     private LocalDateTime publishedAt;
 
     @Column(nullable = false, updatable = false)

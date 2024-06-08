@@ -1,5 +1,6 @@
 package com.lenhatthanh.blog.modules.post.application.usecase.implement;
 
+import com.lenhatthanh.blog.modules.post.application.eventpublisher.PostEventPublisher;
 import com.lenhatthanh.blog.modules.post.application.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.PostUserRepository;
 import com.lenhatthanh.blog.modules.post.application.usecase.CreatePostUseCase;
@@ -23,14 +24,16 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
     private PostUserRepository postUserRepository;
     private CategoryRepository categoryRepository;
     private TagRepository tagRepository;
+    private PostEventPublisher publisher;
 
     public void execute(PostDto postDto) {
         this.userExistOrError(postDto.getUserId());
         this.categoriesAndTagsExistOrError(postDto);
-        //TODO: Business logic: Post slug must be unique, user role must be AUTHOR
+        //TODO: Business logic: Post slug must be unique, user role checking, etc.
 
         Post post = Post.create(postDto);
         postRepository.save(post);
+        this.publishDomainEvents(post);
     }
 
     private void userExistOrError(String userId) {
@@ -52,5 +55,9 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
                 throw new TagNotFoundException();
             }
         });
+    }
+
+    private void publishDomainEvents(Post post) {
+        post.getDomainEvents().forEach(event -> publisher.publish(event));
     }
 }

@@ -2,6 +2,7 @@ package com.lenhatthanh.blog.modules.post.domain;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
+import com.lenhatthanh.blog.modules.post.domain.event.PostCreatedEvent;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryLimitExceededException;
 import com.lenhatthanh.blog.modules.post.domain.exception.TagLimitExceededException;
 import com.lenhatthanh.blog.modules.post.dto.PostDto;
@@ -62,7 +63,6 @@ public class Post extends AggregateRoot<Id> {
                 .summary(new Summary(postDto.getSummary()))
                 .thumbnail(postDto.getThumbnail())
                 .slug(new Slug(postDto.getSlug()))
-                .publishedAt(LocalDateTime.now())
                 .build();
 
         post.setId(new Id(UniqueIdGenerator.create()));
@@ -70,7 +70,7 @@ public class Post extends AggregateRoot<Id> {
         post.setCategoryIds(postDto.getCategoryIds().stream().map(Id::new).toList());
         post.setTagIds(postDto.getTagIds().stream().map(Id::new).toList());
 
-        // @TODO register domain event PostCreatedEvent
+        post.registerEvent(new PostCreatedEvent(post));
         return post;
     }
 }
