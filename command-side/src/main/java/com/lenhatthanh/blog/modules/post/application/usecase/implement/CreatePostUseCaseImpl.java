@@ -31,6 +31,7 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
         // So we can use Rest API (can be non-blocking) to get user information from `User` bounded context.
         this.userExistOrError(postDto.getUserId());
         this.categoriesAndTagsExistOrError(postDto);
+        //TODO: Business logic: Post slug must be unique, user role must be AUTHOR
 
         Post post = Post.create(postDto);
         postRepository.save(post);
