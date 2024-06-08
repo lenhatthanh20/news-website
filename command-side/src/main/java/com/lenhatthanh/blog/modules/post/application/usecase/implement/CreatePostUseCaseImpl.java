@@ -28,7 +28,7 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
         // In the microservice architecture,
         // We have `User` bounded context and `Post` bounded context.
         // That means we have two microservices for each bounded context.
-        // So we can use Rest API (non-blocking) to get user information from `User` bounded context.
+        // So we can use Rest API (can be non-blocking) to get user information from `User` bounded context.
         this.userExistOrError(postDto.getUserId());
         this.categoriesAndTagsExistOrError(postDto);
 
