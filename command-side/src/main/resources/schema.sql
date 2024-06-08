@@ -97,10 +97,10 @@ CREATE TABLE IF NOT EXISTS posts (
     slug VARCHAR(100) UNIQUE NOT NULL,
     summary TEXT DEFAULT NULL,
     content TEXT DEFAULT NULL,
-    published BOOLEAN NOT NULL DEFAULT false,
+    status VARCHAR(25) NOT NULL,
+    published_at TIMESTAMP DEFAULT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT NULL,
-    published_at TIMESTAMP DEFAULT NULL,
     CONSTRAINT fk_post_user
         FOREIGN KEY (user_id)
         REFERENCES users(id)

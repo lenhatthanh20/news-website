@@ -31,6 +31,7 @@ public class PostEventPublisherImpl implements PostEventPublisher {
                 post.getSummary().getValue(),
                 post.getThumbnail(),
                 post.getSlug().getValue(),
+                post.getStatus().name(),
                 post.getPublishedAt(),
                 post.getUserId().toString(),
                 post.getCategoryIds().stream().map(Id::toString).collect(Collectors.toList()),

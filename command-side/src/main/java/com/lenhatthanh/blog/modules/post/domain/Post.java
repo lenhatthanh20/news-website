@@ -6,6 +6,7 @@ import com.lenhatthanh.blog.modules.post.domain.event.PostCreatedEvent;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryLimitExceededException;
 import com.lenhatthanh.blog.modules.post.domain.exception.TagLimitExceededException;
 import com.lenhatthanh.blog.modules.post.dto.PostDto;
+import com.lenhatthanh.blog.modules.user.domain.PostStatus;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class Post extends AggregateRoot<Id> {
     private String thumbnail;
     private Slug slug;
     private LocalDateTime publishedAt;
+    private PostStatus status;
 
     // Aggregate relationship via global ID
     private Id userId;
@@ -63,6 +65,7 @@ public class Post extends AggregateRoot<Id> {
                 .summary(new Summary(postDto.getSummary()))
                 .thumbnail(postDto.getThumbnail())
                 .slug(new Slug(postDto.getSlug()))
+                .status(PostStatus.DRAFT)
                 .build();
 
         post.setId(new Id(UniqueIdGenerator.create()));

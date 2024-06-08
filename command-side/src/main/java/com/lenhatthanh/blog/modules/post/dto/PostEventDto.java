@@ -16,6 +16,7 @@ public class PostEventDto {
     private String summary;
     private String thumbnail;
     private String slug;
+    private String status;
     private LocalDateTime publishedAt;
     private String userId;
     private List<String> categoryIds;

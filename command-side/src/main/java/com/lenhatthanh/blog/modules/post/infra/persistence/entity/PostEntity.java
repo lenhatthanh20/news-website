@@ -2,6 +2,7 @@ package com.lenhatthanh.blog.modules.post.infra.persistence.entity;
 
 import com.lenhatthanh.blog.modules.post.domain.*;
 import com.lenhatthanh.blog.modules.user.infra.persistence.entity.UserEntity;
+import com.lenhatthanh.blog.modules.user.domain.PostStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -51,6 +52,10 @@ public class PostEntity implements Serializable {
 
     @Column()
     private LocalDateTime publishedAt;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PostStatus status;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -103,7 +108,8 @@ public class PostEntity implements Serializable {
             String summary,
             String thumbnail,
             String slug,
-            LocalDateTime publishedAt
+            LocalDateTime publishedAt,
+            PostStatus status
     ) {
         this.id = id;
         this.version = version;
@@ -114,6 +120,7 @@ public class PostEntity implements Serializable {
         this.thumbnail = thumbnail;
         this.slug = slug;
         this.publishedAt = publishedAt;
+        this.status = status;
     }
 
     public static PostEntity fromDomainModel(Post post) {
@@ -126,7 +133,8 @@ public class PostEntity implements Serializable {
                 post.getSummary().getValue(),
                 post.getThumbnail(),
                 post.getSlug().getValue(),
-                post.getPublishedAt()
+                post.getPublishedAt(),
+                post.getStatus()
         );
 
         postEntity.setUserId(post.getUserId().toString());
@@ -153,6 +161,7 @@ public class PostEntity implements Serializable {
                 .thumbnail(entity.getThumbnail())
                 .slug(new Slug(entity.getSlug()))
                 .publishedAt(entity.getPublishedAt())
+                .status(entity.getStatus())
                 .build();
 
         post.setId(new com.lenhatthanh.blog.core.domain.Id(entity.getUserId()));
