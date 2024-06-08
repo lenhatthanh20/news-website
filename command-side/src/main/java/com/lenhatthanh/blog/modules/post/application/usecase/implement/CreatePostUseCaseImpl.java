@@ -1,16 +1,17 @@
 package com.lenhatthanh.blog.modules.post.application.usecase.implement;
 
+import com.lenhatthanh.blog.modules.post.application.eventpublisher.PostEventPublisher;
 import com.lenhatthanh.blog.modules.post.application.exception.UserNotFoundException;
+import com.lenhatthanh.blog.modules.post.application.repository.PostUserRepository;
 import com.lenhatthanh.blog.modules.post.application.usecase.CreatePostUseCase;
 import com.lenhatthanh.blog.modules.post.domain.Post;
+import com.lenhatthanh.blog.modules.post.domain.PostUser;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryNotFoundException;
 import com.lenhatthanh.blog.modules.post.domain.exception.TagNotFoundException;
-import com.lenhatthanh.blog.modules.post.domain.repository.CategoryRepository;
-import com.lenhatthanh.blog.modules.post.domain.repository.PostRepository;
-import com.lenhatthanh.blog.modules.post.domain.repository.TagRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.CategoryRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.PostRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.TagRepository;
 import com.lenhatthanh.blog.modules.post.dto.PostDto;
-import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -20,24 +21,23 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CreatePostUseCaseImpl implements CreatePostUseCase {
     private PostRepository postRepository;
-    private UserRepository userRepository;
+    private PostUserRepository postUserRepository;
     private CategoryRepository categoryRepository;
     private TagRepository tagRepository;
+    private PostEventPublisher publisher;
 
     public void execute(PostDto postDto) {
-        // In the microservice architecture,
-        // We have `User` bounded context and `Post` bounded context.
-        // That means we have two microservices for each bounded context.
-        // So we can use Rest API (can be non-blocking) to get user information from `User` bounded context.
         this.userExistOrError(postDto.getUserId());
         this.categoriesAndTagsExistOrError(postDto);
+        //TODO: Business logic: Post slug must be unique, user role checking, etc.
 
         Post post = Post.create(postDto);
         postRepository.save(post);
+        this.publishDomainEvents(post);
     }
 
     private void userExistOrError(String userId) {
-        Optional<User> user = userRepository.findById(userId);
+        Optional<PostUser> user = postUserRepository.findById(userId);
         if (user.isEmpty()) {
             throw new UserNotFoundException();
         }
@@ -55,5 +55,9 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
                 throw new TagNotFoundException();
             }
         });
+    }
+
+    private void publishDomainEvents(Post post) {
+        post.getDomainEvents().forEach(event -> publisher.publish(event));
     }
 }

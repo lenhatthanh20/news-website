@@ -3,7 +3,7 @@ package com.lenhatthanh.blog.modules.post.application.usecase.implement;
 import com.lenhatthanh.blog.modules.post.application.usecase.CreateTagUseCase;
 import com.lenhatthanh.blog.modules.post.domain.Tag;
 import com.lenhatthanh.blog.modules.post.domain.Title;
-import com.lenhatthanh.blog.modules.post.domain.repository.TagRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.TagRepository;
 import com.lenhatthanh.blog.modules.post.domain.service.CreateSlugFromTitleService;
 import com.lenhatthanh.blog.modules.post.dto.TagDto;
 import lombok.AllArgsConstructor;
@@ -22,6 +22,7 @@ public class CreateTagUseCaseImpl implements CreateTagUseCase {
         );
 
         // TODO: Business logic: Tag slug must be unique
+        // TODO: Check user and user roles
         tagRepository.save(tag);
     }
 }

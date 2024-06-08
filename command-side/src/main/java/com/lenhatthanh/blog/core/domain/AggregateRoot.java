@@ -38,18 +38,6 @@ public class AggregateRoot<Type> extends Entity<Type> {
         log.info("The domain event has been registered: {}", event.getClass().getSimpleName());
     }
 
-    public void publishEvents(DomainEventPublisher publisher) {
-        if (domainEvents.isEmpty()) {
-            return;
-        }
-
-        domainEvents.forEach(publisher::publishEvent);
-        log.info("The domain events have been published");
-
-        // After publish events, we need to clear them
-        clearDomainEvents();
-    }
-
     public void clearDomainEvents() {
         domainEvents.clear();
         log.info("The domain events have been cleared");

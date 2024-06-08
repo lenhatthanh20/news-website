@@ -37,6 +37,7 @@ public class Role extends AggregateRoot<Id> {
                 .build();
         role.setId(new Id(UniqueIdGenerator.create()));
         role.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);
+        role.registerEvent(new RoleCreatedEvent(role));
         return role;
     }
 }

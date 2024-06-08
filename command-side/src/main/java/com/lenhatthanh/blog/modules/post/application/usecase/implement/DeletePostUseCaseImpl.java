@@ -3,7 +3,7 @@ package com.lenhatthanh.blog.modules.post.application.usecase.implement;
 import com.lenhatthanh.blog.modules.post.application.usecase.DeletePostUseCase;
 import com.lenhatthanh.blog.modules.post.domain.Post;
 import com.lenhatthanh.blog.modules.post.domain.exception.PostNotFoundException;
-import com.lenhatthanh.blog.modules.post.domain.repository.PostRepository;
+import com.lenhatthanh.blog.modules.post.application.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

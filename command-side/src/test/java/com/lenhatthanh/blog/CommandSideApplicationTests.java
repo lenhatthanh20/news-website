@@ -1,10 +1,9 @@
 package com.lenhatthanh.blog;
 
-import com.lenhatthanh.blog.modules.user.infra.rest_api.UserController;
+import com.lenhatthanh.blog.modules.user.controller.UserController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 
