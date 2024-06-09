@@ -55,7 +55,7 @@ public class UserDomainServiceImpl implements UserDomainService {
     @Override
     public User deletedUser(User user) {
         // TODO: Implement permission checking when deleting user
-        user.maskAsDelete();
+        user.maskAsDeleted();
         user.registerEvent(new UserDeletedEvent(user));
         return user;
     }

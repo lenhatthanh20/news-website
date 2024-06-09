@@ -67,7 +67,7 @@ public class User extends AggregateRoot<Id> {
         this.isActive = DEACTIVATED;
     }
 
-    public void maskAsDelete() {
+    public void maskAsDeleted() {
         if (this.isDeleted == DELETED) {
             throw new UserAlreadyDeletedException();
         }
