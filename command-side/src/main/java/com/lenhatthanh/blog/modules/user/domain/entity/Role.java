@@ -2,13 +2,10 @@ package com.lenhatthanh.blog.modules.user.domain.entity;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
-import com.lenhatthanh.blog.modules.user.domain.event.RoleCreatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleUpdatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleDeletedEvent;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleDescription;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleName;
-import com.lenhatthanh.blog.modules.user.dto.RoleDto;
-import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -30,16 +27,5 @@ public class Role extends AggregateRoot<Id> {
 
     public void delete() {
         registerEvent(new RoleDeletedEvent(this));
-    }
-
-    public static Role create(RoleDto roleDto) {
-        Role role = Role.builder()
-                .name(new RoleName(roleDto.getName()))
-                .description(new RoleDescription(roleDto.getDescription()))
-                .build();
-        role.setId(new Id(UniqueIdGenerator.create()));
-        role.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);
-        role.registerEvent(new RoleCreatedEvent(role));
-        return role;
     }
 }
