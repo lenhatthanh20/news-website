@@ -2,46 +2,40 @@ package com.lenhatthanh.blog.modules.user.domain;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
-import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
-import com.lenhatthanh.blog.modules.user.domain.event.UserUpdatedEvent;
-import com.lenhatthanh.blog.modules.user.domain.event.UserDeletedEvent;
-import com.lenhatthanh.blog.modules.user.dto.UserDto;
-import com.lenhatthanh.blog.shared.UniqueIdGenerator;
+import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyActivatedException;
+import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyDeactivatedException;
+import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyDeletedException;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 @Getter
 @Builder
 public class User extends AggregateRoot<Id> {
-    private static final Boolean ACTIVATED = true;
+    public static final Boolean ACTIVATED = true;
+    public static final Boolean DEACTIVATED = false;
+    public static final Boolean DELETED = true;
     private UserName name;
     private Email email;
     private MobilePhone mobilePhone;
     private String password;
     Boolean isActive;
+    Boolean isDeleted;
 
     // Relationship with Role aggregate via id
     private List<Id> roleIds;
 
-    private void update(Consumer<User> fieldUpdater) {
-        fieldUpdater.accept(this);
-        this.registerEvent(new UserUpdatedEvent(this));
-    }
-
     public void updateName(UserName name) {
-        update(user -> user.name = name);
+        this.name = name;
     }
 
     public void updateEmail(Email email) {
-        update(user -> user.email = email);
+        this.email = email;
     }
 
     public void updateMobilePhone(MobilePhone mobilePhone) {
-        update(user -> user.mobilePhone = mobilePhone);
+        this.mobilePhone = mobilePhone;
     }
 
     public void addRole(Id roleId) {
@@ -49,38 +43,34 @@ public class User extends AggregateRoot<Id> {
             return;
         }
 
-        update(user -> user.roleIds.add(roleId));
+        this.roleIds.add(roleId);
     }
 
     public void removeRole(Id roleId) {
-        update(user -> user.roleIds.remove(roleId));
+        this.roleIds.remove(roleId);
     }
 
     public void activate() {
-        update(user -> user.isActive = true);
+        if (this.isActive == ACTIVATED) {
+            throw new UserAlreadyActivatedException();
+        }
+
+        this.isActive = ACTIVATED;
     }
 
     public void deactivate() {
-        update(user -> user.isActive = false);
+        if (this.isActive == DEACTIVATED) {
+            throw new UserAlreadyDeactivatedException();
+        }
+
+        this.isActive = DEACTIVATED;
     }
 
-    public void delete() {
-        this.registerEvent(new UserDeletedEvent(this));
-    }
+    public void maskAsDelete() {
+        if (this.isDeleted == DELETED) {
+            throw new UserAlreadyDeletedException();
+        }
 
-    public static User create(UserDto userDto, Id roleId) {
-        User user = User.builder()
-                .name(new UserName(userDto.getName()))
-                .email(new Email(userDto.getEmail()))
-                .mobilePhone(new MobilePhone(userDto.getMobilePhone()))
-                .password(userDto.getPassword())
-                .isActive(ACTIVATED)
-                .roleIds(new ArrayList<>(List.of(roleId)))
-                .build();
-        user.setId(new Id(UniqueIdGenerator.create()));
-        user.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);
-
-        user.registerEvent(new UserCreatedEvent(user));
-        return user;
+        this.isDeleted = DELETED;
     }
 }

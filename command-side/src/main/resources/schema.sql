@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
     updated_at TIMESTAMP DEFAULT NULL,
     last_login TIMESTAMP,
     is_active BOOLEAN,
+    is_deleted BOOLEAN DEFAULT false,
     CONSTRAINT users_unique_email UNIQUE (email)
 );
 

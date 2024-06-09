@@ -5,22 +5,23 @@ import com.lenhatthanh.blog.modules.user.application.usecase.DeleteAuthorUserUse
 import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
+import com.lenhatthanh.blog.modules.user.domain.service.UserDomainService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class DeleteAuthorUserUseCaseImpl implements DeleteAuthorUserUseCase {
+public class DeleteUserUseCaseImpl implements DeleteAuthorUserUseCase {
     UserRepository userRepository;
+    UserDomainService userDomainService;
     private UserEventPublisher publisher;
 
     public void execute(String userId) {
         User user = this.getUserByIdOrError(userId);
-        user.delete();
-        // TODO: add business logic: Can't delete admin user
+        User deletedUser = userDomainService.deletedUser(user);
 
-        userRepository.delete(user);
-        this.publishDomainEvents(user);
+        userRepository.save(deletedUser);
+        this.publishDomainEvents(deletedUser);
     }
 
     private User getUserByIdOrError(String roleId) {

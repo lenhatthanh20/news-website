@@ -40,6 +40,12 @@ public class RoleRepositoryImpl implements RoleRepository {
         return roleEntity.map(RoleEntity::toDomainModel);
     }
 
+    public List<Role> findByIds(List<String> ids) {
+        List<RoleEntity> roleEntities = this.roleJpaRepository.findAllById(ids);
+
+        return roleEntities.stream().map(RoleEntity::toDomainModel).toList();
+    }
+
     @Override
     public void delete(Role role) {
         roleJpaRepository.deleteById(role.getId().toString());
