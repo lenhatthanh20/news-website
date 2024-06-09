@@ -36,7 +36,8 @@ public class PostController {
     @RequestMapping("/{postId}/comments")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addComment(@PathVariable String postId, @RequestBody CommentDto commentDto) {
+    public void addComment(@AuthenticationPrincipal CustomUserDetails loggedInUser, @PathVariable String postId, @RequestBody CommentDto commentDto) {
+        commentDto.setUserId(loggedInUser.getId());
         addCommentUseCase.execute(postId, commentDto);
     }
 }
