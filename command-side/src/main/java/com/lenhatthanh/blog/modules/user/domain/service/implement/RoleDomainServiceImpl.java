@@ -1,6 +1,7 @@
 package com.lenhatthanh.blog.modules.user.domain.service.implement;
 
 import com.lenhatthanh.blog.core.domain.Id;
+import com.lenhatthanh.blog.core.domain.RoleStatus;
 import com.lenhatthanh.blog.modules.user.domain.entity.Role;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleCreatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleDeletedEvent;
@@ -20,6 +21,7 @@ public class RoleDomainServiceImpl implements RoleDomainService {
         Role role = Role.builder()
                 .name(new RoleName(roleDto.getName()))
                 .description(new RoleDescription(roleDto.getDescription()))
+                .status(RoleStatus.ACTIVE)
                 .build();
         role.setId(new Id(UniqueIdGenerator.create()));
         role.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);

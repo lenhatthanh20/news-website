@@ -5,6 +5,7 @@ import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.core.domain.RoleStatus;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleUpdatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleDeletedEvent;
+import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyDeletedException;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleDescription;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleName;
 import lombok.Builder;
@@ -27,7 +28,7 @@ public class Role extends AggregateRoot<Id> {
 
     public void delete() {
         if (this.status == RoleStatus.DELETED) {
-            throw new IllegalStateException("Role is already deleted");
+            throw new RoleAlreadyDeletedException();
         }
         this.status = RoleStatus.DELETED;
     }
