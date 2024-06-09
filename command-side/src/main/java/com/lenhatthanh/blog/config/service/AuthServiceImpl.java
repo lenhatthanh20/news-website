@@ -1,10 +1,11 @@
 package com.lenhatthanh.blog.config.service;
 
+import com.lenhatthanh.blog.modules.user.application.externalservice.AuthService;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
-import com.lenhatthanh.blog.modules.user.domain.entity.User;
-import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.dto.LoginDto;
 import com.lenhatthanh.blog.modules.user.dto.LoginResponseDto;
+import com.lenhatthanh.blog.modules.user.infra.persistence.UserJpaRepository;
+import com.lenhatthanh.blog.modules.user.infra.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,37 +16,29 @@ import java.util.ArrayList;
 
 @AllArgsConstructor
 @Service
-public class AuthService {
-    private final UserRepository usersRepository;
+public class AuthServiceImpl implements AuthService {
+    private final UserJpaRepository usersRepository;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
     public LoginResponseDto login(LoginDto request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        User user = usersRepository.findByEmail(request.getEmail())
+        UserEntity user = usersRepository.findByEmail(request.getEmail())
                 .filter(this::isUserActive)
                 .orElseThrow(UserNotFoundException::new);
         String token = jwtService.generateToken(createUserDetails(user));
         return createLoginResponse(user, token);
     }
 
-    private Boolean isUserActive(User user) {
+    private Boolean isUserActive(UserEntity user) {
         return !user.getIsDeleted() && user.getIsActive();
     }
 
-    private UserDetails createUserDetails(User user) {
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail().getValue(),
-                user.getPassword(),
-                true,
-                true,
-                true,
-                true,
-                new ArrayList<>()
-        );
+    private UserDetails createUserDetails(UserEntity user) {
+        return new CustomUserDetails(user, new ArrayList<>());
     }
 
-    private LoginResponseDto createLoginResponse(User user, String token) {
-        return new LoginResponseDto(user.getId().toString(), token);
+    private LoginResponseDto createLoginResponse(UserEntity user, String token) {
+        return new LoginResponseDto(user.getId(), token);
     }
 }
