@@ -35,6 +35,7 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
         //TODO: Business logic: Post slug must be unique, user role checking, etc.
 
         Post post = postDomainService.createNewPost(postDto);
+        //TODO: Handle transaction - unit of work for aggregate
         postRepository.save(post);
         publishDomainEvents(post);
     }
