@@ -1,5 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infra.persistence.entity;
 
+import com.lenhatthanh.blog.core.domain.RoleStatus;
 import com.lenhatthanh.blog.modules.user.domain.entity.Role;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleDescription;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleName;
@@ -36,6 +37,9 @@ public class RoleEntity implements Serializable {
     @Column(nullable = false, columnDefinition = "TEXT", length = 1000)
     private String description;
 
+    @Column(nullable = false)
+    private Boolean isDeleted;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -43,11 +47,12 @@ public class RoleEntity implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public RoleEntity(String id, Long version, String name, String description) {
+    public RoleEntity(String id, Long version, String name, String description, Boolean isDeleted) {
         this.id = id;
         this.version = version;
         this.name = name;
         this.description = description;
+        this.isDeleted = isDeleted;
     }
 
     public static RoleEntity fromDomainModel(Role role) {
@@ -55,7 +60,8 @@ public class RoleEntity implements Serializable {
                 role.getId().toString(),
                 role.getAggregateVersion(),
                 role.getName().getValue(),
-                role.getDescription().getValue()
+                role.getDescription().getValue(),
+                role.getStatus() == RoleStatus.DELETED
         );
     }
 
@@ -67,6 +73,7 @@ public class RoleEntity implements Serializable {
         Role role = Role.builder()
                 .name(new RoleName(roleEntity.getName()))
                 .description(new RoleDescription(roleEntity.getDescription()))
+                .status(roleEntity.getIsDeleted() ? RoleStatus.DELETED : RoleStatus.ACTIVE)
                 .build();
         role.setId(new com.lenhatthanh.blog.core.domain.Id(roleEntity.getId()));
         role.setAggregateVersion(roleEntity.getVersion());

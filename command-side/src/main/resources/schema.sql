@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS roles (
     version BIGINT NOT NULL,
     name VARCHAR(100) UNIQUE NOT NULL,
     description TEXT,
+    is_deleted BOOLEAN DEFAULT false,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT NULL,
     CONSTRAINT roles_unique_name UNIQUE (name)
