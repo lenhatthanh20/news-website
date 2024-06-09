@@ -11,6 +11,7 @@ import com.lenhatthanh.blog.modules.post.application.exception.TagNotFoundExcept
 import com.lenhatthanh.blog.modules.post.application.repository.CategoryRepository;
 import com.lenhatthanh.blog.modules.post.application.repository.PostRepository;
 import com.lenhatthanh.blog.modules.post.application.repository.TagRepository;
+import com.lenhatthanh.blog.modules.post.domain.service.PostDomainService;
 import com.lenhatthanh.blog.modules.post.dto.PostDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
     private PostUserRepository postUserRepository;
     private CategoryRepository categoryRepository;
     private TagRepository tagRepository;
+    private PostDomainService postDomainService;
     private PostEventPublisher publisher;
 
     public void execute(PostDto postDto) {
@@ -32,7 +34,7 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
         categoriesAndTagsExistOrError(postDto);
         //TODO: Business logic: Post slug must be unique, user role checking, etc.
 
-        Post post = Post.create(postDto);
+        Post post = postDomainService.createNewPost(postDto);
         postRepository.save(post);
         publishDomainEvents(post);
     }

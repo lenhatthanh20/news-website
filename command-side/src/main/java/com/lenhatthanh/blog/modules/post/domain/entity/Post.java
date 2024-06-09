@@ -58,26 +58,4 @@ public class Post extends AggregateRoot<Id> {
 
         this.tagIds = tagIds;
     }
-
-    public static Post create(PostDto postDto) {
-        Post post = Post.builder()
-                .parentId(postDto.getParentId() != null ? new Id(postDto.getParentId()) : null)
-                .userId(new Id(postDto.getUserId()))
-                .title(new Title(postDto.getTitle()))
-                .metaTitle(postDto.getMetaTitle())
-                .content(new PostContent(postDto.getContent()))
-                .summary(new Summary(postDto.getSummary()))
-                .thumbnail(postDto.getThumbnail())
-                .slug(new Slug(postDto.getSlug()))
-                .status(PostStatus.DRAFT)
-                .build();
-
-        post.setId(new Id(UniqueIdGenerator.create()));
-        post.setAggregateVersion(CONCURRENCY_CHECKING_INITIAL_VERSION);
-        post.setCategoryIds(postDto.getCategoryIds().stream().map(Id::new).toList());
-        post.setTagIds(postDto.getTagIds().stream().map(Id::new).toList());
-
-        post.registerEvent(new PostCreatedEvent(post));
-        return post;
-    }
 }
