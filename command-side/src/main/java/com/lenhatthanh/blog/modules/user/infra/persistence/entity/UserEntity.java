@@ -2,10 +2,10 @@ package com.lenhatthanh.blog.modules.user.infra.persistence.entity;
 
 import com.lenhatthanh.blog.modules.post.infra.persistence.entity.CommentEntity;
 import com.lenhatthanh.blog.modules.post.infra.persistence.entity.PostEntity;
-import com.lenhatthanh.blog.modules.user.domain.Email;
-import com.lenhatthanh.blog.modules.user.domain.MobilePhone;
-import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.UserName;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.Email;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.MobilePhone;
+import com.lenhatthanh.blog.modules.user.domain.entity.User;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.UserName;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -56,6 +56,9 @@ public class UserEntity implements Serializable {
     @Column(nullable = false)
     private Boolean isActive;
 
+    @Column(nullable = false)
+    private Boolean isDeleted;
+
     /**
      * One to many with `posts` table
      */
@@ -76,7 +79,7 @@ public class UserEntity implements Serializable {
     @Column(name = "role_id")
     private List<String> roleIds = new ArrayList<>();
 
-    public UserEntity(String id, Long version, String name, String email, String mobilePhone, String password, Boolean isActive) {
+    public UserEntity(String id, Long version, String name, String email, String mobilePhone, String password, Boolean isActive, Boolean isDeleted) {
         this.id = id;
         this.version = version;
         this.name = name;
@@ -84,6 +87,7 @@ public class UserEntity implements Serializable {
         this.mobilePhone = mobilePhone;
         this.password = password;
         this.isActive = isActive;
+        this.isDeleted = isDeleted;
     }
 
     public void addRole(String roleId) {
@@ -102,7 +106,8 @@ public class UserEntity implements Serializable {
                 user.getEmail().getValue(),
                 user.getMobilePhone().getValue(),
                 user.getPassword(),
-                user.getIsActive()
+                user.getIsActive(),
+                user.getIsDeleted()
         );
 
         user.getRoleIds().forEach(roleId -> {
@@ -121,6 +126,7 @@ public class UserEntity implements Serializable {
                 .mobilePhone(new MobilePhone(userEntity.getMobilePhone()))
                 .password(userEntity.getPassword())
                 .isActive(userEntity.getIsActive())
+                .isDeleted(userEntity.getIsDeleted())
                 .roleIds(roleIds.stream().map(com.lenhatthanh.blog.core.domain.Id::new).toList())
                 .build();
         user.setId(new com.lenhatthanh.blog.core.domain.Id(userEntity.getId()));

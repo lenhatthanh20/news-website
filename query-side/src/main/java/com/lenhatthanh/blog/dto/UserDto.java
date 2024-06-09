@@ -31,6 +31,6 @@ public class UserDto {
     }
 
     public void addRole(RoleDto role) {
-        this.roles.add(role);
+        roles.add(role);
     }
 }

@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.post.domain.service;
 
-import com.lenhatthanh.blog.modules.post.domain.Slug;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Slug;
 import org.springframework.stereotype.Component;
 
 @Component

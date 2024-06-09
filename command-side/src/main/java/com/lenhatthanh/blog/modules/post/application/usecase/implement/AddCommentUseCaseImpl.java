@@ -3,9 +3,9 @@ package com.lenhatthanh.blog.modules.post.application.usecase.implement;
 import com.lenhatthanh.blog.modules.post.application.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.PostUserRepository;
 import com.lenhatthanh.blog.modules.post.application.usecase.AddCommentUseCase;
-import com.lenhatthanh.blog.modules.post.domain.Comment;
-import com.lenhatthanh.blog.modules.post.domain.Post;
-import com.lenhatthanh.blog.modules.post.domain.PostUser;
+import com.lenhatthanh.blog.modules.post.domain.entity.Comment;
+import com.lenhatthanh.blog.modules.post.domain.entity.Post;
+import com.lenhatthanh.blog.modules.post.domain.entity.PostUser;
 import com.lenhatthanh.blog.modules.post.domain.exception.PostNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.CommentRepository;
 import com.lenhatthanh.blog.modules.post.application.repository.PostRepository;
@@ -23,8 +23,8 @@ public class AddCommentUseCaseImpl implements AddCommentUseCase {
     private CommentRepository commentRepository;
 
     public void execute(String postId, CommentDto commentDto) {
-        this.getUserOrError(commentDto.getUserId());
-        this.getPostOrError(postId);
+        getUserOrError(commentDto.getUserId());
+        getPostOrError(postId);
         Comment comment = Comment.create(commentDto);
         commentRepository.save(comment);
     }

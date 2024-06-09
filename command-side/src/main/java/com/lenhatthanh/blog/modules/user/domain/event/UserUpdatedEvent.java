@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.user.domain.event;
 
 import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.core.domain.Id;
-import com.lenhatthanh.blog.modules.user.domain.User;
+import com.lenhatthanh.blog.modules.user.domain.entity.User;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
@@ -21,7 +21,7 @@ public class UserUpdatedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public Id getAggregateId() {
-        User source = (User) this.getSource();
+        User source = (User)getSource();
         return source.getId();
     }
 
@@ -32,6 +32,6 @@ public class UserUpdatedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public User getEventData() {
-        return (User) this.getSource();
+        return (User)getSource();
     }
 }

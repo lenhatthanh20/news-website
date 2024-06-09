@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
-import com.lenhatthanh.blog.modules.user.application.service.AuthService;
+import com.lenhatthanh.blog.modules.user.application.externalservice.AuthService;
 import com.lenhatthanh.blog.modules.user.application.usecase.UserLoginUseCase;
 import com.lenhatthanh.blog.modules.user.dto.LoginDto;
 import com.lenhatthanh.blog.modules.user.dto.LoginResponseDto;

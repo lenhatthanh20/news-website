@@ -1,8 +1,8 @@
 package com.lenhatthanh.blog.modules.post.infra.persistence.entity;
 
-import com.lenhatthanh.blog.modules.post.domain.Slug;
-import com.lenhatthanh.blog.modules.post.domain.Tag;
-import com.lenhatthanh.blog.modules.post.domain.Title;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Slug;
+import com.lenhatthanh.blog.modules.post.domain.entity.Tag;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Title;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

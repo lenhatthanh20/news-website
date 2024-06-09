@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.post.domain.event;
 
 import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.core.domain.Id;
-import com.lenhatthanh.blog.modules.post.domain.Post;
+import com.lenhatthanh.blog.modules.post.domain.entity.Post;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
@@ -21,7 +21,7 @@ public class PostCreatedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public Id getAggregateId() {
-        Post source = (Post) this.getSource();
+        Post source = (Post)getSource();
         return source.getId();
     }
 
@@ -32,6 +32,6 @@ public class PostCreatedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public Post getEventData() {
-        return (Post) this.getSource();
+        return (Post)getSource();
     }
 }

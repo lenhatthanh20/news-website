@@ -1,8 +1,12 @@
 package com.lenhatthanh.blog.modules.post.infra.persistence.entity;
 
-import com.lenhatthanh.blog.modules.post.domain.*;
+import com.lenhatthanh.blog.modules.post.domain.entity.Post;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.PostContent;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Slug;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Summary;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Title;
 import com.lenhatthanh.blog.modules.user.infra.persistence.entity.UserEntity;
-import com.lenhatthanh.blog.modules.user.domain.PostStatus;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.PostStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

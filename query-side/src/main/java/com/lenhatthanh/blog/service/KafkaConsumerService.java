@@ -33,7 +33,7 @@ public class KafkaConsumerService {
         UserDto userDto = objectConverter.convertArrayByteToObject(record.value(), UserDto.class);
         String command = record.key();
         switch (command) {
-            case Command.CREATED, Command.UPDATED -> this.handleWriteUserEvent(userDto);
+            case Command.CREATED, Command.UPDATED -> handleWriteUserEvent(userDto);
             case Command.DELETED -> userRepository.deleteById(userDto.getId());
         }
     }

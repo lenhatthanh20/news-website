@@ -1,8 +1,8 @@
 package com.lenhatthanh.blog.modules.user.controller;
 
-import com.lenhatthanh.blog.modules.user.application.usecase.CreateAuthorUserUseCase;
+import com.lenhatthanh.blog.modules.user.application.usecase.CreateUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.DeleteAuthorUserUseCase;
-import com.lenhatthanh.blog.modules.user.application.usecase.UpdateAuthorUserUseCase;
+import com.lenhatthanh.blog.modules.user.application.usecase.UpdateUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.UserLoginUseCase;
 import com.lenhatthanh.blog.modules.user.dto.LoginDto;
 import com.lenhatthanh.blog.modules.user.dto.LoginResponseDto;
@@ -16,21 +16,21 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-    private CreateAuthorUserUseCase createAuthorUserUseCase;
-    private UpdateAuthorUserUseCase updateAuthorUserUseCase;
+    private CreateUserUseCase createUserUseCase;
+    private UpdateUserUseCase updateUserUseCase;
     private DeleteAuthorUserUseCase deleteAuthorUserUseCase;
     private UserLoginUseCase userLoginUseCase;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody UserDto user) {
-        createAuthorUserUseCase.execute(user);
+        createUserUseCase.execute(user);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void updateUser(@RequestBody UserDto user) {
-        updateAuthorUserUseCase.execute(user);
+        updateUserUseCase.execute(user);
     }
 
     @DeleteMapping

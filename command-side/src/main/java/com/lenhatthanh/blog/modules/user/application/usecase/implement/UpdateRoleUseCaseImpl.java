@@ -2,10 +2,10 @@ package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
 import com.lenhatthanh.blog.modules.user.application.evenpublisher.RoleEventPublisher;
 import com.lenhatthanh.blog.modules.user.application.usecase.UpdateRoleUseCase;
-import com.lenhatthanh.blog.modules.user.domain.Role;
-import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
-import com.lenhatthanh.blog.modules.user.domain.RoleName;
-import com.lenhatthanh.blog.modules.user.domain.SystemRole;
+import com.lenhatthanh.blog.modules.user.domain.entity.Role;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleDescription;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleName;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.SystemRole;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyExistException;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.SystemRoleCannotBeModifiedException;
@@ -23,18 +23,18 @@ public class UpdateRoleUseCaseImpl implements UpdateRoleUseCase {
     RoleEventPublisher publisher;
 
     public void execute(RoleDto newRoleDto) {
-        Role currentRole = this.roleMustExistByIdOrError(newRoleDto.getId());
+        Role currentRole = roleMustExistByIdOrError(newRoleDto.getId());
         if (!currentRole.getName().getValue().equals(newRoleDto.getName())) {
-            this.newRoleNameDoesNotExistOrError(newRoleDto.getName());
+            newRoleNameDoesNotExistOrError(newRoleDto.getName());
         }
 
-        this.isNotSystemRoleOrError(currentRole.getName().getValue());
+        isNotSystemRoleOrError(currentRole.getName().getValue());
 
         currentRole.updateRoleName(new RoleName(newRoleDto.getName()));
         currentRole.updateDescription(new RoleDescription(newRoleDto.getDescription()));
 
         roleRepository.save(currentRole);
-        this.publishDomainEvents(currentRole);
+        publishDomainEvents(currentRole);
     }
 
     private void isNotSystemRoleOrError(String roleName) {

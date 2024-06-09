@@ -3,7 +3,7 @@ package com.lenhatthanh.blog.modules.user.infra.messaging;
 import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.user.application.evenpublisher.UserEventPublisher;
-import com.lenhatthanh.blog.modules.user.domain.User;
+import com.lenhatthanh.blog.modules.user.domain.entity.User;
 import com.lenhatthanh.blog.modules.user.dto.UserEventDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class UserEventPublisherImpl implements UserEventPublisher {
 
         String messageKey = event.getClass().getSimpleName();
         ProducerRecord<String, UserEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, messageKey, userEventDto);
-        this.kafkaTemplate.send(record);
+        kafkaTemplate.send(record);
 
         log.info("Event sent to Kafka broker - {} with aggregate ID: {} !!", messageKey, event.getAggregateId());
     }

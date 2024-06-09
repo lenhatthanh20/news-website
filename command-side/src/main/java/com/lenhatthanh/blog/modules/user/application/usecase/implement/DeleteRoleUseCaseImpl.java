@@ -2,8 +2,8 @@ package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
 import com.lenhatthanh.blog.modules.user.application.evenpublisher.RoleEventPublisher;
 import com.lenhatthanh.blog.modules.user.application.usecase.DeleteRoleUseCase;
-import com.lenhatthanh.blog.modules.user.domain.Role;
-import com.lenhatthanh.blog.modules.user.domain.SystemRole;
+import com.lenhatthanh.blog.modules.user.domain.entity.Role;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.SystemRole;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.SystemRoleCannotBeModifiedException;
 import com.lenhatthanh.blog.modules.user.application.repository.RoleRepository;
@@ -18,11 +18,11 @@ public class DeleteRoleUseCaseImpl implements DeleteRoleUseCase {
     RoleEventPublisher publisher;
 
     public void execute(String roleId) {
-        Role role = this.getRoleByIdOrError(roleId);
-        this.isNotSystemRoleOrError(role.getName().getValue());
+        Role role = getRoleByIdOrError(roleId);
+        isNotSystemRoleOrError(role.getName().getValue());
         role.delete();
         roleRepository.delete(role);
-        this.publishDomainEvents(role);
+        publishDomainEvents(role);
     }
 
     private Role getRoleByIdOrError(String roleId) {

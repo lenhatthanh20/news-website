@@ -4,8 +4,8 @@ import com.lenhatthanh.blog.modules.post.application.eventpublisher.PostEventPub
 import com.lenhatthanh.blog.modules.post.application.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.PostUserRepository;
 import com.lenhatthanh.blog.modules.post.application.usecase.CreatePostUseCase;
-import com.lenhatthanh.blog.modules.post.domain.Post;
-import com.lenhatthanh.blog.modules.post.domain.PostUser;
+import com.lenhatthanh.blog.modules.post.domain.entity.Post;
+import com.lenhatthanh.blog.modules.post.domain.entity.PostUser;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryNotFoundException;
 import com.lenhatthanh.blog.modules.post.domain.exception.TagNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.CategoryRepository;
@@ -27,13 +27,14 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
     private PostEventPublisher publisher;
 
     public void execute(PostDto postDto) {
-        this.userExistOrError(postDto.getUserId());
-        this.categoriesAndTagsExistOrError(postDto);
+        // This step can be ignored because we are working in logged-in user context
+        userExistOrError(postDto.getUserId());
+        categoriesAndTagsExistOrError(postDto);
         //TODO: Business logic: Post slug must be unique, user role checking, etc.
 
         Post post = Post.create(postDto);
         postRepository.save(post);
-        this.publishDomainEvents(post);
+        publishDomainEvents(post);
     }
 
     private void userExistOrError(String userId) {

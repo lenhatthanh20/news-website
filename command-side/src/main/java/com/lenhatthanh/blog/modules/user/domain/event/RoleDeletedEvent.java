@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.user.domain.event;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.DomainEvent;
-import com.lenhatthanh.blog.modules.user.domain.Role;
+import com.lenhatthanh.blog.modules.user.domain.entity.Role;
 import org.springframework.context.ApplicationEvent;
 
 import java.time.Clock;
@@ -19,7 +19,7 @@ public class RoleDeletedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public Id getAggregateId() {
-        Role source = (Role) this.getSource();
+        Role source = (Role)getSource();
         return source.getId();
     }
 
@@ -30,6 +30,6 @@ public class RoleDeletedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public Role getEventData() {
-        return (Role) this.getSource();
+        return (Role)getSource();
     }
 }

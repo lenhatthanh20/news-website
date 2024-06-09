@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.post.application.repository;
 
-import com.lenhatthanh.blog.modules.post.domain.Post;
+import com.lenhatthanh.blog.modules.post.domain.entity.Post;
 
 import java.util.Optional;
 

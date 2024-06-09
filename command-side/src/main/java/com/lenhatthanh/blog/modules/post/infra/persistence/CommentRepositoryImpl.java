@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.post.infra.persistence;
 
-import com.lenhatthanh.blog.modules.post.domain.Comment;
+import com.lenhatthanh.blog.modules.post.domain.entity.Comment;
 import com.lenhatthanh.blog.modules.post.application.repository.CommentRepository;
 import com.lenhatthanh.blog.modules.post.infra.persistence.entity.CommentEntity;
 import lombok.AllArgsConstructor;

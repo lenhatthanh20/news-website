@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infra.persistence;
 
-import com.lenhatthanh.blog.modules.user.domain.Role;
+import com.lenhatthanh.blog.modules.user.domain.entity.Role;
 import com.lenhatthanh.blog.modules.user.application.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.infra.persistence.entity.RoleEntity;
 import lombok.AllArgsConstructor;
@@ -28,16 +28,22 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public Optional<Role> findByName(String name) {
-        Optional<RoleEntity> roleEntity = this.roleJpaRepository.findByName(name);
+        Optional<RoleEntity> roleEntity = roleJpaRepository.findByName(name);
 
         return roleEntity.map(RoleEntity::toDomainModel);
     }
 
     @Override
     public Optional<Role> findById(String id) {
-        Optional<RoleEntity> roleEntity = this.roleJpaRepository.findById(id);
+        Optional<RoleEntity> roleEntity = roleJpaRepository.findById(id);
 
         return roleEntity.map(RoleEntity::toDomainModel);
+    }
+
+    public List<Role> findByIds(List<String> ids) {
+        List<RoleEntity> roleEntities = roleJpaRepository.findAllById(ids);
+
+        return roleEntities.stream().map(RoleEntity::toDomainModel).toList();
     }
 
     @Override

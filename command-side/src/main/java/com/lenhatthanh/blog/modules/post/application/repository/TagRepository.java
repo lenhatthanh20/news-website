@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.post.application.repository;
 
-import com.lenhatthanh.blog.modules.post.domain.Tag;
+import com.lenhatthanh.blog.modules.post.domain.entity.Tag;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
