@@ -9,7 +9,7 @@ import com.lenhatthanh.blog.modules.post.domain.valueobject.Slug;
 import com.lenhatthanh.blog.modules.post.domain.valueobject.Summary;
 import com.lenhatthanh.blog.modules.post.domain.valueobject.Title;
 import com.lenhatthanh.blog.modules.post.dto.PostDto;
-import com.lenhatthanh.blog.modules.user.domain.valueobject.PostStatus;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.PostStatus;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import org.springframework.stereotype.Service;
 

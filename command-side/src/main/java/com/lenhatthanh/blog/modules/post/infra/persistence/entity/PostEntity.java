@@ -6,7 +6,7 @@ import com.lenhatthanh.blog.modules.post.domain.valueobject.Slug;
 import com.lenhatthanh.blog.modules.post.domain.valueobject.Summary;
 import com.lenhatthanh.blog.modules.post.domain.valueobject.Title;
 import com.lenhatthanh.blog.modules.user.infra.persistence.entity.UserEntity;
-import com.lenhatthanh.blog.modules.user.domain.valueobject.PostStatus;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.PostStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
