@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.user.controller;
 
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.DeleteAuthorUserUseCase;
-import com.lenhatthanh.blog.modules.user.application.usecase.UpdateAuthorUserUseCase;
+import com.lenhatthanh.blog.modules.user.application.usecase.UpdateUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.UserLoginUseCase;
 import com.lenhatthanh.blog.modules.user.dto.LoginDto;
 import com.lenhatthanh.blog.modules.user.dto.LoginResponseDto;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/users")
 public class UserController {
     private CreateUserUseCase createUserUseCase;
-    private UpdateAuthorUserUseCase updateAuthorUserUseCase;
+    private UpdateUserUseCase updateUserUseCase;
     private DeleteAuthorUserUseCase deleteAuthorUserUseCase;
     private UserLoginUseCase userLoginUseCase;
 
@@ -30,7 +30,7 @@ public class UserController {
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void updateUser(@RequestBody UserDto user) {
-        updateAuthorUserUseCase.execute(user);
+        updateUserUseCase.execute(user);
     }
 
     @DeleteMapping

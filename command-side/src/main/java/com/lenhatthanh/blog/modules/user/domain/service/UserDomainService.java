@@ -6,6 +6,8 @@ import com.lenhatthanh.blog.modules.user.dto.UserDto;
 public interface UserDomainService {
     User createNewUser(UserDto userDto);
 
+    User updateUser(User currentUser, UserDto newUserDto);
+
     User deletedUser(User user);
 
     User deactivateUser(User user);

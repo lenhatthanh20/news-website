@@ -7,6 +7,8 @@ import com.lenhatthanh.blog.modules.user.domain.User;
 import com.lenhatthanh.blog.modules.user.domain.UserName;
 import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.UserDeletedEvent;
+import com.lenhatthanh.blog.modules.user.domain.event.UserUpdatedEvent;
+import com.lenhatthanh.blog.modules.user.domain.exception.CannotUpdateDeletedUserException;
 import com.lenhatthanh.blog.modules.user.domain.service.UserDomainService;
 import com.lenhatthanh.blog.modules.user.dto.UserDto;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
@@ -34,6 +36,20 @@ public class UserDomainServiceImpl implements UserDomainService {
 
         user.registerEvent(new UserCreatedEvent(user));
         return user;
+    }
+
+    @Override
+    public User updateUser(User currentUser, UserDto newUserDto) {
+        if (currentUser.getIsDeleted()) {
+            throw new CannotUpdateDeletedUserException();
+        }
+
+        currentUser.updateName(new UserName(newUserDto.getName()));
+        currentUser.updateEmail(new Email(newUserDto.getEmail()));
+        currentUser.updateMobilePhone(new MobilePhone(newUserDto.getMobilePhone()));
+
+        currentUser.registerEvent(new UserUpdatedEvent(currentUser));
+        return currentUser;
     }
 
     @Override
