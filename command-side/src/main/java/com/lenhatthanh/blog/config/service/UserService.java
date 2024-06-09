@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.application.service;
+package com.lenhatthanh.blog.config.service;
 
 import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.entity.User;

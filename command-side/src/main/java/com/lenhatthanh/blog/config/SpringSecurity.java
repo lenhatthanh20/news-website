@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.config;
 
-import com.lenhatthanh.blog.modules.user.application.service.UserService;
+import com.lenhatthanh.blog.config.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

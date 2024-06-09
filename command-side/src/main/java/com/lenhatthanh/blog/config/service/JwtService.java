@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.application.service;
+package com.lenhatthanh.blog.config.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
