@@ -8,6 +8,7 @@ import com.lenhatthanh.blog.modules.user.dto.LoginResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,19 +23,25 @@ public class AuthService {
     public LoginResponseDto login(LoginDto request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         User user = usersRepository.findByEmail(request.getEmail())
+                .filter(u -> !u.getIsDeleted())
                 .orElseThrow(UserNotFoundException::new);
-        String token = jwtService.generateToken(
-                new org.springframework.security.core.userdetails.User(
-                        user.getEmail().getValue(),
-                        user.getPassword(),
-                        true,
-                        true,
-                        true,
-                        true,
-                        new ArrayList<>()
-                )
-        );
+        String token = jwtService.generateToken(createUserDetails(user));
+        return createLoginResponse(user, token);
+    }
 
+    private UserDetails createUserDetails(User user) {
+        return new org.springframework.security.core.userdetails.User(
+                user.getEmail().getValue(),
+                user.getPassword(),
+                true,
+                true,
+                true,
+                true,
+                new ArrayList<>()
+        );
+    }
+
+    private LoginResponseDto createLoginResponse(User user, String token) {
         return new LoginResponseDto(user.getId().toString(), token);
     }
 }
