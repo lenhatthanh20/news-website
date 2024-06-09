@@ -1,8 +1,8 @@
 package com.lenhatthanh.blog.modules.user.infra.persistence.entity;
 
-import com.lenhatthanh.blog.modules.user.domain.Role;
-import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
-import com.lenhatthanh.blog.modules.user.domain.RoleName;
+import com.lenhatthanh.blog.modules.user.domain.entity.Role;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleDescription;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleName;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

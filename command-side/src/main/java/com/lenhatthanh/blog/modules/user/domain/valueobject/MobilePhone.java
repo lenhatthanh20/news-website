@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.domain;
+package com.lenhatthanh.blog.modules.user.domain.valueobject;
 
 import com.lenhatthanh.blog.modules.user.domain.exception.InvalidMobilePhoneException;
 import lombok.Getter;

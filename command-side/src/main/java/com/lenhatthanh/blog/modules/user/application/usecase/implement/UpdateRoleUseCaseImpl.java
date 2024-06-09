@@ -2,10 +2,10 @@ package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
 import com.lenhatthanh.blog.modules.user.application.evenpublisher.RoleEventPublisher;
 import com.lenhatthanh.blog.modules.user.application.usecase.UpdateRoleUseCase;
-import com.lenhatthanh.blog.modules.user.domain.Role;
-import com.lenhatthanh.blog.modules.user.domain.RoleDescription;
-import com.lenhatthanh.blog.modules.user.domain.RoleName;
-import com.lenhatthanh.blog.modules.user.domain.SystemRole;
+import com.lenhatthanh.blog.modules.user.domain.entity.Role;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleDescription;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleName;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.SystemRole;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyExistException;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.SystemRoleCannotBeModifiedException;

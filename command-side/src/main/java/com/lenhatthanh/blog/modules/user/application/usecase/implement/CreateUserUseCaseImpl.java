@@ -2,8 +2,8 @@ package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
 import com.lenhatthanh.blog.modules.user.application.evenpublisher.UserEventPublisher;
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateUserUseCase;
-import com.lenhatthanh.blog.modules.user.domain.Role;
-import com.lenhatthanh.blog.modules.user.domain.User;
+import com.lenhatthanh.blog.modules.user.domain.entity.Role;
+import com.lenhatthanh.blog.modules.user.domain.entity.User;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyExistsException;
 import com.lenhatthanh.blog.modules.user.application.repository.RoleRepository;

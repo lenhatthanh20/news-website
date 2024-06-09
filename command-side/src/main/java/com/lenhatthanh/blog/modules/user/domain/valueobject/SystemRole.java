@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.user.domain;
+package com.lenhatthanh.blog.modules.user.domain.valueobject;
 
 public class SystemRole {
     public static final String ADMIN = "Administrator";

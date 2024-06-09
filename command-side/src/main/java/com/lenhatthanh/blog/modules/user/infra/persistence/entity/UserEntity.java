@@ -2,10 +2,10 @@ package com.lenhatthanh.blog.modules.user.infra.persistence.entity;
 
 import com.lenhatthanh.blog.modules.post.infra.persistence.entity.CommentEntity;
 import com.lenhatthanh.blog.modules.post.infra.persistence.entity.PostEntity;
-import com.lenhatthanh.blog.modules.user.domain.Email;
-import com.lenhatthanh.blog.modules.user.domain.MobilePhone;
-import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.UserName;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.Email;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.MobilePhone;
+import com.lenhatthanh.blog.modules.user.domain.entity.User;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.UserName;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

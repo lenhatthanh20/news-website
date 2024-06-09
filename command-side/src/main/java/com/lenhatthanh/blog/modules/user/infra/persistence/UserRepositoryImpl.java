@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.infra.persistence;
 
-import com.lenhatthanh.blog.modules.user.domain.User;
+import com.lenhatthanh.blog.modules.user.domain.entity.User;
 import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.infra.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;

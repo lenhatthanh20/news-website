@@ -1,10 +1,10 @@
 package com.lenhatthanh.blog.modules.user.domain.service.implement;
 
 import com.lenhatthanh.blog.core.domain.Id;
-import com.lenhatthanh.blog.modules.user.domain.Email;
-import com.lenhatthanh.blog.modules.user.domain.MobilePhone;
-import com.lenhatthanh.blog.modules.user.domain.User;
-import com.lenhatthanh.blog.modules.user.domain.UserName;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.Email;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.MobilePhone;
+import com.lenhatthanh.blog.modules.user.domain.entity.User;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.UserName;
 import com.lenhatthanh.blog.modules.user.domain.event.UserCreatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.UserDeletedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.UserUpdatedEvent;
@@ -15,8 +15,8 @@ import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import org.springframework.stereotype.Service;
 
 import static com.lenhatthanh.blog.core.domain.AggregateRoot.CONCURRENCY_CHECKING_INITIAL_VERSION;
-import static com.lenhatthanh.blog.modules.user.domain.User.ACTIVATED;
-import static com.lenhatthanh.blog.modules.user.domain.User.NOT_DELETED;
+import static com.lenhatthanh.blog.modules.user.domain.entity.User.ACTIVATED;
+import static com.lenhatthanh.blog.modules.user.domain.entity.User.NOT_DELETED;
 
 @Service
 public class UserDomainServiceImpl implements UserDomainService {

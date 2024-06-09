@@ -6,7 +6,7 @@ import com.lenhatthanh.blog.modules.post.domain.event.PostCreatedEvent;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryLimitExceededException;
 import com.lenhatthanh.blog.modules.post.domain.exception.TagLimitExceededException;
 import com.lenhatthanh.blog.modules.post.dto.PostDto;
-import com.lenhatthanh.blog.modules.user.domain.PostStatus;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.PostStatus;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.Builder;
 import lombok.Getter;

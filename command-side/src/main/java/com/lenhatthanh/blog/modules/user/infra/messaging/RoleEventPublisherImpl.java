@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.user.infra.messaging;
 
 import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.modules.user.application.evenpublisher.RoleEventPublisher;
-import com.lenhatthanh.blog.modules.user.domain.Role;
+import com.lenhatthanh.blog.modules.user.domain.entity.Role;
 import com.lenhatthanh.blog.modules.user.dto.RoleEventDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

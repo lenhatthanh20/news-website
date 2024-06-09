@@ -1,10 +1,13 @@
-package com.lenhatthanh.blog.modules.user.domain;
+package com.lenhatthanh.blog.modules.user.domain.entity;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyActivatedException;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyDeactivatedException;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyDeletedException;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.Email;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.MobilePhone;
+import com.lenhatthanh.blog.modules.user.domain.valueobject.UserName;
 import lombok.Builder;
 import lombok.Getter;
 

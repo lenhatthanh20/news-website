@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.user.application.repository;
 
-import com.lenhatthanh.blog.modules.user.domain.Role;
+import com.lenhatthanh.blog.modules.user.domain.entity.Role;
 
 import java.util.List;
 import java.util.Optional;

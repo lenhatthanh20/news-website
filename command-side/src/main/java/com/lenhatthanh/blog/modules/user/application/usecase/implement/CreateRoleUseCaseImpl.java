@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 
 import com.lenhatthanh.blog.modules.user.application.evenpublisher.RoleEventPublisher;
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateRoleUseCase;
-import com.lenhatthanh.blog.modules.user.domain.Role;
+import com.lenhatthanh.blog.modules.user.domain.entity.Role;
 import com.lenhatthanh.blog.modules.user.domain.exception.RoleAlreadyExistException;
 import com.lenhatthanh.blog.modules.user.application.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.dto.RoleDto;
