@@ -23,18 +23,18 @@ public class UpdateRoleUseCaseImpl implements UpdateRoleUseCase {
     RoleEventPublisher publisher;
 
     public void execute(RoleDto newRoleDto) {
-        Role currentRole = this.roleMustExistByIdOrError(newRoleDto.getId());
+        Role currentRole = roleMustExistByIdOrError(newRoleDto.getId());
         if (!currentRole.getName().getValue().equals(newRoleDto.getName())) {
-            this.newRoleNameDoesNotExistOrError(newRoleDto.getName());
+            newRoleNameDoesNotExistOrError(newRoleDto.getName());
         }
 
-        this.isNotSystemRoleOrError(currentRole.getName().getValue());
+        isNotSystemRoleOrError(currentRole.getName().getValue());
 
         currentRole.updateRoleName(new RoleName(newRoleDto.getName()));
         currentRole.updateDescription(new RoleDescription(newRoleDto.getDescription()));
 
         roleRepository.save(currentRole);
-        this.publishDomainEvents(currentRole);
+        publishDomainEvents(currentRole);
     }
 
     private void isNotSystemRoleOrError(String roleName) {

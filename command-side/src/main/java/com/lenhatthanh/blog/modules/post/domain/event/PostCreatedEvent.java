@@ -21,7 +21,7 @@ public class PostCreatedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public Id getAggregateId() {
-        Post source = (Post) this.getSource();
+        Post source = (Post)getSource();
         return source.getId();
     }
 
@@ -32,6 +32,6 @@ public class PostCreatedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public Post getEventData() {
-        return (Post) this.getSource();
+        return (Post)getSource();
     }
 }

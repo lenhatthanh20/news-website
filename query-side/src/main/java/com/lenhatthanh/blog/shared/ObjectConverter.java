@@ -12,10 +12,10 @@ public class ObjectConverter {
     private ObjectMapper objectMapper;
 
     public <T> T convertArrayByteToObject(byte[] content, Class<T> valueType) throws IOException {
-        return this.objectMapper.reader().readValue(content, valueType);
+        return objectMapper.reader().readValue(content, valueType);
     }
 
     public byte[] convertObjectToArrayByte(Object object) throws IOException {
-        return this.objectMapper.writeValueAsBytes(object);
+        return objectMapper.writeValueAsBytes(object);
     }
 }

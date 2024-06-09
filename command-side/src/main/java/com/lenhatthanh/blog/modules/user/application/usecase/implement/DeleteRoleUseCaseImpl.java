@@ -18,11 +18,11 @@ public class DeleteRoleUseCaseImpl implements DeleteRoleUseCase {
     RoleEventPublisher publisher;
 
     public void execute(String roleId) {
-        Role role = this.getRoleByIdOrError(roleId);
-        this.isNotSystemRoleOrError(role.getName().getValue());
+        Role role = getRoleByIdOrError(roleId);
+        isNotSystemRoleOrError(role.getName().getValue());
         role.delete();
         roleRepository.delete(role);
-        this.publishDomainEvents(role);
+        publishDomainEvents(role);
     }
 
     private Role getRoleByIdOrError(String roleId) {

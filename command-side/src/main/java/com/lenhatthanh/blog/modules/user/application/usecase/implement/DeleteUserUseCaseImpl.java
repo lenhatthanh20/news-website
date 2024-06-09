@@ -17,11 +17,11 @@ public class DeleteUserUseCaseImpl implements DeleteAuthorUserUseCase {
     private UserEventPublisher publisher;
 
     public void execute(String userId) {
-        User user = this.getUserByIdOrError(userId);
+        User user = getUserByIdOrError(userId);
         User deletedUser = userDomainService.deletedUser(user);
 
         userRepository.save(deletedUser);
-        this.publishDomainEvents(deletedUser);
+        publishDomainEvents(deletedUser);
     }
 
     private User getUserByIdOrError(String roleId) {

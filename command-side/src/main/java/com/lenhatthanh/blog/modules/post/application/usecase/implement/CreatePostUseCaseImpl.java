@@ -27,13 +27,13 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
     private PostEventPublisher publisher;
 
     public void execute(PostDto postDto) {
-        this.userExistOrError(postDto.getUserId());
-        this.categoriesAndTagsExistOrError(postDto);
+        userExistOrError(postDto.getUserId());
+        categoriesAndTagsExistOrError(postDto);
         //TODO: Business logic: Post slug must be unique, user role checking, etc.
 
         Post post = Post.create(postDto);
         postRepository.save(post);
-        this.publishDomainEvents(post);
+        publishDomainEvents(post);
     }
 
     private void userExistOrError(String userId) {

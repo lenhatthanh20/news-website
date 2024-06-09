@@ -21,7 +21,7 @@ public class RoleCreatedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public Id getAggregateId() {
-        Role source = (Role) this.getSource();
+        Role source = (Role)getSource();
         return source.getId();
     }
 
@@ -32,6 +32,6 @@ public class RoleCreatedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public Role getEventData() {
-        return (Role) this.getSource();
+        return (Role)getSource();
     }
 }

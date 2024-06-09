@@ -16,17 +16,17 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public void save(Post post) {
         PostEntity postEntity = PostEntity.fromDomainModel(post);
-        this.postJpaRepository.save(postEntity);
+        postJpaRepository.save(postEntity);
     }
 
     @Override
     public Optional<Post> findById(String id) {
-        Optional<PostEntity> postEntity = this.postJpaRepository.findById(id);
+        Optional<PostEntity> postEntity = postJpaRepository.findById(id);
         return postEntity.map(PostEntity::toDomainModel);
     }
 
     @Override
     public void delete(Post post) {
-        this.postJpaRepository.deleteById(post.getId().toString());
+        postJpaRepository.deleteById(post.getId().toString());
     }
 }

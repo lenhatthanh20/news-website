@@ -19,10 +19,10 @@ public class CreateRoleUseCaseImpl implements CreateRoleUseCase {
 
     public void execute(RoleDto roleDto) {
         // TODO: Check admin user
-        this.roleDoesNotExistOrError(roleDto.getName());
+        roleDoesNotExistOrError(roleDto.getName());
         Role role = Role.create(roleDto);
         roleRepository.save(role);
-        this.publishDomainEvents(role);
+        publishDomainEvents(role);
     }
 
     private void roleDoesNotExistOrError(String name) {

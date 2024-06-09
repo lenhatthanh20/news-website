@@ -18,16 +18,16 @@ public class Role extends AggregateRoot<Id> {
 
     public void updateRoleName(RoleName name) {
         this.name = name;
-        this.registerEvent(new RoleUpdatedEvent(this));
+        registerEvent(new RoleUpdatedEvent(this));
     }
 
     public void updateDescription(RoleDescription description) {
         this.description = description;
-        this.registerEvent(new RoleUpdatedEvent(this));
+        registerEvent(new RoleUpdatedEvent(this));
     }
 
     public void delete() {
-        this.registerEvent(new RoleDeletedEvent(this));
+        registerEvent(new RoleDeletedEvent(this));
     }
 
     public static Role create(RoleDto roleDto) {

@@ -20,7 +20,7 @@ public class PostUserRepositoryImpl implements PostUserRepository {
         // We have `User` bounded context and `Post` bounded context.
         // That means we have two microservices for each bounded context.
         // So we can use Rest API (can be non-blocking) to get user information from `User` bounded context.
-        Optional<User> userEntity = this.userRepository.findById(id);
+        Optional<User> userEntity = userRepository.findById(id);
         return userEntity.map(user -> PostUser.create(
                 user.getId(),
                 user.getName().getValue(),

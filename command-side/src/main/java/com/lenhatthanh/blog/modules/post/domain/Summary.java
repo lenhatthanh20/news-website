@@ -11,7 +11,7 @@ public class Summary {
     private String value;
 
     public Summary(String value) {
-        this.setValue(value);
+        setValue(value);
     }
 
     private void setValue(String value) {

@@ -11,7 +11,7 @@ public class RoleDescription {
     private String value;
 
     public RoleDescription(String value) {
-        this.setValue(value);
+        setValue(value);
     }
 
     private void setValue(String value) {

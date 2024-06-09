@@ -37,7 +37,7 @@ public class UserEventPublisherImpl implements UserEventPublisher {
 
         String messageKey = event.getClass().getSimpleName();
         ProducerRecord<String, UserEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, messageKey, userEventDto);
-        this.kafkaTemplate.send(record);
+        kafkaTemplate.send(record);
 
         log.info("Event sent to Kafka broker - {} with aggregate ID: {} !!", messageKey, event.getAggregateId());
     }

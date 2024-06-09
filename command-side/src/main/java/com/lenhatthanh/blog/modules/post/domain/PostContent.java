@@ -11,7 +11,7 @@ public class PostContent {
     private String value;
 
     public PostContent(String value) {
-        this.setValue(value);
+        setValue(value);
     }
 
     private void setValue(String value) {

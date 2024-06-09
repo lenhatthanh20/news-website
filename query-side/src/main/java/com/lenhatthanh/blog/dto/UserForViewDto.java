@@ -23,6 +23,6 @@ public class UserForViewDto {
     }
 
     public void addRole(RoleDto role) {
-        this.roles.add(role);
+        roles.add(role);
     }
 }

@@ -8,7 +8,7 @@ public class Title {
     private String value;
 
     public Title(String value) {
-        this.setValue(value);
+        setValue(value);
     }
 
     private void setValue(String value) {

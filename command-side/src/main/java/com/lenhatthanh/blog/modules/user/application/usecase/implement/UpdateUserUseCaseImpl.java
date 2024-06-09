@@ -26,35 +26,35 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
 
     public void execute(UserDto newUserDto) {
         User currentUser = getUserByIdOrError(newUserDto.getId());
-        this.rolesExistOrError(newUserDto.getRoleIds());
+        rolesExistOrError(newUserDto.getRoleIds());
         if (!currentUser.getEmail().getValue().equals(newUserDto.getName())) {
-            this.newEmailDoesNotExistOrError(newUserDto.getEmail());
+            newEmailDoesNotExistOrError(newUserDto.getEmail());
         }
 
-        User updatedUser = this.userDomainService.updateUser(currentUser, newUserDto);
-        this.userRepository.save(updatedUser);
-        this.publishDomainEvents(updatedUser);
+        User updatedUser = userDomainService.updateUser(currentUser, newUserDto);
+        userRepository.save(updatedUser);
+        publishDomainEvents(updatedUser);
     }
 
     private User getUserByIdOrError(String userId) {
-        return this.userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
     private void rolesExistOrError(List<String> roleIds) {
-        List<Role> roles = this.roleRepository.findByIds(roleIds);
+        List<Role> roles = roleRepository.findByIds(roleIds);
         if (roles.size() != roleIds.size()) {
             throw new RoleNotFoundException();
         }
     }
 
     private void newEmailDoesNotExistOrError(String email) {
-        Optional<User> user = this.userRepository.findByEmail(email);
+        Optional<User> user = userRepository.findByEmail(email);
         if (user.isPresent()) {
             throw new UserAlreadyExistsException();
         }
     }
 
     private void publishDomainEvents(User user) {
-        user.getDomainEvents().forEach(event -> this.publisher.publish(event));
+        user.getDomainEvents().forEach(event -> publisher.publish(event));
     }
 }

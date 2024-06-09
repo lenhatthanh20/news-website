@@ -28,20 +28,20 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     public Optional<Role> findByName(String name) {
-        Optional<RoleEntity> roleEntity = this.roleJpaRepository.findByName(name);
+        Optional<RoleEntity> roleEntity = roleJpaRepository.findByName(name);
 
         return roleEntity.map(RoleEntity::toDomainModel);
     }
 
     @Override
     public Optional<Role> findById(String id) {
-        Optional<RoleEntity> roleEntity = this.roleJpaRepository.findById(id);
+        Optional<RoleEntity> roleEntity = roleJpaRepository.findById(id);
 
         return roleEntity.map(RoleEntity::toDomainModel);
     }
 
     public List<Role> findByIds(List<String> ids) {
-        List<RoleEntity> roleEntities = this.roleJpaRepository.findAllById(ids);
+        List<RoleEntity> roleEntities = roleJpaRepository.findAllById(ids);
 
         return roleEntities.stream().map(RoleEntity::toDomainModel).toList();
     }

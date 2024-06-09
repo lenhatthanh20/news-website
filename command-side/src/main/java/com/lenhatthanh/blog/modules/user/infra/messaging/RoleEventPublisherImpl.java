@@ -28,7 +28,7 @@ public class RoleEventPublisherImpl implements RoleEventPublisher {
 
         String messageKey = event.getClass().getSimpleName();
         ProducerRecord<String, RoleEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, messageKey, roleEventDto);
-        this.kafkaTemplate.send(record);
+        kafkaTemplate.send(record);
 
         log.info("Event sent to Kafka broker - {} with aggregate ID: {} !!", messageKey, event.getAggregateId());
     }

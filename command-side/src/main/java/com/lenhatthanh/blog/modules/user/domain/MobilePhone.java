@@ -13,7 +13,7 @@ public class MobilePhone {
     private String value;
 
     public MobilePhone(String value) {
-        this.setValue(value);
+        setValue(value);
     }
 
     private void setValue(String value) {

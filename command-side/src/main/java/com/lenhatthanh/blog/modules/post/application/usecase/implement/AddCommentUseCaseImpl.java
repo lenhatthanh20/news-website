@@ -23,8 +23,8 @@ public class AddCommentUseCaseImpl implements AddCommentUseCase {
     private CommentRepository commentRepository;
 
     public void execute(String postId, CommentDto commentDto) {
-        this.getUserOrError(commentDto.getUserId());
-        this.getPostOrError(postId);
+        getUserOrError(commentDto.getUserId());
+        getPostOrError(postId);
         Comment comment = Comment.create(commentDto);
         commentRepository.save(comment);
     }

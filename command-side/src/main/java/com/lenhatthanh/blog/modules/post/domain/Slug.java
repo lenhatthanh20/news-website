@@ -12,8 +12,8 @@ public class Slug {
     private final String value;
 
     public Slug(String slug) {
-        this.validate(slug);
-        this.value = slug;
+        validate(slug);
+        value = slug;
     }
 
     private void validate(String slug) {
@@ -21,7 +21,7 @@ public class Slug {
             throw new InvalidSlugException();
         }
 
-        if (!this.isSlugValid(slug)) {
+        if (!isSlugValid(slug)) {
             throw new InvalidSlugException();
         }
     }

@@ -19,7 +19,7 @@ public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
 
     public void execute(CategoryDto categoryDto) {
         if (categoryDto.getParentId() != null) {
-            this.parentCategoryExistOrError(categoryDto.getParentId());
+            parentCategoryExistOrError(categoryDto.getParentId());
         }
 
         Category category = Category.create(

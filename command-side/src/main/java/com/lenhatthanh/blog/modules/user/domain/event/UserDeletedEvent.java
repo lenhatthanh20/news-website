@@ -21,7 +21,7 @@ public class UserDeletedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public Id getAggregateId() {
-        User source = (User) this.getSource();
+        User source = (User)getSource();
         return source.getId();
     }
 
@@ -32,6 +32,6 @@ public class UserDeletedEvent extends ApplicationEvent implements DomainEvent {
 
     @Override
     public User getEventData() {
-        return (User) this.getSource();
+        return (User)getSource();
     }
 }

@@ -27,29 +27,29 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private UserEventPublisher publisher;
 
     public void execute(UserDto userDto) {
-        this.rolesExistOrError(userDto.getRoleIds());
-        this.userDoesNotExistOrError(userDto);
-        userDto.setPassword(this.passwordEncoder.encode(userDto.getPassword()));
-        User user = this.userDomainService.createNewUser(userDto);
-        this.userRepository.save(user);
-        this.publishDomainEvents(user);
+        rolesExistOrError(userDto.getRoleIds());
+        userDoesNotExistOrError(userDto);
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        User user = userDomainService.createNewUser(userDto);
+        userRepository.save(user);
+        publishDomainEvents(user);
     }
 
     private void userDoesNotExistOrError(UserDto userDto) {
-        Optional<User> user = this.userRepository.findByEmail(userDto.getEmail());
+        Optional<User> user = userRepository.findByEmail(userDto.getEmail());
         if (user.isPresent()) {
             throw new UserAlreadyExistsException();
         }
     }
 
     private void rolesExistOrError(List<String> roleIds) {
-        List<Role> roles = this.roleRepository.findByIds(roleIds);
+        List<Role> roles = roleRepository.findByIds(roleIds);
         if (roles.size() != roleIds.size()) {
             throw new RoleNotFoundException();
         }
     }
 
     private void publishDomainEvents(User user) {
-        user.getDomainEvents().forEach(event -> this.publisher.publish(event));
+        user.getDomainEvents().forEach(event -> publisher.publish(event));
     }
 }

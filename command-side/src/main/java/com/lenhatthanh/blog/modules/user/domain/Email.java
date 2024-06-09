@@ -12,7 +12,7 @@ public class Email {
     private String value;
 
     public Email(String value) {
-        this.setValue(value);
+        setValue(value);
     }
 
     private void setValue(String value) {

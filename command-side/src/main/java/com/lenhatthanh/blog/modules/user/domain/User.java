@@ -44,34 +44,34 @@ public class User extends AggregateRoot<Id> {
             return;
         }
 
-        this.roleIds.add(roleId);
+        roleIds.add(roleId);
     }
 
     public void removeRole(Id roleId) {
-        this.roleIds.remove(roleId);
+        roleIds.remove(roleId);
     }
 
     public void activate() {
-        if (this.isActive == ACTIVATED) {
+        if (isActive == ACTIVATED) {
             throw new UserAlreadyActivatedException();
         }
 
-        this.isActive = ACTIVATED;
+        isActive = ACTIVATED;
     }
 
     public void deactivate() {
-        if (this.isActive == DEACTIVATED) {
+        if (isActive == DEACTIVATED) {
             throw new UserAlreadyDeactivatedException();
         }
 
-        this.isActive = DEACTIVATED;
+        isActive = DEACTIVATED;
     }
 
     public void maskAsDeleted() {
-        if (this.isDeleted == DELETED) {
+        if (isDeleted == DELETED) {
             throw new UserAlreadyDeletedException();
         }
 
-        this.isDeleted = DELETED;
+        isDeleted = DELETED;
     }
 }
