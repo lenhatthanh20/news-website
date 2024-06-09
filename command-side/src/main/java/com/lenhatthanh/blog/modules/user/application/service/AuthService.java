@@ -23,10 +23,14 @@ public class AuthService {
     public LoginResponseDto login(LoginDto request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         User user = usersRepository.findByEmail(request.getEmail())
-                .filter(u -> !u.getIsDeleted())
+                .filter(this::isUserActive)
                 .orElseThrow(UserNotFoundException::new);
         String token = jwtService.generateToken(createUserDetails(user));
         return createLoginResponse(user, token);
+    }
+
+    private Boolean isUserActive(User user) {
+        return !user.getIsDeleted() && user.getIsActive();
     }
 
     private UserDetails createUserDetails(User user) {
