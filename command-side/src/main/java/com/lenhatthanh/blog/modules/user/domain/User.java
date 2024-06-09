@@ -16,6 +16,7 @@ public class User extends AggregateRoot<Id> {
     public static final Boolean ACTIVATED = true;
     public static final Boolean DEACTIVATED = false;
     public static final Boolean DELETED = true;
+    public static final Boolean NOT_DELETED = false;
     private UserName name;
     private Email email;
     private MobilePhone mobilePhone;
