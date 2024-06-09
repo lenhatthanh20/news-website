@@ -2,6 +2,8 @@ package com.lenhatthanh.blog.modules.user.domain.entity;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
+import com.lenhatthanh.blog.core.domain.UserActivated;
+import com.lenhatthanh.blog.core.domain.UserDeleted;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyActivatedException;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyDeactivatedException;
 import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyDeletedException;
@@ -16,16 +18,12 @@ import java.util.List;
 @Getter
 @Builder
 public class User extends AggregateRoot<Id> {
-    public static final Boolean ACTIVATED = true;
-    public static final Boolean DEACTIVATED = false;
-    public static final Boolean DELETED = true;
-    public static final Boolean NOT_DELETED = false;
     private UserName name;
     private Email email;
     private MobilePhone mobilePhone;
     private String password;
-    Boolean isActive;
-    Boolean isDeleted;
+    UserActivated isActive;
+    UserDeleted isDeleted;
 
     // Relationship with Role aggregate via id
     private List<Id> roleIds;
@@ -55,26 +53,26 @@ public class User extends AggregateRoot<Id> {
     }
 
     public void activate() {
-        if (isActive == ACTIVATED) {
+        if (isActive == UserActivated.TRUE) {
             throw new UserAlreadyActivatedException();
         }
 
-        isActive = ACTIVATED;
+        isActive = UserActivated.TRUE;
     }
 
     public void deactivate() {
-        if (isActive == DEACTIVATED) {
+        if (isActive == UserActivated.FALSE) {
             throw new UserAlreadyDeactivatedException();
         }
 
-        isActive = DEACTIVATED;
+        isActive = UserActivated.FALSE;
     }
 
     public void maskAsDeleted() {
-        if (isDeleted == DELETED) {
+        if (isDeleted == UserDeleted.TRUE) {
             throw new UserAlreadyDeletedException();
         }
 
-        isDeleted = DELETED;
+        isDeleted = UserDeleted.TRUE;
     }
 }

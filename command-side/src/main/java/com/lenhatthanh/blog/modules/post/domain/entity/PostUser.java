@@ -14,6 +14,7 @@ public class PostUser extends AggregateRoot<Id> {
     private String email;
     private String mobilePhone;
     private Boolean isActive;
+    private Boolean isDeleted;
     private List<Id> roleIds;
 
     public static PostUser create(
@@ -22,6 +23,7 @@ public class PostUser extends AggregateRoot<Id> {
             String email,
             String mobilePhone,
             Boolean isActive,
+            Boolean isDeleted,
             List<Id> roleIds
     ) {
         PostUser postUser = PostUser.builder()
@@ -29,6 +31,7 @@ public class PostUser extends AggregateRoot<Id> {
                 .email(email)
                 .mobilePhone(mobilePhone)
                 .isActive(isActive)
+                .isDeleted(isDeleted)
                 .roleIds(roleIds)
                 .build();
         postUser.setId(id);

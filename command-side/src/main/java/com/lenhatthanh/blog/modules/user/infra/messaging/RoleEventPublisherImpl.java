@@ -1,6 +1,7 @@
 package com.lenhatthanh.blog.modules.user.infra.messaging;
 
 import com.lenhatthanh.blog.core.domain.DomainEvent;
+import com.lenhatthanh.blog.core.domain.RoleStatus;
 import com.lenhatthanh.blog.modules.user.application.evenpublisher.RoleEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.entity.Role;
 import com.lenhatthanh.blog.modules.user.dto.RoleEventDto;
@@ -23,7 +24,8 @@ public class RoleEventPublisherImpl implements RoleEventPublisher {
         RoleEventDto roleEventDto = new RoleEventDto(
                 role.getId().toString(),
                 role.getName().getValue(),
-                role.getDescription().getValue()
+                role.getDescription().getValue(),
+                role.getStatus() == RoleStatus.DELETED
         );
 
         String messageKey = event.getClass().getSimpleName();

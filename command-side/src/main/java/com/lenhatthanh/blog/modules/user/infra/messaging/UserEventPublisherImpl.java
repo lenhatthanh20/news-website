@@ -2,6 +2,8 @@ package com.lenhatthanh.blog.modules.user.infra.messaging;
 
 import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.core.domain.Id;
+import com.lenhatthanh.blog.core.domain.UserActivated;
+import com.lenhatthanh.blog.core.domain.UserDeleted;
 import com.lenhatthanh.blog.modules.user.application.evenpublisher.UserEventPublisher;
 import com.lenhatthanh.blog.modules.user.domain.entity.User;
 import com.lenhatthanh.blog.modules.user.dto.UserEventDto;
@@ -31,7 +33,8 @@ public class UserEventPublisherImpl implements UserEventPublisher {
                 user.getName().getValue(),
                 user.getEmail().getValue(),
                 user.getMobilePhone().getValue(),
-                user.getIsActive(),
+                user.getIsActive() == UserActivated.TRUE,
+                user.getIsDeleted() == UserDeleted.TRUE,
                 stringRoleIds
         );
 

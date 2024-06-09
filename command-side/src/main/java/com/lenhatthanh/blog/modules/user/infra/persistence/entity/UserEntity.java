@@ -1,5 +1,7 @@
 package com.lenhatthanh.blog.modules.user.infra.persistence.entity;
 
+import com.lenhatthanh.blog.core.domain.UserActivated;
+import com.lenhatthanh.blog.core.domain.UserDeleted;
 import com.lenhatthanh.blog.modules.post.infra.persistence.entity.CommentEntity;
 import com.lenhatthanh.blog.modules.post.infra.persistence.entity.PostEntity;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.Email;
@@ -106,8 +108,8 @@ public class UserEntity implements Serializable {
                 user.getEmail().getValue(),
                 user.getMobilePhone().getValue(),
                 user.getPassword(),
-                user.getIsActive(),
-                user.getIsDeleted()
+                user.getIsActive() == UserActivated.TRUE,
+                user.getIsDeleted() == UserDeleted.TRUE
         );
 
         user.getRoleIds().forEach(roleId -> {
@@ -125,8 +127,8 @@ public class UserEntity implements Serializable {
                 .email(new Email(userEntity.getEmail()))
                 .mobilePhone(new MobilePhone(userEntity.getMobilePhone()))
                 .password(userEntity.getPassword())
-                .isActive(userEntity.getIsActive())
-                .isDeleted(userEntity.getIsDeleted())
+                .isActive(userEntity.getIsActive() ? UserActivated.TRUE : UserActivated.FALSE)
+                .isDeleted(userEntity.getIsDeleted() ? UserDeleted.TRUE : UserDeleted.FALSE)
                 .roleIds(roleIds.stream().map(com.lenhatthanh.blog.core.domain.Id::new).toList())
                 .build();
         user.setId(new com.lenhatthanh.blog.core.domain.Id(userEntity.getId()));

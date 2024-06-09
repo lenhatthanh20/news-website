@@ -13,5 +13,6 @@ public class UserEventDto {
     private String email;
     private String mobilePhone;
     private Boolean isActive;
+    private Boolean isDeleted;
     private List<String> roleIds;
 }

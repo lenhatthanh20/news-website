@@ -1,6 +1,8 @@
 package com.lenhatthanh.blog.modules.user.domain.service.implement;
 
 import com.lenhatthanh.blog.core.domain.Id;
+import com.lenhatthanh.blog.core.domain.UserActivated;
+import com.lenhatthanh.blog.core.domain.UserDeleted;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.Email;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.MobilePhone;
 import com.lenhatthanh.blog.modules.user.domain.entity.User;
@@ -15,8 +17,6 @@ import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import org.springframework.stereotype.Service;
 
 import static com.lenhatthanh.blog.core.domain.AggregateRoot.CONCURRENCY_CHECKING_INITIAL_VERSION;
-import static com.lenhatthanh.blog.modules.user.domain.entity.User.ACTIVATED;
-import static com.lenhatthanh.blog.modules.user.domain.entity.User.NOT_DELETED;
 
 @Service
 public class UserDomainServiceImpl implements UserDomainService {
@@ -27,8 +27,8 @@ public class UserDomainServiceImpl implements UserDomainService {
                 .email(new Email(userDto.getEmail()))
                 .mobilePhone(new MobilePhone(userDto.getMobilePhone()))
                 .password(userDto.getPassword())
-                .isActive(ACTIVATED)
-                .isDeleted(NOT_DELETED)
+                .isActive(UserActivated.TRUE)
+                .isDeleted(UserDeleted.FALSE)
                 .roleIds(userDto.getRoleIds().stream().map(Id::new).toList())
                 .build();
         user.setId(new Id(UniqueIdGenerator.create()));
@@ -40,7 +40,7 @@ public class UserDomainServiceImpl implements UserDomainService {
 
     @Override
     public User updateUser(User currentUser, UserDto newUserDto) {
-        if (currentUser.getIsDeleted()) {
+        if (currentUser.getIsDeleted() == UserDeleted.TRUE) {
             throw new CannotUpdateDeletedUserException();
         }
 
