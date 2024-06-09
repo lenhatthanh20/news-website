@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.post.application.exception;
+package com.lenhatthanh.blog.modules.user.application.exception;
 
 import com.lenhatthanh.blog.core.application.ApplicationException;
 

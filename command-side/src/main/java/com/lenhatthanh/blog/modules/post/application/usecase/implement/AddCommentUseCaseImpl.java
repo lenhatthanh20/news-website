@@ -6,7 +6,7 @@ import com.lenhatthanh.blog.modules.post.application.usecase.AddCommentUseCase;
 import com.lenhatthanh.blog.modules.post.domain.entity.Comment;
 import com.lenhatthanh.blog.modules.post.domain.entity.Post;
 import com.lenhatthanh.blog.modules.post.domain.entity.PostUser;
-import com.lenhatthanh.blog.modules.post.domain.exception.PostNotFoundException;
+import com.lenhatthanh.blog.modules.post.application.exception.PostNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.CommentRepository;
 import com.lenhatthanh.blog.modules.post.application.repository.PostRepository;
 import com.lenhatthanh.blog.modules.post.dto.CommentDto;

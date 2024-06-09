@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.post.application.usecase.implement;
 
 import com.lenhatthanh.blog.modules.post.application.usecase.DeleteTagUseCase;
 import com.lenhatthanh.blog.modules.post.domain.entity.Tag;
-import com.lenhatthanh.blog.modules.post.domain.exception.TagNotFoundException;
+import com.lenhatthanh.blog.modules.post.application.exception.TagNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.TagRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

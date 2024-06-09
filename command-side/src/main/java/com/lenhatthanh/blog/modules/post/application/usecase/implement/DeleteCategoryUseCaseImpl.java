@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.post.application.usecase.implement;
 
 import com.lenhatthanh.blog.modules.post.application.usecase.DeleteCategoryUseCase;
 import com.lenhatthanh.blog.modules.post.domain.entity.Category;
-import com.lenhatthanh.blog.modules.post.domain.exception.CategoryNotFoundException;
+import com.lenhatthanh.blog.modules.post.application.exception.CategoryNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

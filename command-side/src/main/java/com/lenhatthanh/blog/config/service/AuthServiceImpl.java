@@ -1,7 +1,6 @@
 package com.lenhatthanh.blog.config.service;
 
 import com.lenhatthanh.blog.modules.user.application.externalservice.AuthService;
-import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.user.dto.LoginDto;
 import com.lenhatthanh.blog.modules.user.dto.LoginResponseDto;
 import com.lenhatthanh.blog.modules.user.infra.persistence.UserJpaRepository;
@@ -25,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         UserEntity user = usersRepository.findByEmail(request.getEmail())
                 .filter(this::isUserActive)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(RuntimeException::new);
         String token = jwtService.generateToken(createUserDetails(user));
         return createLoginResponse(user, token);
     }

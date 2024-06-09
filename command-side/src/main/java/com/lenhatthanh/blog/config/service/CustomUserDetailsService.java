@@ -1,6 +1,5 @@
 package com.lenhatthanh.blog.config.service;
 
-import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.user.infra.persistence.RoleJpaRepository;
 import com.lenhatthanh.blog.modules.user.infra.persistence.UserJpaRepository;
 import com.lenhatthanh.blog.modules.user.infra.persistence.entity.RoleEntity;
@@ -25,9 +24,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) {
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
         if (userEntity.getIsDeleted() || !userEntity.getIsActive()) {
-            throw new UserNotFoundException();
+            throw new RuntimeException("User is not active or deleted");
         }
 
         List<RoleEntity> roles = roleRepository.findAllById(userEntity.getRoleIds());

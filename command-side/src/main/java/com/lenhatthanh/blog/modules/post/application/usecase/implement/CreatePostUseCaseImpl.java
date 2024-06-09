@@ -6,8 +6,8 @@ import com.lenhatthanh.blog.modules.post.application.repository.PostUserReposito
 import com.lenhatthanh.blog.modules.post.application.usecase.CreatePostUseCase;
 import com.lenhatthanh.blog.modules.post.domain.entity.Post;
 import com.lenhatthanh.blog.modules.post.domain.entity.PostUser;
-import com.lenhatthanh.blog.modules.post.domain.exception.CategoryNotFoundException;
-import com.lenhatthanh.blog.modules.post.domain.exception.TagNotFoundException;
+import com.lenhatthanh.blog.modules.post.application.exception.CategoryNotFoundException;
+import com.lenhatthanh.blog.modules.post.application.exception.TagNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.CategoryRepository;
 import com.lenhatthanh.blog.modules.post.application.repository.PostRepository;
 import com.lenhatthanh.blog.modules.post.application.repository.TagRepository;

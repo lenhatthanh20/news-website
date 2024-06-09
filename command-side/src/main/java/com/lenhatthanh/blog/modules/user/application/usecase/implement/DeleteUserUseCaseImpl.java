@@ -3,7 +3,7 @@ package com.lenhatthanh.blog.modules.user.application.usecase.implement;
 import com.lenhatthanh.blog.modules.user.application.evenpublisher.UserEventPublisher;
 import com.lenhatthanh.blog.modules.user.application.usecase.DeleteAuthorUserUseCase;
 import com.lenhatthanh.blog.modules.user.domain.entity.User;
-import com.lenhatthanh.blog.modules.user.domain.exception.UserNotFoundException;
+import com.lenhatthanh.blog.modules.user.application.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.domain.service.UserDomainService;
 import lombok.AllArgsConstructor;

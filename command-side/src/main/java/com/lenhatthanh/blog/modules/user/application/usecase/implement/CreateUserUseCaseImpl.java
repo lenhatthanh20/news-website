@@ -4,8 +4,8 @@ import com.lenhatthanh.blog.modules.user.application.evenpublisher.UserEventPubl
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateUserUseCase;
 import com.lenhatthanh.blog.modules.user.domain.entity.Role;
 import com.lenhatthanh.blog.modules.user.domain.entity.User;
-import com.lenhatthanh.blog.modules.user.domain.exception.RoleNotFoundException;
-import com.lenhatthanh.blog.modules.user.domain.exception.UserAlreadyExistsException;
+import com.lenhatthanh.blog.modules.user.application.exception.RoleNotFoundException;
+import com.lenhatthanh.blog.modules.user.application.exception.UserAlreadyExistsException;
 import com.lenhatthanh.blog.modules.user.application.repository.RoleRepository;
 import com.lenhatthanh.blog.modules.user.application.repository.UserRepository;
 import com.lenhatthanh.blog.modules.user.domain.service.UserDomainService;
