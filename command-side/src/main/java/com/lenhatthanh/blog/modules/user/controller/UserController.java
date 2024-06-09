@@ -1,5 +1,6 @@
 package com.lenhatthanh.blog.modules.user.controller;
 
+import com.lenhatthanh.blog.config.service.CustomUserDetails;
 import com.lenhatthanh.blog.modules.user.application.usecase.CreateUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.DeleteAuthorUserUseCase;
 import com.lenhatthanh.blog.modules.user.application.usecase.UpdateUserUseCase;
@@ -10,6 +11,7 @@ import com.lenhatthanh.blog.modules.user.dto.UserDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
@@ -29,7 +31,8 @@ public class UserController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public void updateUser(@RequestBody UserDto user) {
+    public void updateUser(@AuthenticationPrincipal CustomUserDetails loggedInUser, @RequestBody UserDto user) {
+        user.setId(loggedInUser.getId());
         updateUserUseCase.execute(user);
     }
 
