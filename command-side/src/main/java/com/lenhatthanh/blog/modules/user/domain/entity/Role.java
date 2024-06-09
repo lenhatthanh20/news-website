@@ -2,6 +2,7 @@ package com.lenhatthanh.blog.modules.user.domain.entity;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
+import com.lenhatthanh.blog.core.domain.RoleStatus;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleUpdatedEvent;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleDeletedEvent;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleDescription;
@@ -14,18 +15,20 @@ import lombok.Getter;
 public class Role extends AggregateRoot<Id> {
     private RoleName name;
     private RoleDescription description;
+    private RoleStatus status;
 
     public void updateRoleName(RoleName name) {
         this.name = name;
-        registerEvent(new RoleUpdatedEvent(this));
     }
 
     public void updateDescription(RoleDescription description) {
         this.description = description;
-        registerEvent(new RoleUpdatedEvent(this));
     }
 
     public void delete() {
-        registerEvent(new RoleDeletedEvent(this));
+        if (this.status == RoleStatus.DELETED) {
+            throw new IllegalStateException("Role is already deleted");
+        }
+        this.status = RoleStatus.DELETED;
     }
 }

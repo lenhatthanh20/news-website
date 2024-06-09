@@ -3,6 +3,7 @@ package com.lenhatthanh.blog.modules.user.domain.service.implement;
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.user.domain.entity.Role;
 import com.lenhatthanh.blog.modules.user.domain.event.RoleCreatedEvent;
+import com.lenhatthanh.blog.modules.user.domain.event.RoleDeletedEvent;
 import com.lenhatthanh.blog.modules.user.domain.service.RoleDomainService;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleDescription;
 import com.lenhatthanh.blog.modules.user.domain.valueobject.RoleName;
@@ -28,11 +29,14 @@ public class RoleDomainServiceImpl implements RoleDomainService {
 
     @Override
     public void updateRole(String id, String name, String description) {
-
+        // TODO: Implement update role
+        return;
     }
 
     @Override
-    public void deleteRole(String id) {
-
+    public Role deleteRole(Role role) {
+        role.delete();
+        role.registerEvent(new RoleDeletedEvent(role));
+        return role;
     }
 }
