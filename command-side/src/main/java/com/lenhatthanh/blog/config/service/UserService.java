@@ -20,6 +20,9 @@ public class UserService {
             @Override
             public UserDetails loadUserByUsername(String email) {
                 User userEntity = userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
+                if(userEntity.getIsDeleted() || !userEntity.getIsActive()) {
+                    throw new UserNotFoundException();
+                }
 
                 return new org.springframework.security.core.userdetails.User(
                         userEntity.getEmail().getValue(),
