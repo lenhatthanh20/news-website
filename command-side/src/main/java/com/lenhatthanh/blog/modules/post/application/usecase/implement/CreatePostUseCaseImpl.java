@@ -4,8 +4,8 @@ import com.lenhatthanh.blog.modules.post.application.eventpublisher.PostEventPub
 import com.lenhatthanh.blog.modules.post.application.exception.UserNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.PostUserRepository;
 import com.lenhatthanh.blog.modules.post.application.usecase.CreatePostUseCase;
-import com.lenhatthanh.blog.modules.post.domain.Post;
-import com.lenhatthanh.blog.modules.post.domain.PostUser;
+import com.lenhatthanh.blog.modules.post.domain.entity.Post;
+import com.lenhatthanh.blog.modules.post.domain.entity.PostUser;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryNotFoundException;
 import com.lenhatthanh.blog.modules.post.domain.exception.TagNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.CategoryRepository;

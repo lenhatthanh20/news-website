@@ -3,7 +3,7 @@ package com.lenhatthanh.blog.modules.post.infra.messaging;
 import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.post.application.eventpublisher.PostEventPublisher;
-import com.lenhatthanh.blog.modules.post.domain.Post;
+import com.lenhatthanh.blog.modules.post.domain.entity.Post;
 import com.lenhatthanh.blog.modules.post.dto.PostEventDto;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

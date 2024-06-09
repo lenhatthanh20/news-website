@@ -1,7 +1,9 @@
-package com.lenhatthanh.blog.modules.post.domain;
+package com.lenhatthanh.blog.modules.post.domain.entity;
 
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.core.domain.Id;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Slug;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Title;
 import com.lenhatthanh.blog.shared.UniqueIdGenerator;
 import lombok.Builder;
 import lombok.Getter;

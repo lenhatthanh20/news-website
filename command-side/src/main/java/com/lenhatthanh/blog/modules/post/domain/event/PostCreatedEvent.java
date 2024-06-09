@@ -2,7 +2,7 @@ package com.lenhatthanh.blog.modules.post.domain.event;
 
 import com.lenhatthanh.blog.core.domain.DomainEvent;
 import com.lenhatthanh.blog.core.domain.Id;
-import com.lenhatthanh.blog.modules.post.domain.Post;
+import com.lenhatthanh.blog.modules.post.domain.entity.Post;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 

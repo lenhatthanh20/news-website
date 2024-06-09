@@ -2,8 +2,8 @@ package com.lenhatthanh.blog.modules.post.application.usecase.implement;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.post.application.usecase.CreateCategoryUseCase;
-import com.lenhatthanh.blog.modules.post.domain.Category;
-import com.lenhatthanh.blog.modules.post.domain.Title;
+import com.lenhatthanh.blog.modules.post.domain.entity.Category;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Title;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.CategoryRepository;
 import com.lenhatthanh.blog.modules.post.domain.service.CreateSlugFromTitleService;

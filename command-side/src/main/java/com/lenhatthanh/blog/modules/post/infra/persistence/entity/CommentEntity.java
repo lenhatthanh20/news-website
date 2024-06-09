@@ -1,6 +1,6 @@
 package com.lenhatthanh.blog.modules.post.infra.persistence.entity;
 
-import com.lenhatthanh.blog.modules.post.domain.Comment;
+import com.lenhatthanh.blog.modules.post.domain.entity.Comment;
 import com.lenhatthanh.blog.modules.user.infra.persistence.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.Data;

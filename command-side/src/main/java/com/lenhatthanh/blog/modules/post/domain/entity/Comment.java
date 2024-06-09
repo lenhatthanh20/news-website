@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.post.domain;
+package com.lenhatthanh.blog.modules.post.domain.entity;
 
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.core.domain.Id;

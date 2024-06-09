@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.modules.post.infra.persistence;
 
 import com.lenhatthanh.blog.modules.post.application.repository.PostUserRepository;
-import com.lenhatthanh.blog.modules.post.domain.PostUser;
+import com.lenhatthanh.blog.modules.post.domain.entity.PostUser;
 import com.lenhatthanh.blog.modules.user.domain.entity.User;
 import com.lenhatthanh.blog.modules.user.infra.persistence.UserRepositoryImpl;
 import lombok.AllArgsConstructor;

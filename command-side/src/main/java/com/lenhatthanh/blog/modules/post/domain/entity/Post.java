@@ -1,7 +1,11 @@
-package com.lenhatthanh.blog.modules.post.domain;
+package com.lenhatthanh.blog.modules.post.domain.entity;
 
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.core.domain.AggregateRoot;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.PostContent;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Slug;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Summary;
+import com.lenhatthanh.blog.modules.post.domain.valueobject.Title;
 import com.lenhatthanh.blog.modules.post.domain.event.PostCreatedEvent;
 import com.lenhatthanh.blog.modules.post.domain.exception.CategoryLimitExceededException;
 import com.lenhatthanh.blog.modules.post.domain.exception.TagLimitExceededException;

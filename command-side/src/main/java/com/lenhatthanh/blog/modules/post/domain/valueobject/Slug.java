@@ -1,4 +1,4 @@
-package com.lenhatthanh.blog.modules.post.domain;
+package com.lenhatthanh.blog.modules.post.domain.valueobject;
 
 import com.lenhatthanh.blog.modules.post.domain.exception.InvalidSlugException;
 import lombok.Getter;

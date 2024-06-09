@@ -1,5 +1,6 @@
-package com.lenhatthanh.blog.modules.post.domain;
+package com.lenhatthanh.blog.modules.post.domain.entity;
 
+import com.lenhatthanh.blog.core.domain.AggregateRoot;
 import com.lenhatthanh.blog.core.domain.Id;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,8 +9,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class PostUser {
-    private Id id;
+public class PostUser extends AggregateRoot<Id> {
     private String name;
     private String email;
     private String mobilePhone;
@@ -24,13 +24,14 @@ public class PostUser {
             Boolean isActive,
             List<Id> roleIds
     ) {
-        return PostUser.builder()
-                .id(id)
+        PostUser postUser = PostUser.builder()
                 .name(name)
                 .email(email)
                 .mobilePhone(mobilePhone)
                 .isActive(isActive)
                 .roleIds(roleIds)
                 .build();
+        postUser.setId(id);
+        return postUser;
     }
 }
