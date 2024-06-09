@@ -28,7 +28,6 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    @Transactional
     public Optional<User> findByEmail(String email) {
         Optional<UserEntity> userEntity = userJpaRepository.findByEmail(email);
 

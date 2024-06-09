@@ -1,7 +1,7 @@
 package com.lenhatthanh.blog.config;
 
+import com.lenhatthanh.blog.config.service.CustomUserDetailsService;
 import com.lenhatthanh.blog.config.service.JwtService;
-import com.lenhatthanh.blog.config.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,8 +26,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public static final String AUTHORIZATION = "Authorization";
     public static final String BEARER_PREFIX = "Bearer ";
     private final JwtService jwtService;
-    private final UserService userService;
-
+    private final CustomUserDetailsService userService;
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
@@ -44,7 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        UserDetails userDetails = userService.userDetailsService().loadUserByUsername(userEmail);
+        UserDetails userDetails = userService.loadUserByUsername(userEmail);
         if (jwtService.isTokenValid(jwt, userDetails)) {
             SecurityContext context = SecurityContextHolder.createEmptyContext();
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
