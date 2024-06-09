@@ -27,6 +27,7 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
     private PostEventPublisher publisher;
 
     public void execute(PostDto postDto) {
+        // This step can be ignored because we are working in logged-in user context
         userExistOrError(postDto.getUserId());
         categoriesAndTagsExistOrError(postDto);
         //TODO: Business logic: Post slug must be unique, user role checking, etc.
