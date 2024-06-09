@@ -1,11 +1,14 @@
 package com.lenhatthanh.blog.core.controller;
 
+import com.lenhatthanh.blog.config.service.LoginUserNotFoundException;
 import com.lenhatthanh.blog.core.application.ApplicationException;
 import com.lenhatthanh.blog.core.domain.DomainException;
 import com.lenhatthanh.blog.shared.Messages;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -31,11 +34,22 @@ public class GlobalExceptionHandler {
         return createExceptionResponse(exception.getCode(), messages.getMessage(exception.getCode()), request.getRequestURI(), new Date());
     }
 
+    // Login failed exception will be handled here
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler({
+            LoginUserNotFoundException.class,
+            InternalAuthenticationServiceException.class,
+            BadCredentialsException.class
+    })
+    public ExceptionResponse handleRuntimeExceptions(Exception exception, final HttpServletRequest request) {
+        String code = "AUTHENTICATION-ERROR-0001";
+        return createExceptionResponse(code, messages.getMessage(code), request.getRequestURI(), new Date());
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(RuntimeException.class)
     public ExceptionResponse handleRuntimeExceptions(RuntimeException exception, final HttpServletRequest request) {
         String code = "BAD-REQUEST-ERROR-0001";
-
         return createExceptionResponse(code, messages.getMessage(code), request.getRequestURI(), new Date());
     }
 

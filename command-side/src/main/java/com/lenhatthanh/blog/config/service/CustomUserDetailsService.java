@@ -24,9 +24,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) {
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(LoginUserNotFoundException::new);
         if (userEntity.getIsDeleted() || !userEntity.getIsActive()) {
-            throw new RuntimeException("User is not active or deleted");
+            throw new LoginUserNotFoundException();
         }
 
         List<RoleEntity> roles = roleRepository.findAllById(userEntity.getRoleIds());
