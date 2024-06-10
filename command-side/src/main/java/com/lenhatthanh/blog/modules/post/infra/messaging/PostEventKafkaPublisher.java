@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class PostEventPublisherImpl implements PostEventPublisher {
+public class PostEventKafkaPublisher implements PostEventPublisher {
     public static final String MESSAGE_QUEUE_TOPIC = "post";
     private KafkaTemplate<String, PostEventDto> kafkaTemplate;
 
