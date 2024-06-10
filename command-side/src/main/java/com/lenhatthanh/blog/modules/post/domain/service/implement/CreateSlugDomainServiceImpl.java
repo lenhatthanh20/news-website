@@ -1,17 +1,19 @@
-package com.lenhatthanh.blog.modules.post.domain.service;
+package com.lenhatthanh.blog.modules.post.domain.service.implement;
 
+import com.lenhatthanh.blog.modules.post.domain.service.CreateSlugDomainService;
 import com.lenhatthanh.blog.modules.post.domain.valueobject.Slug;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CreateSlugFromTitleService {
+public class CreateSlugDomainServiceImpl implements CreateSlugDomainService {
     private static final String SLUG_REGEX = "[^a-z0-9\\s]";
     private static final String EMPTY = "";
     private static final String SLUG_SEPARATOR_REGEX = "\\s+";
     private static final String SLUG_SEPARATOR = "-";
 
-    public Slug create(String title) {
-        // Slug business rules here
+    @Override
+    public Slug createFromTitle(String title) {
+        // Slug business logics here
         String slug = title.toLowerCase()
                 .replaceAll(SLUG_REGEX, EMPTY)
                 .replaceAll(SLUG_SEPARATOR_REGEX, SLUG_SEPARATOR);

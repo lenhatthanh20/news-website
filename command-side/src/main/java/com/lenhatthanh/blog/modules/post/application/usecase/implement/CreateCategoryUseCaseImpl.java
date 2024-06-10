@@ -3,10 +3,10 @@ package com.lenhatthanh.blog.modules.post.application.usecase.implement;
 import com.lenhatthanh.blog.core.domain.Id;
 import com.lenhatthanh.blog.modules.post.application.usecase.CreateCategoryUseCase;
 import com.lenhatthanh.blog.modules.post.domain.entity.Category;
+import com.lenhatthanh.blog.modules.post.domain.service.CreateSlugDomainService;
 import com.lenhatthanh.blog.modules.post.domain.valueobject.Title;
 import com.lenhatthanh.blog.modules.post.application.exception.CategoryNotFoundException;
 import com.lenhatthanh.blog.modules.post.application.repository.CategoryRepository;
-import com.lenhatthanh.blog.modules.post.domain.service.CreateSlugFromTitleService;
 import com.lenhatthanh.blog.modules.post.dto.CategoryDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
     private final CategoryRepository categoryRepository;
-    private final CreateSlugFromTitleService createSlugFromTitleService;
+    private final CreateSlugDomainService createSlugDomainService;
 
     public void execute(CategoryDto categoryDto) {
         if (categoryDto.getParentId() != null) {
@@ -24,7 +24,7 @@ public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
 
         Category category = Category.create(
                 new Title(categoryDto.getTitle()),
-                createSlugFromTitleService.create(categoryDto.getTitle()),
+                createSlugDomainService.createFromTitle(categoryDto.getTitle()),
                 categoryDto.getParentId() == null ? null : new Id(categoryDto.getParentId())
         );
 
