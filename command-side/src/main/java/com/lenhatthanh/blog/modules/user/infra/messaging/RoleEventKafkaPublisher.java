@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class RoleEventPublisherImpl implements RoleEventPublisher {
+public class RoleEventKafkaPublisher implements RoleEventPublisher {
     public static final String MESSAGE_QUEUE_TOPIC = "role";
     private KafkaTemplate<String, RoleEventDto> kafkaTemplate;
 

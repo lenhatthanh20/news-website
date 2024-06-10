@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @AllArgsConstructor
-public class UserEventPublisherImpl implements UserEventPublisher {
+public class UserEventKafkaPublisher implements UserEventPublisher {
     public static final String MESSAGE_QUEUE_TOPIC = "user";
     private KafkaTemplate<String, UserEventDto> kafkaTemplate;
 
