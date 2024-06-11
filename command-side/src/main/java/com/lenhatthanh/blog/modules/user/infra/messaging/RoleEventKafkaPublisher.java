@@ -9,7 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Component
@@ -30,7 +33,15 @@ public class RoleEventKafkaPublisher implements RoleEventPublisher {
 
         String messageKey = event.getClass().getSimpleName();
         ProducerRecord<String, RoleEventDto> record = new ProducerRecord<>(MESSAGE_QUEUE_TOPIC, messageKey, roleEventDto);
-        kafkaTemplate.send(record);
+        CompletableFuture<SendResult<String, RoleEventDto>> future = kafkaTemplate.send(record);
+        future.whenComplete((result, ex) -> {
+            if (ex == null) {
+                log.info("The Kafka broker received the message {} with aggregate ID: {} !", messageKey, event.getAggregateId());
+            }
+            else {
+                log.info("The Kafka broker did not receive the message {} with aggregate ID: {} !", messageKey, event.getAggregateId());
+            }
+        });
 
         log.info("Event sent to Kafka broker - {} with aggregate ID: {} !!", messageKey, event.getAggregateId());
     }
