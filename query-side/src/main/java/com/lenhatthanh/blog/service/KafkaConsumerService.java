@@ -30,6 +30,8 @@ public class KafkaConsumerService {
 
     @KafkaListener(topics = "user")
     public void listenEventFromUserTopic(ConsumerRecord<String, byte[]> record) throws IOException {
+        // TODO: try catch and handle exception for exception
+        // TODO: Implement batch listener for better performance
         UserDto userDto = objectConverter.convertArrayByteToObject(record.value(), UserDto.class);
         String command = record.key();
         switch (command) {
