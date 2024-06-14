@@ -48,6 +48,8 @@ public class KafkaConsumerService {
 
     @KafkaListener(topics = "article")
     public void listenEventFromArticleTopic(ConsumerRecord<String, byte[]> record) throws IOException {
+        // TODO: try catch and handle exception for exception
+        // TODO: Implement batch listener for better performance
         ArticleDto articleDto = objectConverter.convertArrayByteToObject(record.value(), ArticleDto.class);
         String command = record.key();
 
@@ -70,6 +72,8 @@ public class KafkaConsumerService {
 
     @KafkaListener(topics = "role")
     public void listenEventFromRoleTopic(ConsumerRecord<String, byte[]> record) throws IOException {
+        // TODO: try catch and handle exception for exception
+        // TODO: Implement batch listener for better performance
         RoleDto roleDto = objectConverter.convertArrayByteToObject(record.value(), RoleDto.class);
         String command = record.key();
 
